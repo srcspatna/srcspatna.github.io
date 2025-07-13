@@ -50,34 +50,25 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
                                 className="block px-4 py-2 rounded-md hover:bg-gray-700 transition-colors duration-200"
                                 onClick={toggleSidebar}
                             >
-                                Dashboard
+                                Home
                             </Link>
                         </li>
                         <li>
                             <Link
-                                href="/products"
+                                href="//srcspatna.com"
                                 className="block px-4 py-2 rounded-md hover:bg-gray-700 transition-colors duration-200"
                                 onClick={toggleSidebar}
                             >
-                                Products
+                                Main Website
                             </Link>
                         </li>
                         <li>
                             <Link
-                                href="/orders"
+                                href="//erp.srcspatna.com"
                                 className="block px-4 py-2 rounded-md hover:bg-gray-700 transition-colors duration-200"
                                 onClick={toggleSidebar}
                             >
-                                Orders
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
-                                href="/settings"
-                                className="block px-4 py-2 rounded-md hover:bg-gray-700 transition-colors duration-200"
-                                onClick={toggleSidebar}
-                            >
-                                Settings
+                                ERP
                             </Link>
                         </li>
                     </ul>
