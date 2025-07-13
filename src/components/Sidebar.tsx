@@ -2,13 +2,14 @@
 'use client';
 
 import Link from 'next/link';
+import Image from "next/image";
 
 interface SidebarProps {
     isOpen: boolean;
     toggleSidebar: () => void;
 }
 
-export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
+export default function Sidebar({isOpen, toggleSidebar}: SidebarProps) {
     return (
         <>
             {/* Overlay for mobile when sidebar is open */}
@@ -29,15 +30,19 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
                    z-40`} // Ensure it's above other content on mobile
             >
                 <div className="p-4 flex justify-between items-center border-b border-gray-700">
-                    <h2 className="text-xl font-semibold">Sidebar Menu</h2>
+                    <Link href="/" className="text-white text-2xl font-bold p-1 rounded-md bg-white">
+                        <Image src="/logo_name.png" alt="Logo" width="100" height="50"/>
+                    </Link>
                     {/* Close button always visible within the sidebar for mobile */}
                     <button
                         onClick={toggleSidebar}
                         className="text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-600 rounded-md p-1"
                         aria-label="Close mobile menu"
                     >
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                  d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
                     </button>
                 </div>

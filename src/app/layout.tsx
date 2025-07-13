@@ -21,6 +21,11 @@ export default function RootLayout({children}: RootLayoutProps) {
 
     return (
         <html lang="en">
+        <head>
+            <link rel="icon" href="/logo_favicon.png" sizes="any"/>
+            <link rel="apple-touch-icon" href="/logo.png"/>
+            <title>SRCS, Patna</title>
+        </head>
         <body className="flex flex-col min-h-screen bg-gray-100">
         <Navbar toggleSidebar={toggleSidebar}/>
         <div className="flex flex-1">
