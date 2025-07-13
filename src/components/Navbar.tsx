@@ -17,7 +17,7 @@ export default function Navbar({ toggleSidebar }: NavbarProps) {
         <nav className="bg-gray-800 p-4 shadow-md">
             <div className="mx-auto flex justify-between items-center">
                 {/* Brand/Logo */}
-                <Link href="/" className="text-white text-2xl font-bold p-1 bg-white rounded">
+                <Link href="/" className="text-white text-2xl font-bold">
                     <Image src="/logo_name.png" alt="Logo"  width="100" height="50"/>
                 </Link>
 
