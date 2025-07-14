@@ -76,6 +76,24 @@ export default function Sidebar({isOpen, toggleSidebar}: SidebarProps) {
                                 ERP
                             </Link>
                         </li>
+                        <li>
+                            <Link
+                                href="/pages"
+                                className="block px-4 py-2 rounded-md hover:bg-gray-700 transition-colors duration-200"
+                                onClick={toggleSidebar}
+                            >
+                                Pages
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                href="/articles"
+                                className="block px-4 py-2 rounded-md hover:bg-gray-700 transition-colors duration-200"
+                                onClick={toggleSidebar}
+                            >
+                                Articles
+                            </Link>
+                        </li>
                     </ul>
                 </nav>
             </aside>

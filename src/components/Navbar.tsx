@@ -29,13 +29,13 @@ export default function Navbar({ toggleSidebar }: NavbarProps) {
                         </Link>
                     </li>
                     <li>
-                        <Link href="//srcspatna.com" className="text-gray-300 hover:text-white transition-colors duration-200">
-                            Main Website
+                        <Link href="/pages" className="text-gray-300 hover:text-white transition-colors duration-200">
+                            Pages
                         </Link>
                     </li>
                     <li>
-                        <Link href="//erp.srcspatna.com" className="text-gray-300 hover:text-white transition-colors duration-200">
-                            ERP
+                        <Link href="/articles" className="text-gray-300 hover:text-white transition-colors duration-200">
+                            Articles
                         </Link>
                     </li>
                     {/* Example: User Avatar with Dropdown */}
@@ -43,12 +43,7 @@ export default function Navbar({ toggleSidebar }: NavbarProps) {
                         <button
                             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                             className="flex items-center text-gray-300 hover:text-white focus:outline-none"
-                        >
-                            <img
-                                className="w-8 h-8 rounded-full border-2 border-gray-600"
-                                src="/logo.png"
-                                alt="logo"
-                            />
+                        >More
                             <svg
                                 className={`ml-1 w-4 h-4 transform transition-transform duration-200 ${
                                     isDropdownOpen ? 'rotate-180' : 'rotate-0'

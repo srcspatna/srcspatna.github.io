@@ -21,7 +21,7 @@ export default function RootLayout({children}: RootLayoutProps) {
     return (
         <html lang="en">
         <head>
-            <link rel="icon" href="/logo_favicon.png" sizes="any"/>
+            <link rel="icon" href="/logo_favicon.png"/>
             <link rel="apple-touch-icon" href="/logo.png"/>
             <title>SRCS, Patna</title>
         </head>
