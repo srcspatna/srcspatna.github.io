@@ -1,0 +1,86 @@
+# Media settings: where images and documents are stored and accessed
+media:
+  input: "public/assets"
+  output: "/assets"
+
+# Content definitions for a school website
+content:
+  # 1. School News & Announcements
+  - name: news
+    label: "News & Announcements"
+    type: collection
+    path: "content/news"
+    filename: "{year}-{month}-{day}-{primary}.md"
+    view:
+      fields: [title, date]
+      primary: title
+    fields:
+      - name: title
+        label: "Headline"
+        type: string
+        required: true
+      - name: date
+        label: "Publish Date"
+        type: date
+      - name: category
+        label: "Category"
+        type: select
+        options: [General, Sports, Academics, Parent-Teacher]
+      - name: body
+        label: "News Content"
+        type: rich-text
+
+  # 2. Staff Directory
+  - name: staff
+    label: "Staff Directory"
+    type: collection
+    path: "content/staff"
+    fields:
+      - name: name
+        label: "Full Name"
+        type: string
+        required: true
+      - name: role
+        label: "Job Title/Role"
+        type: string
+      - name: photo
+        label: "Staff Photo"
+        type: image
+      - name: bio
+        label: "Short Biography"
+        type: text
+
+  # 3. Upcoming Events
+  - name: events
+    label: "School Calendar"
+    type: collection
+    path: "content/events"
+    fields:
+      - name: title
+        label: "Event Name"
+        type: string
+      - name: eventDate
+        label: "Date of Event"
+        type: date
+      - name: location
+        label: "Location"
+        type: string
+        default: "School Hall"
+
+  # 4. Global Site Settings (e.g., Contact Info, School Name)
+  - name: settings
+    label: "General Settings"
+    type: file
+    path: "content/settings.json"
+    fields:
+      - name: schoolName
+        label: "School Name"
+        type: string
+      - name: contactEmail
+        label: "Admin Email"
+        type: string
+      - name: emergencyAlert
+        label: "Homepage Alert Message"
+        type: text
+        description: "Shown at the top of the site in case of closures."
+        
