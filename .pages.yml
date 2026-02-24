@@ -25,7 +25,7 @@ content:
       - name: category
         label: "Category"
         type: select
-        options: [General, Sports, Academics, Parent-Teacher]
+        options: ["General", "Sports", "Academics", "Parent-Teacher"]
       - name: body
         label: "News Content"
         type: rich-text
