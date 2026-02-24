@@ -10,25 +10,23 @@ content:
     label: "News & Announcements"
     type: collection
     path: "content/news"
-    filename: "{year}-{month}-{day}-{primary}.md"
-    view:
-      fields: [title, date]
-      primary: title
+    # Using 'slug' instead of 'primary' is safer for file naming
+    filename: "{year}-{month}-{day}-{slug}" 
+    editor:
+      preview: false
     fields:
-      - name: title
-        label: "Headline"
-        type: string
-        required: true
-      - name: date
-        label: "Publish Date"
-        type: date
-      - name: category
+      - { name: "title", label: "Headline", type: "string", required: true }
+      - { name: "date", label: "Publish Date", type: "date" }
+      - name: "category"
         label: "Category"
-        type: select
-        options: ["General", "Sports", "Academics", "Parent-Teacher"]
-      - name: body
-        label: "News Content"
-        type: rich-text
+        type: "select"
+        # Wrapping options in quotes prevents the 'map' error
+        options: 
+          - "General"
+          - "Sports"
+          - "Academics"
+          - "Parent-Teacher"
+      - { name: "body", label: "News Content", type: "rich-text" }
 
   # 2. Staff Directory
   - name: staff
