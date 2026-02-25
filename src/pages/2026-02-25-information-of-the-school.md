@@ -1,5 +1,5 @@
 ---
-layout: ../layouts/PageLayout.astro
+layout: ../layouts/Layout.astro
 title: INFORMATION OF THE SCHOOL
 slug: information-of-the-school
 ---
