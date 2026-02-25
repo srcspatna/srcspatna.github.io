@@ -6,7 +6,6 @@ content:
     label: Blog Posts
     type: collection
     path: src/content/blog
-    # Updated to include '.md' or '.mdx' explicitly if needed
     filename: "{year}-{month}-{day}-{slug}.md" 
     extension: md
     fields:
