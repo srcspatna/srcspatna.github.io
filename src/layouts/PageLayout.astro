@@ -1,23 +1,136 @@
+---
+// You can pass the page title as a prop
+const { title = "Greenwood Academy" } = Astro.props;
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>{title}</title>
+		<!-- Optional: Add a school-friendly font like Inter or Montserrat -->
+		<link href="https://fonts.googleapis.com" rel="stylesheet">
 	</head>
 	<body>
-		<slot />
+		<header class="school-header">
+			<nav class="container">
+				<a href="/" class="logo">🏫 <span class="school-name">Greenwood Academy</span></a>
+				<ul class="nav-links">
+					<li><a href="/about">About</a></li>
+					<li><a href="/academics">Academics</a></li>
+					<li><a href="/blog">News</a></li>
+					<li><a href="/contact" class="btn-contact">Contact</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<main>
+			<slot />
+		</main>
+
+		<footer class="school-footer">
+			<div class="container">
+				<p>&copy; {new Date().getFullYear()} Greenwood Academy. All rights reserved.</p>
+				<p>123 Education Lane, Learning City</p>
+			</div>
+		</footer>
 	</body>
 </html>
 
-<style>
-	html,
-	body {
+<style is:global>
+	:root {
+		--school-primary: #1e40af; /* Traditional Blue */
+		--school-secondary: #facc15; /* Academic Gold */
+		--text-dark: #1f2937;
+		--bg-light: #f9fafb;
+	}
+
+	html, body {
 		margin: 0;
-		width: 100%;
-		height: 100%;
+		font-family: 'Inter', sans-serif;
+		background-color: var(--bg-light);
+		color: var(--text-dark);
+		display: flex;
+		flex-direction: column;
+		min-height: 100vh;
+	}
+
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 1rem;
+	}
+
+	/* Header Styling */
+	.school-header {
+		background: white;
+		box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+		padding: 1rem 0;
+		position: sticky;
+		top: 0;
+		z-index: 100;
+	}
+
+	nav {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.logo {
+		font-weight: bold;
+		font-size: 1.5rem;
+		text-decoration: none;
+		color: var(--school-primary);
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.nav-links {
+		display: flex;
+		list-style: none;
+		gap: 2rem;
+		margin: 0;
+		padding: 0;
+	}
+
+	.nav-links a {
+		text-decoration: none;
+		color: var(--text-dark);
+		font-weight: 500;
+		transition: color 0.2s;
+	}
+
+	.nav-links a:hover {
+		color: var(--school-primary);
+	}
+
+	.btn-contact {
+		background: var(--school-primary);
+		color: white !important;
+		padding: 0.5rem 1rem;
+		border-radius: 5px;
+	}
+
+	/* Main Content */
+	main {
+		flex: 1;
+	}
+
+	/* Footer */
+	.school-footer {
+		background: #111827;
+		color: white;
+		padding: 3rem 0;
+		text-align: center;
+		margin-top: 4rem;
+	}
+
+	@media (max-width: 768px) {
+		.nav-links { display: none; } /* Add a mobile menu logic later */
 	}
 </style>
