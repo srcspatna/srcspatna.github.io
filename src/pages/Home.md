@@ -1,5 +1,5 @@
 ---
 layout: ../layouts/HomeLayout.astro
-title: Laudantium amet ma
+title: Home page
 ---
 Cumque corrupti, nat.
