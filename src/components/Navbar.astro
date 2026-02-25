@@ -1,0 +1,73 @@
+---
+// src/components/Navbar.astro
+const navLinks = [
+  { name: 'Home', href: '/' },
+  { name: 'About', href: '/about' },
+  { name: 'Academics', href: '/academics' },
+  { name: 'News', href: '/blog' },
+  { name: 'Docs', href: '/docs' },
+];
+---
+
+<header class="sticky top-0 z-50 w-full bg-white border-b border-gray-200 shadow-sm">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex h-16 items-center justify-between">
+      <!-- Logo -->
+      <div class="flex-shrink-0">
+        <a href="/" class="flex items-center gap-2 text-2xl font-bold text-blue-800">
+          <span class="text-3xl">🏫</span>
+          <span class="hidden sm:block">Greenwood</span>
+        </a>
+      </div>
+
+      <!-- Desktop Menu -->
+      <nav class="hidden md:flex space-x-8">
+        {navLinks.map(link => (
+          <a href={link.href} class="text-sm font-medium text-gray-700 hover:text-blue-700 transition-colors">
+            {link.name}
+          </a>
+        ))}
+        <a href="/contact" class="inline-flex items-center justify-center rounded-md bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 shadow-sm transition-all">
+          Contact
+        </a>
+      </nav>
+
+      <!-- Mobile Menu Button -->
+      <div class="md:hidden flex items-center">
+        <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-blue-700 hover:bg-gray-100 focus:outline-none">
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            <path id="close-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Menu Content -->
+  <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-200 animate-in fade-in slide-in-from-top-4 duration-200">
+    <div class="space-y-1 px-4 pb-3 pt-2">
+      {navLinks.map(link => (
+        <a href={link.href} class="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-blue-700">
+          {link.name}
+        </a>
+      ))}
+      <a href="/contact" class="block w-full text-center rounded-md bg-blue-700 px-3 py-2 text-base font-medium text-white">
+        Contact Us
+      </a>
+    </div>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById('mobile-menu-button');
+  const menu = document.getElementById('mobile-menu');
+  const menuIcon = document.getElementById('menu-icon');
+  const closeIcon = document.getElementById('close-icon');
+
+  btn?.addEventListener('click', () => {
+    menu?.classList.toggle('hidden');
+    menuIcon?.classList.toggle('hidden');
+    closeIcon?.classList.toggle('hidden');
+  });
+</script>

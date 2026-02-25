@@ -1,0 +1,13 @@
+---
+import GlobalLayout from '../../layouts/Layout.astro';
+const { title } = Astro.props;
+---
+<GlobalLayout title={title}>
+  <article class="blog-wrapper">
+    <slot /> <!-- Blog content goes here -->
+  </article>
+</GlobalLayout>
+
+<style>
+  .blog-wrapper { max-width: 80%; margin: auto; }
+</style>

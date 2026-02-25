@@ -1,5 +1,5 @@
 ---
-layout: ../layouts/PageLayout.astro
+layout: ./_blog-layout.astro
 title: Job Opportunity
 slug: job-opportunity
 description: Job Opportunity

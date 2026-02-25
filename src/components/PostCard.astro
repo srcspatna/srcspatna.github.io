@@ -1,0 +1,27 @@
+---
+// src/components/PostCard.astro
+const { post } = Astro.props;
+---
+<article class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col">
+  {post.data.image && (
+    <img src={post.data.image} alt="" class="h-48 w-full object-cover" />
+  )}
+  <div class="p-6 flex-grow">
+    <div class="text-sm text-blue-600 font-semibold mb-2 uppercase tracking-wide">
+      {new Date(post.data.pubDate).toLocaleDateString()}
+    </div>
+    <h2 class="text-xl font-bold text-gray-900 mb-3 leading-tight">
+      <a href={`/blog/${post.id}`} class="hover:text-blue-700">
+        {post.data.title}
+      </a>
+    </h2>
+    <p class="text-gray-600 line-clamp-3 mb-4">
+      {post.data.description}
+    </p>
+  </div>
+  <div class="px-6 pb-6 mt-auto">
+    <a href={`/blog/${post.id}`} class="text-blue-700 font-medium hover:underline flex items-center gap-1">
+      Read More <span>&rarr;</span>
+    </a>
+  </div>
+</article>

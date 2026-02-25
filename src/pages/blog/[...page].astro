@@ -1,0 +1,48 @@
+---
+// src/pages/blog/[...page].astro
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import PostCard from '../../components/PostCard.astro';
+
+export async function getStaticPaths({ paginate }) {
+  // 1. Fetch all blog posts and sort by date (newest first)
+  const allPosts = await getCollection('blog');
+  const sortedPosts = allPosts.sort((a, b) => 
+    b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+  );
+
+  // 2. Paginate the collection (e.g., 12 posts per page)
+  return paginate(sortedPosts, { pageSize: 12 });
+}
+
+// 3. Get the page data from props
+const { page } = Astro.props;
+---
+
+<Layout title={`Blog - Page ${page.currentPage}`}>
+  <div class="container mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold mb-8 text-blue-900">Latest News</h1>
+
+    <!-- 4. The Card Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {page.data.map((post) => (
+        <PostCard post={post} />
+      ))}
+    </div>
+
+    <!-- 5. Pagination Controls -->
+    <nav class="flex justify-center items-center gap-4 mt-12">
+      {page.url.prev ? (
+        <a href={page.url.prev} class="px-4 py-2 bg-white border rounded-lg hover:bg-gray-100">Previous</a>
+      ) : <span class="px-4 py-2 text-gray-300">Previous</span>}
+
+      <span class="font-medium text-gray-700">
+        Page {page.currentPage} of {page.lastPage}
+      </span>
+
+      {page.url.next ? (
+        <a href={page.url.next} class="px-4 py-2 bg-white border rounded-lg hover:bg-gray-100">Next</a>
+      ) : <span class="px-4 py-2 text-gray-300">Next</span>}
+    </nav>
+  </div>
+</Layout>
