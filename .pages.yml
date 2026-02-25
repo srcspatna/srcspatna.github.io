@@ -8,7 +8,7 @@ content:
   - name: posts
     label: Posts
     type: collection
-    path: src/content/blog
+    path: src/blog
     view:
       fields: [ title, draft, date ]
     fields:
@@ -26,7 +26,7 @@ content:
   - name: pages
     label: Pages
     type: collection
-    path: src/content/pages
+    path: src/pages
     view:
       fields: [ title, draft, date ]
     fields:
