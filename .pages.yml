@@ -1,51 +1,30 @@
-# .pages.yml
 media:
-  input: public/images
-  output: /images
-
+  input: public
+  output: /
 content:
-  - name: blog
-    label: Blog Posts
+  - name: posts
+    label: Posts
     type: collection
     path: src/content/blog
-    # Updated to include '.md' or '.mdx' explicitly if needed
-    filename: "{year}-{month}-{day}-{slug}.md" 
-    extension: md
+    view:
+      fields: [ title, draft, date ]
     fields:
-      - name: title
-        label: Title
-        type: string
-        required: true
-      - name: pubDate
-        label: Publication Date
-        type: date
-        options:
-          format: "yyyy-MM-dd" # Recommended for Astro compatibility
-      - name: description
-        label: Description
-        type: text # 'text' provides a textarea, 'string' is a single line
-      - name: author
-        label: Author
-        type: string
-      - name: image
-        label: Cover Image
-        type: image
-      - name: tags
-        label: Tags
-        type: list # Correct for Astro arrays
-      - name: body
-        label: Content
-        type: rich-text # Maps to the Markdown content below frontmatter
-        
-  - name: settings
-    label: Site Settings
-    type: single
-    path: src/content
-    file: src/content/settings.json
+      - { name: author, label: Author, type: string }
+      - { name: pubDatetime, label: Date, type: date }
+      - { name: modDatetime, label: Date, type: date }
+      - { name: title, label: Title, type: string, required: true }
+      - { name: ogImage, label: Title, type: string }
+      - { name: slug, label: Slug, type: string }
+      - { name: featured, label: Featured, type: boolean }
+      - { name: draft, label: Draft, type: boolean }
+      - { name: tags, label: Tags, type: string, list: true }
+      - { name: description, label: Description, type: string }
+      - { name: body, label: Body, type: rich-text }
+  - name: about
+    label: About page
+    type: file
+    path: src/pages/about.md
     fields:
-      - name: siteTitle
-        label: Site Title
-        type: string
-      - name: footerText
-        label: Footer Text
-        type: string
+      - { name: layout, type: string, hidden: true, default: "../layouts/AboutLayout.astro" }
+      - { name: title, label: Title, type: string }
+      - { name: body, label: Body, type: rich-text, options: { input: public/assets, output: /assets } }
