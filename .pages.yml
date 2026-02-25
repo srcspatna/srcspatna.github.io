@@ -1,31 +1,29 @@
-# .pages.yml - Place this in the root of your Astro project
-
-# 1. Media Configuration
-# Defines where the CMS will upload images and files.
-# In Astro, these usually go in the /public/ directory.
+# .pages.yml
 media:
   input: public/images
   output: /images
 
-# 2. Content Collections
-# These should match your Astro 'src/content/' folders.
 content:
   - name: blog
     label: Blog Posts
     type: collection
     path: src/content/blog
-    filename: "{year}-{month}-{day}-{slug}" # Matches typical blog patterns
-    extension: md # Use 'mdx' if your project uses MDX
+    # Updated to include '.md' or '.mdx' explicitly if needed
+    filename: "{year}-{month}-{day}-{slug}.md" 
+    extension: md
     fields:
       - name: title
         label: Title
         type: string
+        required: true
       - name: pubDate
         label: Publication Date
         type: date
+        options:
+          format: "yyyy-MM-dd" # Recommended for Astro compatibility
       - name: description
         label: Description
-        type: string
+        type: text # 'text' provides a textarea, 'string' is a single line
       - name: author
         label: Author
         type: string
@@ -34,15 +32,15 @@ content:
         type: image
       - name: tags
         label: Tags
-        type: list # Best for Astro's array-based tags
+        type: list # Correct for Astro arrays
       - name: body
         label: Content
-        type: rich-text # Provides the visual editor for the post body
-
-  # 3. Single Files (e.g., Homepage data)
+        type: rich-text # Maps to the Markdown content below frontmatter
+        
   - name: settings
     label: Site Settings
     type: single
+    path: src/content
     file: src/content/settings.json
     fields:
       - name: siteTitle
