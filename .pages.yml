@@ -1,7 +1,6 @@
 media:
   input: public/images
   output: /images
-
 content:
   - name: blog
     label: Blog Posts
@@ -35,7 +34,6 @@ content:
       - name: body
         label: Content
         type: rich-text # Maps to the Markdown content below frontmatter
-        
   - name: settings
     label: Site Settings
     type: single
