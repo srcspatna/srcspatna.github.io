@@ -42,6 +42,8 @@ export const siteConfig = {
   features: {
     breadcrumbs: true, // set to false to disable breadcrumbs site-wide
     search: true, // set to false to disable global search UI and behavior
+    topBar: true, // set to false to hide the contact/social info row above navbar
+    navbarSticky: true, // set to false to make the navbar scroll with page
   },
   navigation: [
     { href: '/', label: 'Home' },
@@ -49,9 +51,10 @@ export const siteConfig = {
     { href: '/posts', label: 'Posts' },
   ],
   socialLinks: [
-    { label: 'Facebook', href: '' },
-    { label: 'Instagram', href: '' },
-    { label: 'YouTube', href: '' },
+    { label: 'Facebook', href: 'https://www.facebook.com/patna.srcs' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/company/srcspatna' },
+    { label: 'Instagram', href: 'https://instagram.com/srcs_patna' },
+    { label: 'YouTube', href: 'https://www.youtube.com/@srcs_patna' },
   ],
   contact: {
     email: 'info@srcspatna.com',

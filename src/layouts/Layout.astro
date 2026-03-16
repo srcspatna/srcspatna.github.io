@@ -23,7 +23,10 @@ const {
 };
 
 const navLinks = siteConfig.navigation;
+const activeSocialLinks = siteConfig.socialLinks.filter((link) => link.href.trim().length > 0);
 const searchEnabled = siteConfig.features.search;
+const topBarEnabled = siteConfig.features.topBar;
+const navbarStickyEnabled = siteConfig.features.navbarSticky;
 const pathname = Astro.url.pathname;
 const bannerThemes: Record<BannerTone, { shell: string; badge: string; glow: string }> = {
   blue: {
@@ -87,7 +90,95 @@ const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
 </head>
 <body class="min-h-screen bg-slate-50 text-slate-900 antialiased" data-search-enabled={searchEnabled ? 'true' : 'false'}>
     <div class="flex min-h-screen flex-col">
-        <header class="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur">
+        {topBarEnabled && (
+            <div class="border-b border-slate-800 bg-slate-950 text-slate-100">
+                <div class="mx-auto flex w-full max-w-7xl flex-col gap-2 px-4 py-2 text-xs sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+                    <div class="flex flex-wrap items-center gap-x-4 gap-y-1 leading-relaxed text-slate-200/95">
+                        <span class="inline-flex items-center gap-1.5">
+                            <svg class="h-3.5 w-3.5 text-amber-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1118 0z" />
+                                <circle cx="12" cy="10" r="3" />
+                            </svg>
+                            {siteConfig.contact.address}
+                        </span>
+
+                        <a href={`tel:${siteConfig.contact.mobile}`} class="inline-flex items-center gap-1.5 transition hover:text-white">
+                            <svg class="h-3.5 w-3.5 text-amber-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.15 11.8 19.79 19.79 0 01.08 3.18 2 2 0 012.06 1h3a2 2 0 012 1.72c.12.9.33 1.77.62 2.6a2 2 0 01-.45 2.11L6.1 8.59a16 16 0 006.31 6.31l1.16-1.16a2 2 0 012.11-.45c.83.29 1.7.5 2.6.62A2 2 0 0122 16.92z" />
+                            </svg>
+                            {siteConfig.contact.mobile}
+                        </a>
+
+                        <a href={`tel:${siteConfig.contact.phone}`} class="inline-flex items-center gap-1.5 transition hover:text-white">
+                            <svg class="h-3.5 w-3.5 text-amber-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.15 11.8 19.79 19.79 0 01.08 3.18 2 2 0 012.06 1h3a2 2 0 012 1.72c.12.9.33 1.77.62 2.6a2 2 0 01-.45 2.11L6.1 8.59a16 16 0 006.31 6.31l1.16-1.16a2 2 0 012.11-.45c.83.29 1.7.5 2.6.62A2 2 0 0122 16.92z" />
+                            </svg>
+                            {siteConfig.contact.phone}
+                        </a>
+
+                        <a href={`mailto:${siteConfig.contact.email}`} class="inline-flex items-center gap-1.5 transition hover:text-white">
+                            <svg class="h-3.5 w-3.5 text-amber-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 4h16v16H4z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M22 6l-10 7L2 6" />
+                            </svg>
+                            {siteConfig.contact.email}
+                        </a>
+
+                        <span class="inline-flex items-center gap-1.5 text-slate-300">
+                            <svg class="h-3.5 w-3.5 text-amber-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <circle cx="12" cy="12" r="10" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l4 2" />
+                            </svg>
+                            {siteConfig.contact.officeTime}
+                        </span>
+                    </div>
+
+                    {activeSocialLinks.length > 0 && (
+                        <div class="flex items-center gap-2">
+                            {activeSocialLinks.map((social) => (
+                                <a
+                                    href={social.href}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    class="inline-flex h-7 w-7 items-center justify-center rounded-full border border-slate-700 text-slate-200 transition hover:border-amber-300 hover:text-white"
+                                    aria-label={social.label}
+                                    title={social.label}
+                                >
+                                    {social.label === 'Facebook' && (
+                                        <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                            <path d="M13.5 8H16V5h-2.5A4.5 4.5 0 009 9.5V12H7v3h2v4h3v-4h2.5l.5-3H12V9.5c0-.9.6-1.5 1.5-1.5z" />
+                                        </svg>
+                                    )}
+                                    {social.label === 'Instagram' && (
+                                        <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                            <rect x="3" y="3" width="18" height="18" rx="5" ry="5" />
+                                            <circle cx="12" cy="12" r="4" />
+                                            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+                                        </svg>
+                                    )}
+                                    {(social.label === 'LinkedIn' || social.label === 'Linkedin') && (
+                                        <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                            <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.14 1.45-2.14 2.94v5.66H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.27 2.37 4.27 5.46v6.28zM5.32 7.43a2.07 2.07 0 110-4.14 2.07 2.07 0 010 4.14zM7.1 20.45H3.54V9H7.1v11.45z" />
+                                        </svg>
+                                    )}
+                                    {social.label === 'YouTube' && (
+                                        <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                            <path d="M22.54 6.42a2.78 2.78 0 00-1.94-1.96C18.88 4 12 4 12 4s-6.88 0-8.6.46A2.78 2.78 0 001.46 6.42 29.94 29.94 0 001 12a29.94 29.94 0 00.46 5.58 2.78 2.78 0 001.94 1.96C5.12 20 12 20 12 20s6.88 0 8.6-.46a2.78 2.78 0 001.94-1.96A29.94 29.94 0 0023 12a29.94 29.94 0 00-.46-5.58zM10 15.5v-7l6 3.5-6 3.5z" />
+                                        </svg>
+                                    )}
+                                </a>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            </div>
+        )}
+
+        <header class:list={[
+            'z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur',
+            navbarStickyEnabled ? 'sticky top-0' : 'relative',
+        ]}>
+
             <div class="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
                 <a href="/" class="flex min-w-0 items-center gap-3 text-slate-950">
                     <span class="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-white shadow-lg shadow-slate-900/10 ring-1 ring-slate-200 sm:h-12 sm:w-12">
@@ -164,8 +255,12 @@ const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
                 </div>
             </div>
 
-            <nav id="mobile-nav-menu" class="hidden border-t border-slate-200 bg-white/95 px-4 pb-4 pt-3 md:hidden" aria-label="Mobile navigation">
-                <div class="mx-auto grid w-full max-w-7xl gap-2">
+        </header>
+
+        <nav id="mobile-nav-menu" class="fixed inset-x-0 bottom-0 z-70 hidden md:hidden" style="top: 76px;" aria-label="Mobile navigation" aria-hidden="true">
+            <div id="mobile-nav-backdrop" class="absolute inset-0 bg-slate-950/60 backdrop-blur-sm"></div>
+            <div id="mobile-nav-panel" class="absolute right-0 top-0 h-full w-full max-w-md translate-x-full overflow-y-auto bg-white shadow-2xl transition-transform duration-300 ease-out">
+                <div class="grid gap-2 p-4 pb-8">
                     {navLinks.map((link) => (
                         <a
                             href={link.href}
@@ -180,8 +275,8 @@ const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
                         </a>
                     ))}
                 </div>
-            </nav>
-        </header>
+            </div>
+        </nav>
 
         {searchEnabled && (
             <div id="search-overlay" class="fixed inset-0 z-90 hidden bg-slate-950/80 p-4 backdrop-blur-sm sm:p-8" aria-hidden="true">
@@ -264,8 +359,12 @@ const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
     </div>
 
     <script>
+        // @ts-nocheck
         const toggleButton = document.getElementById('mobile-nav-toggle');
+        const headerElement = document.querySelector('header');
         const mobileMenu = document.getElementById('mobile-nav-menu');
+        const mobileNavBackdrop = document.getElementById('mobile-nav-backdrop');
+        const mobileNavPanel = document.getElementById('mobile-nav-panel');
         const openIcon = document.getElementById('mobile-nav-open-icon');
         const closeIcon = document.getElementById('mobile-nav-close-icon');
         const mobileLinks = mobileMenu?.querySelectorAll('a');
@@ -277,24 +376,63 @@ const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
         const searchStatus = searchEnabled ? document.getElementById('site-search-status') : null;
         const searchResults = searchEnabled ? document.getElementById('site-search-results') : null;
 
-        let searchIndex = [];
+        let searchIndexJson = '[]';
         let searchLoaded = false;
 
-        const closeMobileMenu = () => {
-            mobileMenu?.classList.add('hidden');
-            openIcon?.classList.remove('hidden');
-            closeIcon?.classList.add('hidden');
-            toggleButton?.setAttribute('aria-expanded', 'false');
+        const updateMobileToggleIcon = (isOpen = false) => {
+            openIcon?.classList.toggle('hidden', isOpen);
+            closeIcon?.classList.toggle('hidden', !isOpen);
+            toggleButton?.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
         };
 
-        const escapeHtml = (value) => value
+        const openMobileMenu = () => {
+            if (!mobileMenu || !mobileNavPanel) {
+                return;
+            }
+
+            const headerHeight = headerElement instanceof HTMLElement ? headerElement.offsetHeight : 76;
+            mobileMenu.style.top = `${headerHeight}px`;
+
+            mobileMenu.classList.remove('hidden');
+            mobileMenu.setAttribute('aria-hidden', 'false');
+
+            requestAnimationFrame(() => {
+                mobileNavPanel.classList.remove('translate-x-full');
+            });
+
+            updateMobileToggleIcon(true);
+            document.body.classList.add('overflow-hidden');
+        };
+
+        const closeMobileMenu = () => {
+            if (!mobileMenu || !mobileNavPanel) {
+                return;
+            }
+
+            mobileNavPanel.classList.add('translate-x-full');
+            mobileMenu.setAttribute('aria-hidden', 'true');
+
+            setTimeout(() => {
+                if (mobileNavPanel.classList.contains('translate-x-full')) {
+                    mobileMenu.classList.add('hidden');
+                }
+            }, 300);
+
+            updateMobileToggleIcon(false);
+
+            if (searchOverlay?.classList.contains('hidden') !== false) {
+                document.body.classList.remove('overflow-hidden');
+            }
+        };
+
+        const escapeHtml = (value = '') => value
             .replaceAll('&', '&amp;')
             .replaceAll('<', '&lt;')
             .replaceAll('>', '&gt;')
             .replaceAll('"', '&quot;')
             .replaceAll("'", '&#39;');
 
-        const renderResults = (query) => {
+        const renderResults = (query = '') => {
             if (!searchEnabled || !searchResults || !searchStatus) {
                 return;
             }
@@ -308,9 +446,15 @@ const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
             }
 
             const normalized = trimmed.toLowerCase();
-            const matches = searchIndex
-                .filter((item) => {
-                    const content = `${item.title} ${item.description} ${item.section} ${item.url}`.toLowerCase();
+            const allItems = /** @type {unknown[]} */ (JSON.parse(searchIndexJson));
+            const matches = allItems
+                .filter((item = null) => {
+                    if (!item || typeof item !== 'object') {
+                        return false;
+                    }
+
+                    const entry = /** @type {{title?: string; description?: string; section?: string; url?: string; type?: string}} */ (item);
+                    const content = `${entry.title || ''} ${entry.description || ''} ${entry.section || ''} ${entry.url || ''}`.toLowerCase();
 
                     return content.includes(normalized);
                 })
@@ -324,12 +468,12 @@ const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
             }
 
             searchResults.innerHTML = matches
-                .map((item) => `
-                    <a href="${item.url}" class="mb-3 block rounded-2xl border border-white/15 bg-white/5 p-4 transition hover:border-sky-300/60 hover:bg-white/10">
-                        <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-300">${escapeHtml(item.section || item.type)}</p>
-                        <p class="mt-2 text-lg font-bold tracking-tight text-white">${escapeHtml(item.title)}</p>
-                        <p class="mt-2 text-sm leading-6 text-slate-300">${escapeHtml(item.description || 'Open this result to view details.')}</p>
-                        <p class="mt-3 text-xs text-slate-400">${escapeHtml(item.url)}</p>
+                .map((item = null) => `
+                    <a href="${escapeHtml((/** @type {{url?: string}} */ (item)).url || '#')}" class="mb-3 block rounded-2xl border border-white/15 bg-white/5 p-4 transition hover:border-sky-300/60 hover:bg-white/10">
+                        <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-300">${escapeHtml((/** @type {{section?: string; type?: string}} */ (item)).section || (/** @type {{section?: string; type?: string}} */ (item)).type || '')}</p>
+                        <p class="mt-2 text-lg font-bold tracking-tight text-white">${escapeHtml((/** @type {{title?: string}} */ (item)).title || '')}</p>
+                        <p class="mt-2 text-sm leading-6 text-slate-300">${escapeHtml((/** @type {{description?: string}} */ (item)).description || 'Open this result to view details.')}</p>
+                        <p class="mt-3 text-xs text-slate-400">${escapeHtml((/** @type {{url?: string}} */ (item)).url || '')}</p>
                     </a>
                 `)
                 .join('');
@@ -347,7 +491,7 @@ const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
                     throw new Error('Failed to load search index');
                 }
 
-                searchIndex = await response.json();
+                searchIndexJson = await response.text();
                 searchLoaded = true;
             } catch {
                 if (searchStatus) {
@@ -386,13 +530,16 @@ const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
         };
 
         toggleButton?.addEventListener('click', () => {
-            const isHidden = mobileMenu?.classList.toggle('hidden');
-            const isOpen = isHidden === false;
+            const isOpen = toggleButton.getAttribute('aria-expanded') === 'true';
 
-            openIcon?.classList.toggle('hidden', isOpen);
-            closeIcon?.classList.toggle('hidden', !isOpen);
-            toggleButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            if (isOpen) {
+                closeMobileMenu();
+            } else {
+                openMobileMenu();
+            }
         });
+
+        mobileNavBackdrop?.addEventListener('click', closeMobileMenu);
 
         mobileLinks?.forEach((link) => {
             link.addEventListener('click', closeMobileMenu);
@@ -435,7 +582,7 @@ const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
 
             searchInput?.addEventListener('input', (event) => {
                 const target = event.target;
-                const query = target && 'value' in target ? target.value : '';
+                const query = target instanceof HTMLInputElement ? target.value : '';
 
                 renderResults(query);
             });
@@ -445,6 +592,7 @@ const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
 
                 if (event.key === 'Escape') {
                     closeSearch();
+                    closeMobileMenu();
                 }
 
                 if (hasMetaKey && event.key.toLowerCase() === 'k') {
@@ -455,6 +603,12 @@ const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
         }
 
         window.addEventListener('resize', () => {
+            const headerHeight = headerElement instanceof HTMLElement ? headerElement.offsetHeight : 76;
+
+            if (mobileMenu instanceof HTMLElement) {
+                mobileMenu.style.top = `${headerHeight}px`;
+            }
+
             if (window.innerWidth >= 768) {
                 closeMobileMenu();
             }
