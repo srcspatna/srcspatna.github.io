@@ -1,0 +1,42 @@
+---
+import { siteConfig } from '../config/site';
+
+type BreadcrumbItem = {
+  label: string;
+  href?: string;
+};
+
+const {
+  items = [],
+} = Astro.props as {
+  items?: BreadcrumbItem[];
+};
+
+if (!siteConfig.features.breadcrumbs) return;
+
+const visibleItems = items.filter((item) => item.label?.trim().length > 0);
+---
+
+{visibleItems.length > 1 && (
+  <nav aria-label="Breadcrumb" class="mb-6">
+    <ol class="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-slate-500">
+      {visibleItems.map((item, index) => {
+        const isLast = index === visibleItems.length - 1;
+
+        return (
+          <li class="inline-flex items-center gap-2">
+            {item.href && !isLast ? (
+              <a href={item.href} class="font-medium text-slate-600 transition hover:text-slate-900 hover:underline">
+                {item.label}
+              </a>
+            ) : (
+              <span class={isLast ? 'font-semibold text-slate-900' : 'font-medium text-slate-600'}>{item.label}</span>
+            )}
+
+            {!isLast && <span aria-hidden="true" class="text-slate-400">/</span>}
+          </li>
+        );
+      })}
+    </ol>
+  </nav>
+)}

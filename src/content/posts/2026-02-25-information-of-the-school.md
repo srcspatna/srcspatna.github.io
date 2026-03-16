@@ -9,7 +9,7 @@ slug: information-of-the-school
 | Name | SHRI RAM CENTENNIAL SCHOOL |
 | Address | BHOGIPUR, NEAR SAHPUR, JAGANPURA, PATNA - 804453 |
 | Email | [info@srcspatna.com](mailto:info@srcspatna.com) |
-| Contact No. | [+91 8873002602](tel:+91 8873002602), [+918873002603](tel:+918873002603), [+918873002609](tel:+918873002609) |
+| Contact No. | \[+91 8873002602\](tel:+91 8873002602), [+918873002603](tel:+918873002603), [+918873002609](tel:+918873002609) |
 | Year of establishment of school | 2014 |
 | Status of Affiliation: Permanent/Regular/Provisional | Affiliated |
 | Affiliation No. | 330653 |

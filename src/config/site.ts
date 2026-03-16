@@ -39,6 +39,9 @@ export const siteConfig = {
     twitterCard: 'summary',
     robots: 'index,follow',
   },
+  features: {
+    breadcrumbs: true, // set to false to disable breadcrumbs site-wide
+  },
   navigation: [
     { href: '/', label: 'Home' },
     { href: '/pages', label: 'Pages' },
