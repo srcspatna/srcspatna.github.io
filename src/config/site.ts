@@ -47,7 +47,7 @@ export const siteConfig = {
     topBarShowOnSmallScreen: true, // show top bar on small screens
     topBarShowOnLargeScreen: true, // show top bar on large screens
     topBarContactInfo: true, // set to false to hide contact info block in top bar
-    topBarContactInfoShowOnSmallScreen: true, // show contact info on small screens
+    topBarContactInfoShowOnSmallScreen: false, // show contact info on small screens
     topBarContactInfoShowOnLargeScreen: true, // show contact info on large screens
     topBarSocialIcons: true, // set to false to hide social icons in top bar
     topBarSocialIconsShowOnSmallScreen: true, // show social icons on small screens
