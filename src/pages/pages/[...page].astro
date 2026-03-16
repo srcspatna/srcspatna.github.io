@@ -2,6 +2,7 @@
 import type { GetStaticPaths } from 'astro';
 import Layout from '../../layouts/PagesLayout.astro';
 import ContentCard from '../../components/ContentCard.astro';
+import { buildPageTitle } from '../../config/site';
 
 type ListingItem = {
   href: string;
@@ -73,8 +74,8 @@ export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
 
 const { page } = Astro.props as { page: PaginatedListing };
 const pageTitle = page.currentPage === 1
-  ? 'School Pages | Greenwood School'
-  : `School Pages - Page ${page.currentPage} | Greenwood School`;
+  ? buildPageTitle('School Pages')
+  : buildPageTitle(`School Pages - Page ${page.currentPage}`);
 ---
 
 <Layout title={pageTitle}>

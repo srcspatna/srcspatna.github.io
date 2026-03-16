@@ -1,5 +1,6 @@
 ---
 import GlobalLayout from '../../layouts/Layout.astro';
+import { buildPageTitle } from '../../config/site';
 
 const {
   title = 'School Post',
@@ -11,7 +12,7 @@ const {
 ---
 
 <GlobalLayout
-  title={`${title} | Greenwood School`}
+  title={buildPageTitle(title)}
   bannerEyebrow="School Post"
   bannerTitle={title}
   bannerText={description || 'Full post details, notices, and school communication presented in a focused reading layout.'}

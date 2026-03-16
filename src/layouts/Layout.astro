@@ -1,11 +1,12 @@
 ---
 import '../styles/global.css';
+import { resolveSiteUrl, siteConfig } from '../config/site';
 
 type BannerTone = 'blue' | 'emerald' | 'amber';
 
 const {
-  title = 'Greenwood School',
-    description = 'Greenwood School portal for announcements, school pages, and parent-student updates.',
+    title = siteConfig.seo.defaultTitle,
+    description = siteConfig.seo.defaultDescription,
   bannerEyebrow,
   bannerTitle,
   bannerText,
@@ -21,17 +22,8 @@ const {
   mainClass?: string;
 };
 
-const navLinks = [
-  { href: '/', label: 'Home' },
-  { href: '/pages', label: 'Pages' },
-  { href: '/posts', label: 'Posts' },
-];
-
+const navLinks = siteConfig.navigation;
 const pathname = Astro.url.pathname;
-const logoSrc = '/src/assets/logo.png';
-const faviconSvg = '/src/assets/logo_favicon.png';
-const faviconIco = '/src/assets/logo_favicon.png';
-const previewImage = '/src/assets/logo_favicon.png';
 const bannerThemes: Record<BannerTone, { shell: string; badge: string; glow: string }> = {
   blue: {
     shell: 'from-slate-950 via-blue-900 to-sky-600',
@@ -60,27 +52,33 @@ const activeLinkClass = (href: string) => {
 
 const selectedTheme = bannerThemes[bannerTone];
 const hasFeature = Astro.slots.has('feature');
+const canonicalUrl = resolveSiteUrl(pathname);
+const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang={siteConfig.site.locale}>
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#0f172a" />
-    <link rel="icon" type="image/svg+xml" href={faviconSvg} />
-    <link rel="icon" type="image/x-icon" href={faviconIco} />
+    <meta name="robots" content={siteConfig.seo.robots} />
+    <meta name="theme-color" content={siteConfig.site.themeColor} />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" type={siteConfig.branding.favicon.type} href={siteConfig.branding.favicon.src} />
+    <link rel="apple-touch-icon" href={siteConfig.branding.favicon.src} />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Greenwood School" />
+    <meta property="og:locale" content={siteConfig.site.locale} />
+    <meta property="og:site_name" content={siteConfig.site.name} />
+    <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={previewImage} />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content={previewImageUrl} />
+    <meta name="twitter:card" content={siteConfig.seo.twitterCard} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={previewImage} />
+    <meta name="twitter:image" content={previewImageUrl} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Merriweather:wght@700&display=swap" rel="stylesheet" />
@@ -92,11 +90,11 @@ const hasFeature = Astro.slots.has('feature');
             <div class="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
                 <a href="/" class="flex min-w-0 items-center gap-3 text-slate-950">
                     <span class="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-white shadow-lg shadow-slate-900/10 ring-1 ring-slate-200 sm:h-12 sm:w-12">
-                        <img src={logoSrc} alt="Greenwood School logo" class="h-full w-full object-cover" width="48" height="48" loading="eager" decoding="async" />
+                        <img src={siteConfig.branding.logo.src} alt={siteConfig.branding.logo.alt} class="h-full w-full object-cover" width={siteConfig.branding.logo.width} height={siteConfig.branding.logo.height} loading="eager" decoding="async" />
                     </span>
                     <span class="min-w-0">
-                        <span class="block truncate text-[0.65rem] font-semibold uppercase tracking-[0.26em] text-sky-700 sm:text-xs sm:tracking-[0.32em]">Learning Campus</span>
-                        <span class="block truncate text-lg font-extrabold tracking-tight sm:text-xl">Greenwood School</span>
+                        <span class="block truncate text-[0.65rem] font-semibold uppercase tracking-[0.26em] text-sky-700 sm:text-xs sm:tracking-[0.32em]">{siteConfig.branding.eyebrow}</span>
+                        <span class="block truncate text-lg font-extrabold tracking-tight sm:text-xl">{siteConfig.site.name}</span>
                     </span>
                 </a>
 
@@ -192,8 +190,8 @@ const hasFeature = Astro.slots.has('feature');
 
         <footer class="border-t border-slate-200 bg-white">
             <div class="mx-auto flex w-full max-w-7xl flex-col gap-3 px-4 py-8 text-sm text-slate-500 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
-                <p>© {new Date().getFullYear()} Greenwood School. Thoughtful learning, clear communication, and modern school operations.</p>
-                <p>Pages and posts are organized for quick access to school updates and information.</p>
+                <p>© {new Date().getFullYear()} {siteConfig.site.name}. {siteConfig.footer.primaryText}</p>
+                <p>{siteConfig.footer.secondaryText}</p>
             </div>
         </footer>
     </div>

@@ -1,8 +1,9 @@
 ---
 import Layout from './Layout.astro';
+import { buildPageTitle } from '../config/site';
 
 const {
-  title = 'School Pages | Greenwood School',
+  title = buildPageTitle('School Pages'),
   bannerTitle = 'School Pages',
   bannerText = 'Explore evergreen school information, reference content, and important notices arranged in a page directory that is easy to scan.',
 } = Astro.props as {
