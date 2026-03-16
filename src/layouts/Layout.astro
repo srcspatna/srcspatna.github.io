@@ -254,37 +254,6 @@ const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
                 </a>
 
                 <div class="flex items-center gap-2 md:hidden">
-                    {themeToggleEnabled && (
-                        <button
-                            type="button"
-                            data-theme-toggle
-                            class="inline-flex items-center justify-center rounded-xl border border-slate-200 p-2 text-slate-700 transition hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400"
-                            aria-label="Toggle theme"
-                            title="Toggle light and dark mode"
-                        >
-                            <svg data-theme-icon="sun" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <circle cx="12" cy="12" r="4" />
-                                <path stroke-linecap="round" d="M12 2v2" />
-                                <path stroke-linecap="round" d="M12 20v2" />
-                                <path stroke-linecap="round" d="M4.93 4.93l1.41 1.41" />
-                                <path stroke-linecap="round" d="M17.66 17.66l1.41 1.41" />
-                                <path stroke-linecap="round" d="M2 12h2" />
-                                <path stroke-linecap="round" d="M20 12h2" />
-                                <path stroke-linecap="round" d="M4.93 19.07l1.41-1.41" />
-                                <path stroke-linecap="round" d="M17.66 6.34l1.41-1.41" />
-                            </svg>
-                            <svg data-theme-icon="moon" class="hidden h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z" />
-                            </svg>
-                            <svg data-theme-icon="system" class="hidden h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <rect x="3" y="4" width="18" height="12" rx="2" ry="2" />
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 20h8" />
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M10 16v4" />
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M14 16v4" />
-                            </svg>
-                        </button>
-                    )}
-
                     {searchEnabled && (
                         <button
                             type="button"
@@ -384,8 +353,9 @@ const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
 
         <nav id="mobile-nav-menu" class="fixed inset-x-0 bottom-0 z-70 hidden md:hidden" style="top: 76px;" aria-label="Mobile navigation" aria-hidden="true">
             <div id="mobile-nav-backdrop" class="absolute inset-0 bg-slate-950/60 backdrop-blur-sm"></div>
-            <div id="mobile-nav-panel" class="absolute right-0 top-0 h-full w-full max-w-md translate-x-full overflow-y-auto bg-white shadow-2xl transition-transform duration-300 ease-out">
-                <div class="grid gap-2 p-4 pb-24">
+            <div id="mobile-nav-panel" class="absolute right-0 top-0 flex h-full w-full max-w-md translate-x-full flex-col overflow-hidden bg-white shadow-2xl transition-transform duration-300 ease-out">
+                <div class="flex-1 overflow-y-auto p-4">
+                    <div class="grid gap-2 pb-4">
                     {navLinks.map((link) => (
                         <a
                             href={link.href}
@@ -399,9 +369,10 @@ const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
                             {link.label}
                         </a>
                     ))}
+                    </div>
                 </div>
 
-                <div class="sticky inset-x-0 bottom-0 border-t border-slate-200/90 bg-white/95 p-3 backdrop-blur">
+                <div class="border-t border-slate-200/90 bg-white/95 p-3 backdrop-blur">
                     <div class="grid grid-cols-3 gap-2">
                         {themeToggleEnabled && (
                             <button
