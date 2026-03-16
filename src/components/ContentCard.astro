@@ -1,0 +1,56 @@
+---
+type CardTone = 'blue' | 'emerald';
+
+const {
+  item,
+  tone = 'blue',
+} = Astro.props as {
+  item: {
+    href: string;
+    title: string;
+    description: string;
+    dateLabel?: string;
+    tag: string;
+  };
+  tone?: CardTone;
+};
+
+const cardThemes: Record<CardTone, { banner: string; badge: string; link: string }> = {
+  blue: {
+    banner: 'from-slate-950 via-blue-900 to-sky-600',
+    badge: 'bg-white/12 text-sky-100 ring-1 ring-white/15',
+    link: 'text-sky-700 hover:text-sky-900',
+  },
+  emerald: {
+    banner: 'from-slate-950 via-emerald-900 to-teal-500',
+    badge: 'bg-white/12 text-emerald-100 ring-1 ring-white/15',
+    link: 'text-emerald-700 hover:text-emerald-900',
+  },
+};
+
+const selectedTheme = cardThemes[tone];
+---
+
+<article class="group overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-200/80">
+    <div class={`relative h-44 overflow-hidden bg-gradient-to-br ${selectedTheme.banner} px-6 py-5 text-white`}>
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.18),transparent_42%)]"></div>
+        <div class="relative z-10 flex h-full flex-col justify-between">
+            <div class="flex items-start justify-between gap-4">
+                <span class={`inline-flex rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] ${selectedTheme.badge}`}>
+                    {item.tag}
+                </span>
+                {item.dateLabel && <span class="text-sm text-white/80">{item.dateLabel}</span>}
+            </div>
+            <h2 class="max-w-sm text-2xl font-extrabold leading-tight tracking-tight text-white">
+                <a href={item.href} class="outline-none focus-visible:underline">{item.title}</a>
+            </h2>
+        </div>
+    </div>
+    <div class="p-6">
+        <p class="text-sm leading-7 text-slate-600">{item.description}</p>
+        <a href={item.href} class={`mt-6 inline-flex items-center gap-2 text-sm font-semibold ${selectedTheme.link}`}>
+            Open {item.tag.toLowerCase()}
+            <span aria-hidden="true">→</span>
+        </a>
+    </div>
+</article>

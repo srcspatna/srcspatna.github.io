@@ -1,0 +1,116 @@
+---
+import type { GetStaticPaths } from 'astro';
+import Layout from '../../layouts/PostsLayout.astro';
+import ContentCard from '../../components/ContentCard.astro';
+
+type ListingItem = {
+  href: string;
+  title: string;
+  description: string;
+  dateLabel?: string;
+  tag: string;
+  sortValue: number;
+};
+
+type PaginatedListing = {
+  data: ListingItem[];
+  currentPage: number;
+  lastPage: number;
+  url: {
+    prev?: string;
+    next?: string;
+  };
+};
+
+export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
+  const formatDate = (value?: string) => {
+    if (!value) {
+      return undefined;
+    }
+
+    const parsedDate = new Date(value);
+
+    if (Number.isNaN(parsedDate.valueOf())) {
+      return undefined;
+    }
+
+    return parsedDate.toLocaleDateString('en-US', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+    });
+  };
+
+  const extractDateString = (url?: string) => url?.match(/\d{4}-\d{2}-\d{2}/)?.[0];
+
+  const allPosts = Object.values(import.meta.glob('./*.md', { eager: true })) as Array<{
+    url?: string;
+    frontmatter?: {
+      title?: string;
+      description?: string;
+    };
+  }>;
+
+  const postItems: ListingItem[] = allPosts
+    .filter((entry) => Boolean(entry.url))
+    .map((entry) => {
+      const dateString = extractDateString(entry.url);
+      const parsedTime = dateString ? new Date(dateString).valueOf() : 0;
+
+      return {
+        href: entry.url!,
+        title: entry.frontmatter?.title?.trim() || 'School Post',
+        description: entry.frontmatter?.description?.trim() || 'Read the full school post for complete details and important context.',
+        dateLabel: formatDate(dateString),
+        tag: 'Post',
+        sortValue: Number.isNaN(parsedTime) ? 0 : parsedTime,
+      };
+    })
+    .sort((left, right) => right.sortValue - left.sortValue);
+
+  return paginate(postItems, { pageSize: 6 });
+};
+
+const { page } = Astro.props as { page: PaginatedListing };
+const pageTitle = page.currentPage === 1
+  ? 'School Posts | Greenwood School'
+  : `School Posts - Page ${page.currentPage} | Greenwood School`;
+---
+
+<Layout title={pageTitle}>
+  <section class="space-y-8">
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-2 xl:grid-cols-3">
+      {page.data.map((item) => (
+        <ContentCard item={item} tone="blue" />
+      ))}
+    </div>
+
+    {page.lastPage > 1 && (
+      <nav class="flex flex-wrap items-center justify-center gap-3 border-t border-slate-200 pt-8">
+        {page.url.prev ? (
+          <a href={page.url.prev} class="inline-flex rounded-full border border-slate-300 px-5 py-2 text-sm font-semibold text-slate-700 transition hover:border-slate-950 hover:text-slate-950">
+            Previous
+          </a>
+        ) : (
+          <span class="inline-flex rounded-full border border-slate-200 px-5 py-2 text-sm font-semibold text-slate-300">
+            Previous
+          </span>
+        )}
+
+        <span class="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">
+          Page {page.currentPage} of {page.lastPage}
+        </span>
+
+        {page.url.next ? (
+          <a href={page.url.next} class="inline-flex rounded-full border border-slate-300 px-5 py-2 text-sm font-semibold text-slate-700 transition hover:border-slate-950 hover:text-slate-950">
+            Next
+          </a>
+        ) : (
+          <span class="inline-flex rounded-full border border-slate-200 px-5 py-2 text-sm font-semibold text-slate-300">
+            Next
+          </span>
+        )}
+      </nav>
+    )}
+  </section>
+</Layout>
