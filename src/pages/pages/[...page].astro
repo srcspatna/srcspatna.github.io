@@ -44,11 +44,12 @@ export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
 
   const extractDateString = (url?: string) => url?.match(/\d{4}-\d{2}-\d{2}/)?.[0];
 
-  const allPages = Object.values(import.meta.glob('./*.md', { eager: true })) as Array<{
+  const allPages = Object.values(import.meta.glob('./**/*.md', { eager: true })) as Array<{
     url?: string;
     frontmatter?: {
       title?: string;
       description?: string;
+      section?: string;
     };
   }>;
 
@@ -63,7 +64,7 @@ export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
         title: entry.frontmatter?.title?.trim() || 'School Page',
         description: entry.frontmatter?.description?.trim() || 'Open this school page to view detailed information and reference material.',
         dateLabel: formatDate(dateString),
-        tag: 'Page',
+        tag: entry.frontmatter?.section?.trim() || 'Page',
         sortValue: Number.isNaN(parsedTime) ? 0 : parsedTime,
       };
     })
