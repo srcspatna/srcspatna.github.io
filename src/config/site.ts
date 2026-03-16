@@ -42,8 +42,23 @@ export const siteConfig = {
   features: {
     breadcrumbs: true, // set to false to disable breadcrumbs site-wide
     search: true, // set to false to disable global search UI and behavior
+    themeToggle: true, // set to false to hide dark/light toggle UI
     topBar: true, // set to false to hide the contact/social info row above navbar
+    topBarShowOnSmallScreen: true, // show top bar on small screens
+    topBarShowOnLargeScreen: true, // show top bar on large screens
+    topBarContactInfo: true, // set to false to hide contact info block in top bar
+    topBarContactInfoShowOnSmallScreen: true, // show contact info on small screens
+    topBarContactInfoShowOnLargeScreen: true, // show contact info on large screens
+    topBarSocialIcons: true, // set to false to hide social icons in top bar
+    topBarSocialIconsShowOnSmallScreen: true, // show social icons on small screens
+    topBarSocialIconsShowOnLargeScreen: true, // show social icons on large screens
     navbarSticky: true, // set to false to make the navbar scroll with page
+  },
+  appearance: {
+    defaultTheme: 'system', // 'light' | 'dark' | 'system'
+    enableLightTheme: true, // allow light mode option
+    enableDarkTheme: true, // allow dark mode option
+    enableSystemTheme: true, // allow device automatic mode option
   },
   navigation: [
     { href: '/', label: 'Home' },

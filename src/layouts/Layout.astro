@@ -25,7 +25,24 @@ const {
 const navLinks = siteConfig.navigation;
 const activeSocialLinks = siteConfig.socialLinks.filter((link) => link.href.trim().length > 0);
 const searchEnabled = siteConfig.features.search;
+const themeToggleEnabled = siteConfig.features.themeToggle;
+const availableThemes = [
+    siteConfig.appearance.enableLightTheme ? 'light' : null,
+    siteConfig.appearance.enableDarkTheme ? 'dark' : null,
+    siteConfig.appearance.enableSystemTheme ? 'system' : null,
+].filter((mode): mode is 'light' | 'dark' | 'system' => mode !== null);
+const defaultTheme = availableThemes.includes(siteConfig.appearance.defaultTheme)
+    ? siteConfig.appearance.defaultTheme
+    : availableThemes[0] ?? 'system';
 const topBarEnabled = siteConfig.features.topBar;
+const topBarSocialIconsEnabled = siteConfig.features.topBarSocialIcons;
+const topBarContactInfoEnabled = siteConfig.features.topBarContactInfo;
+const topBarShowOnSmallScreen = siteConfig.features.topBarShowOnSmallScreen;
+const topBarShowOnLargeScreen = siteConfig.features.topBarShowOnLargeScreen;
+const topBarContactInfoShowOnSmallScreen = siteConfig.features.topBarContactInfoShowOnSmallScreen;
+const topBarContactInfoShowOnLargeScreen = siteConfig.features.topBarContactInfoShowOnLargeScreen;
+const topBarSocialIconsShowOnSmallScreen = siteConfig.features.topBarSocialIconsShowOnSmallScreen;
+const topBarSocialIconsShowOnLargeScreen = siteConfig.features.topBarSocialIconsShowOnLargeScreen;
 const navbarStickyEnabled = siteConfig.features.navbarSticky;
 const pathname = Astro.url.pathname;
 const bannerThemes: Record<BannerTone, { shell: string; badge: string; glow: string }> = {
@@ -86,14 +103,55 @@ const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Merriweather:wght@700&display=swap" rel="stylesheet" />
-    
+    <script is:inline define:vars={{ defaultTheme, availableThemes }}>
+        (() => {
+            const storageKey = 'site-theme';
+            const doc = document.documentElement;
+            const isThemeValue = (value) => value === 'light' || value === 'dark' || value === 'system';
+            const validThemes = Array.isArray(availableThemes) && availableThemes.length > 0
+                ? availableThemes.filter((value) => isThemeValue(value))
+                : ['light', 'dark', 'system'];
+
+            let savedTheme = null;
+
+            try {
+                const stored = localStorage.getItem(storageKey);
+                savedTheme = isThemeValue(stored) && validThemes.includes(stored) ? stored : null;
+            } catch {
+                savedTheme = null;
+            }
+
+            const preference = savedTheme || defaultTheme;
+            const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            const resolvedTheme = preference === 'system' ? systemTheme : preference;
+
+            doc.classList.toggle('dark', resolvedTheme === 'dark');
+            doc.dataset.theme = resolvedTheme;
+            doc.dataset.themePreference = preference;
+            doc.dataset.themeModes = JSON.stringify(validThemes);
+        })();
+    </script>
 </head>
-<body class="min-h-screen bg-slate-50 text-slate-900 antialiased" data-search-enabled={searchEnabled ? 'true' : 'false'}>
+<body
+    class="min-h-screen bg-slate-50 text-slate-900 antialiased"
+    data-search-enabled={searchEnabled ? 'true' : 'false'}
+    data-theme-default={defaultTheme}
+    data-theme-modes={JSON.stringify(availableThemes)}
+>
     <div class="flex min-h-screen flex-col">
         {topBarEnabled && (
-            <div class="border-b border-slate-800 bg-slate-950 text-slate-100">
+            <div class:list={[
+                'border-b border-slate-800 bg-slate-950 text-slate-100',
+                topBarShowOnSmallScreen ? '' : 'hidden',
+                topBarShowOnLargeScreen ? 'lg:block' : 'lg:hidden',
+            ]}>
                 <div class="mx-auto flex w-full max-w-7xl flex-col gap-2 px-4 py-2 text-xs sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
-                    <div class="flex flex-wrap items-center gap-x-4 gap-y-1 leading-relaxed text-slate-200/95">
+                    {topBarContactInfoEnabled && (
+                        <div class:list={[
+                            'flex flex-wrap items-center gap-x-4 gap-y-1 leading-relaxed text-slate-200/95',
+                            topBarContactInfoShowOnSmallScreen ? '' : 'hidden',
+                            topBarContactInfoShowOnLargeScreen ? 'lg:flex' : 'lg:hidden',
+                        ]}>
                         <span class="inline-flex items-center gap-1.5">
                             <svg class="h-3.5 w-3.5 text-amber-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1118 0z" />
@@ -131,10 +189,15 @@ const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
                             </svg>
                             {siteConfig.contact.officeTime}
                         </span>
-                    </div>
+                        </div>
+                    )}
 
-                    {activeSocialLinks.length > 0 && (
-                        <div class="flex items-center gap-2">
+                    {topBarSocialIconsEnabled && activeSocialLinks.length > 0 && (
+                        <div class:list={[
+                            'flex items-center gap-2',
+                            topBarSocialIconsShowOnSmallScreen ? '' : 'hidden',
+                            topBarSocialIconsShowOnLargeScreen ? 'lg:flex' : 'lg:hidden',
+                        ]}>
                             {activeSocialLinks.map((social) => (
                                 <a
                                     href={social.href}
@@ -156,7 +219,7 @@ const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
                                             <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
                                         </svg>
                                     )}
-                                    {(social.label === 'LinkedIn' || social.label === 'Linkedin') && (
+                                    {social.label === 'LinkedIn' && (
                                         <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                                             <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.14 1.45-2.14 2.94v5.66H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.27 2.37 4.27 5.46v6.28zM5.32 7.43a2.07 2.07 0 110-4.14 2.07 2.07 0 010 4.14zM7.1 20.45H3.54V9H7.1v11.45z" />
                                         </svg>
@@ -191,6 +254,37 @@ const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
                 </a>
 
                 <div class="flex items-center gap-2 md:hidden">
+                    {themeToggleEnabled && (
+                        <button
+                            type="button"
+                            data-theme-toggle
+                            class="inline-flex items-center justify-center rounded-xl border border-slate-200 p-2 text-slate-700 transition hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400"
+                            aria-label="Toggle theme"
+                            title="Toggle light and dark mode"
+                        >
+                            <svg data-theme-icon="sun" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <circle cx="12" cy="12" r="4" />
+                                <path stroke-linecap="round" d="M12 2v2" />
+                                <path stroke-linecap="round" d="M12 20v2" />
+                                <path stroke-linecap="round" d="M4.93 4.93l1.41 1.41" />
+                                <path stroke-linecap="round" d="M17.66 17.66l1.41 1.41" />
+                                <path stroke-linecap="round" d="M2 12h2" />
+                                <path stroke-linecap="round" d="M20 12h2" />
+                                <path stroke-linecap="round" d="M4.93 19.07l1.41-1.41" />
+                                <path stroke-linecap="round" d="M17.66 6.34l1.41-1.41" />
+                            </svg>
+                            <svg data-theme-icon="moon" class="hidden h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z" />
+                            </svg>
+                            <svg data-theme-icon="system" class="hidden h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <rect x="3" y="4" width="18" height="12" rx="2" ry="2" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 20h8" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M10 16v4" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14 16v4" />
+                            </svg>
+                        </button>
+                    )}
+
                     {searchEnabled && (
                         <button
                             type="button"
@@ -252,6 +346,37 @@ const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
                             </svg>
                         </button>
                     )}
+
+                    {themeToggleEnabled && (
+                        <button
+                            type="button"
+                            data-theme-toggle
+                            class="inline-flex items-center justify-center rounded-full border border-slate-200 p-2 text-slate-700 transition hover:bg-slate-100 hover:text-slate-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400"
+                            aria-label="Toggle theme"
+                            title="Toggle light and dark mode"
+                        >
+                            <svg data-theme-icon="sun" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <circle cx="12" cy="12" r="4" />
+                                <path stroke-linecap="round" d="M12 2v2" />
+                                <path stroke-linecap="round" d="M12 20v2" />
+                                <path stroke-linecap="round" d="M4.93 4.93l1.41 1.41" />
+                                <path stroke-linecap="round" d="M17.66 17.66l1.41 1.41" />
+                                <path stroke-linecap="round" d="M2 12h2" />
+                                <path stroke-linecap="round" d="M20 12h2" />
+                                <path stroke-linecap="round" d="M4.93 19.07l1.41-1.41" />
+                                <path stroke-linecap="round" d="M17.66 6.34l1.41-1.41" />
+                            </svg>
+                            <svg data-theme-icon="moon" class="hidden h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z" />
+                            </svg>
+                            <svg data-theme-icon="system" class="hidden h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <rect x="3" y="4" width="18" height="12" rx="2" ry="2" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 20h8" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M10 16v4" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14 16v4" />
+                            </svg>
+                        </button>
+                    )}
                 </div>
             </div>
 
@@ -260,7 +385,7 @@ const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
         <nav id="mobile-nav-menu" class="fixed inset-x-0 bottom-0 z-70 hidden md:hidden" style="top: 76px;" aria-label="Mobile navigation" aria-hidden="true">
             <div id="mobile-nav-backdrop" class="absolute inset-0 bg-slate-950/60 backdrop-blur-sm"></div>
             <div id="mobile-nav-panel" class="absolute right-0 top-0 h-full w-full max-w-md translate-x-full overflow-y-auto bg-white shadow-2xl transition-transform duration-300 ease-out">
-                <div class="grid gap-2 p-4 pb-8">
+                <div class="grid gap-2 p-4 pb-24">
                     {navLinks.map((link) => (
                         <a
                             href={link.href}
@@ -274,6 +399,69 @@ const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
                             {link.label}
                         </a>
                     ))}
+                </div>
+
+                <div class="sticky inset-x-0 bottom-0 border-t border-slate-200/90 bg-white/95 p-3 backdrop-blur">
+                    <div class="grid grid-cols-3 gap-2">
+                        {themeToggleEnabled && (
+                            <button
+                                type="button"
+                                data-theme-toggle
+                                class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-3 py-2 text-xs font-semibold text-slate-700 transition hover:bg-slate-100"
+                                aria-label="Toggle theme"
+                                title="Toggle theme"
+                            >
+                                <svg data-theme-icon="sun" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                    <circle cx="12" cy="12" r="4" />
+                                    <path stroke-linecap="round" d="M12 2v2" />
+                                    <path stroke-linecap="round" d="M12 20v2" />
+                                    <path stroke-linecap="round" d="M4.93 4.93l1.41 1.41" />
+                                    <path stroke-linecap="round" d="M17.66 17.66l1.41 1.41" />
+                                    <path stroke-linecap="round" d="M2 12h2" />
+                                    <path stroke-linecap="round" d="M20 12h2" />
+                                    <path stroke-linecap="round" d="M4.93 19.07l1.41-1.41" />
+                                    <path stroke-linecap="round" d="M17.66 6.34l1.41-1.41" />
+                                </svg>
+                                <svg data-theme-icon="moon" class="hidden h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z" />
+                                </svg>
+                                <svg data-theme-icon="system" class="hidden h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                    <rect x="3" y="4" width="18" height="12" rx="2" ry="2" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 20h8" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 16v4" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M14 16v4" />
+                                </svg>
+                                <span>Theme</span>
+                            </button>
+                        )}
+
+                        {searchEnabled && (
+                            <button
+                                type="button"
+                                data-search-open
+                                class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-3 py-2 text-xs font-semibold text-slate-700 transition hover:bg-slate-100"
+                                aria-label="Open search"
+                            >
+                                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                    <circle cx="11" cy="11" r="7" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M20 20l-3.5-3.5" />
+                                </svg>
+                                <span>Search</span>
+                            </button>
+                        )}
+
+                        <button
+                            type="button"
+                            data-mobile-nav-close
+                            class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-3 py-2 text-xs font-semibold text-slate-700 transition hover:bg-slate-100"
+                            aria-label="Close menu"
+                        >
+                            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M6 18L18 6" />
+                            </svg>
+                            <span>Close</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -365,10 +553,31 @@ const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
         const mobileMenu = document.getElementById('mobile-nav-menu');
         const mobileNavBackdrop = document.getElementById('mobile-nav-backdrop');
         const mobileNavPanel = document.getElementById('mobile-nav-panel');
+        const mobileMenuCloseButtons = document.querySelectorAll('[data-mobile-nav-close]');
         const openIcon = document.getElementById('mobile-nav-open-icon');
         const closeIcon = document.getElementById('mobile-nav-close-icon');
         const mobileLinks = mobileMenu?.querySelectorAll('a');
         const searchEnabled = document.body.dataset.searchEnabled === 'true';
+        const themeToggles = document.querySelectorAll('[data-theme-toggle]');
+        const rootElement = document.documentElement;
+        const themeMetaTag = document.querySelector('meta[name="theme-color"]');
+        const lightThemeColor = '#0f172a';
+        const darkThemeColor = '#020617';
+        const defaultTheme = document.body.dataset.themeDefault || 'system';
+        const parsedThemeModes = (() => {
+            try {
+                const parsed = JSON.parse(document.body.dataset.themeModes || '[]');
+
+                if (!Array.isArray(parsed)) {
+                    return [];
+                }
+
+                return parsed.filter((value) => value === 'light' || value === 'dark' || value === 'system');
+            } catch {
+                return [];
+            }
+        })();
+        const themeModes = parsedThemeModes.length > 0 ? parsedThemeModes : ['light', 'dark', 'system'];
         const searchOverlay = searchEnabled ? document.getElementById('search-overlay') : null;
         const searchOpenButtons = searchEnabled ? document.querySelectorAll('[data-search-open]') : [];
         const searchCloseButtons = searchEnabled ? document.querySelectorAll('[data-search-close]') : [];
@@ -378,6 +587,77 @@ const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
 
         let searchIndexJson = '[]';
         let searchLoaded = false;
+        const storageKey = 'site-theme';
+
+        const getSystemTheme = () => window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+
+        const getThemePreference = () => {
+            const savedPreference = rootElement.dataset.themePreference;
+
+            if ((savedPreference === 'light' || savedPreference === 'dark' || savedPreference === 'system') && themeModes.includes(savedPreference)) {
+                return savedPreference;
+            }
+
+            return themeModes.includes(defaultTheme) ? defaultTheme : themeModes[0];
+        };
+
+        const resolveTheme = (preference = 'system') => preference === 'system' ? getSystemTheme() : preference;
+
+        const updateThemeButtons = (resolvedTheme = 'light', preference = 'system') => {
+            themeToggles.forEach((button) => {
+                const sunIcon = button.querySelector('[data-theme-icon="sun"]');
+                const moonIcon = button.querySelector('[data-theme-icon="moon"]');
+                const systemIcon = button.querySelector('[data-theme-icon="system"]');
+                const isSystem = preference === 'system';
+                const isDark = preference === 'dark';
+                const isLight = preference === 'light';
+
+                sunIcon?.classList.toggle('hidden', !isLight);
+                moonIcon?.classList.toggle('hidden', !isDark);
+                systemIcon?.classList.toggle('hidden', !isSystem);
+
+                const modeText = isSystem
+                    ? `Device automatic (${resolvedTheme})`
+                    : isDark
+                        ? 'Dark'
+                        : 'Light';
+
+                button.setAttribute('aria-label', `Theme mode: ${modeText}`);
+                button.setAttribute('title', `Theme mode: ${modeText}`);
+            });
+        };
+
+        const applyTheme = (preference = 'system') => {
+            const resolvedTheme = resolveTheme(preference);
+            const isDark = resolvedTheme === 'dark';
+
+            rootElement.classList.toggle('dark', isDark);
+            rootElement.dataset.theme = resolvedTheme;
+            rootElement.dataset.themePreference = preference;
+
+            if (themeMetaTag instanceof HTMLMetaElement) {
+                themeMetaTag.content = isDark ? darkThemeColor : lightThemeColor;
+            }
+
+            updateThemeButtons(resolvedTheme, preference);
+        };
+
+        const cycleTheme = () => {
+            const currentPreference = getThemePreference();
+            const currentIndex = themeModes.indexOf(currentPreference);
+            const nextIndex = currentIndex === -1
+                ? 0
+                : (currentIndex + 1) % themeModes.length;
+            const nextPreference = themeModes[nextIndex];
+
+            applyTheme(nextPreference);
+
+            try {
+                localStorage.setItem(storageKey, nextPreference);
+            } catch {
+                // Ignore storage errors in private/incognito contexts.
+            }
+        };
 
         const updateMobileToggleIcon = (isOpen = false) => {
             openIcon?.classList.toggle('hidden', isOpen);
@@ -385,13 +665,24 @@ const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
             toggleButton?.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
         };
 
+        const getMobileMenuTopOffset = () => {
+            if (!(headerElement instanceof HTMLElement)) {
+                return 76;
+            }
+
+            const headerRect = headerElement.getBoundingClientRect();
+
+            // When top bar is visible, header can be lower than viewport top.
+            // Drawer should start below the currently visible header block.
+            return Math.max(0, Math.round(headerRect.bottom));
+        };
+
         const openMobileMenu = () => {
             if (!mobileMenu || !mobileNavPanel) {
                 return;
             }
 
-            const headerHeight = headerElement instanceof HTMLElement ? headerElement.offsetHeight : 76;
-            mobileMenu.style.top = `${headerHeight}px`;
+            mobileMenu.style.top = `${getMobileMenuTopOffset()}px`;
 
             mobileMenu.classList.remove('hidden');
             mobileMenu.setAttribute('aria-hidden', 'false');
@@ -403,6 +694,29 @@ const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
             updateMobileToggleIcon(true);
             document.body.classList.add('overflow-hidden');
         };
+
+        try {
+            const storedTheme = localStorage.getItem(storageKey);
+
+            if ((storedTheme === 'light' || storedTheme === 'dark' || storedTheme === 'system') && themeModes.includes(storedTheme)) {
+                applyTheme(storedTheme);
+            } else {
+                applyTheme(getThemePreference());
+            }
+        } catch {
+            applyTheme(getThemePreference());
+        }
+
+        const colorSchemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        colorSchemeQuery.addEventListener('change', () => {
+            if (getThemePreference() === 'system') {
+                applyTheme('system');
+            }
+        });
+
+        themeToggles.forEach((button) => {
+            button.addEventListener('click', cycleTheme);
+        });
 
         const closeMobileMenu = () => {
             if (!mobileMenu || !mobileNavPanel) {
@@ -545,6 +859,10 @@ const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
             link.addEventListener('click', closeMobileMenu);
         });
 
+        mobileMenuCloseButtons.forEach((button) => {
+            button.addEventListener('click', closeMobileMenu);
+        });
+
         if (searchEnabled) {
             searchOpenButtons.forEach((button) => {
                 button.addEventListener('click', openSearch);
@@ -603,10 +921,8 @@ const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
         }
 
         window.addEventListener('resize', () => {
-            const headerHeight = headerElement instanceof HTMLElement ? headerElement.offsetHeight : 76;
-
             if (mobileMenu instanceof HTMLElement) {
-                mobileMenu.style.top = `${headerHeight}px`;
+                mobileMenu.style.top = `${getMobileMenuTopOffset()}px`;
             }
 
             if (window.innerWidth >= 768) {
