@@ -1,8 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
 import ContentCard from '../components/ContentCard.astro';
+import HomeShowcase from '../components/HomeShowcase.astro';
 import Layout from '../layouts/Layout.astro';
-import { buildPageTitle } from '../config/site';
+import { buildPageTitle, siteConfig } from '../config/site';
 
 type ListingItem = {
 	href: string;
@@ -11,6 +12,14 @@ type ListingItem = {
 	dateLabel?: string;
 	tag: string;
 	sortValue?: number;
+};
+
+type ShowcaseFeatureItem = {
+	href: string;
+	title: string;
+	description: string;
+	tag: string;
+	dateLabel?: string;
 };
 
 const prettyLabel = (segment: string) => segment
@@ -80,6 +89,34 @@ const recentUpdates: ListingItem[] = pageEntries
 	.sort((left, right) => (right.sortValue || 0) - (left.sortValue || 0))
 	.slice(0, 6);
 
+const featuredPostItems: ShowcaseFeatureItem[] = [
+	...postEntries.map((entry) => {
+		const slug = entry.id.replace(/\.(md|mdx)$/, '').replace(/\/index$/, '');
+		const dateString = entry.data.date || extractDateString(slug);
+		const parsedTime = dateString ? new Date(dateString).valueOf() : 0;
+
+		return {
+			href: `/posts/${slug}/`,
+			title: entry.data.title?.trim() || prettyLabel(slug.split('/').pop() || 'School Post'),
+			description: entry.data.description?.trim() || 'Open the full post for details and updates.',
+			dateLabel: formatDate(dateString),
+			tag: entry.data.section?.trim() || 'Post',
+			sortValue: Number.isNaN(parsedTime) ? 0 : parsedTime,
+		};
+	}),
+	...recentUpdates.map((item) => ({
+		href: item.href,
+		title: item.title,
+		description: item.description,
+		dateLabel: item.dateLabel,
+		tag: item.tag,
+		sortValue: item.sortValue || 0,
+	})),
+]
+	.sort((left, right) => ((right as ListingItem).sortValue || 0) - ((left as ListingItem).sortValue || 0))
+	.slice(0, 5)
+	.map(({ href, title, description, dateLabel, tag }) => ({ href, title, description, dateLabel, tag }));
+
 const totalPages = pageEntries.length;
 const totalCategories = categoryCards.length;
 const totalPosts = postEntries.length;
@@ -92,6 +129,15 @@ const totalPosts = postEntries.length;
 	bannerText="Explore categories, circulars, admissions, facilities, and important school updates from one organized landing page."
 	bannerTone="amber"
 >
+	<Fragment slot="afterHeader">
+		<HomeShowcase
+			activitySlides={siteConfig.home.activitySlides}
+			featuredItems={featuredPostItems}
+			marqueeItems={siteConfig.home.marqueeItems}
+			slides={siteConfig.home.sliderSlides}
+		/>
+	</Fragment>
+
 	<section class="space-y-10">
 		<div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
 			<div class="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">

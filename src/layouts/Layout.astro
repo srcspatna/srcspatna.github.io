@@ -26,6 +26,13 @@ const navLinks = siteConfig.navigation;
 const activeSocialLinks = siteConfig.socialLinks.filter((link) => link.href.trim().length > 0);
 const searchEnabled = siteConfig.features.search;
 const themeToggleEnabled = siteConfig.features.themeToggle;
+const showBrandName = siteConfig.appearance.showBrandName;
+const showSiteName = siteConfig.appearance.showSiteName;
+const showEyebrow = siteConfig.appearance.showEyebrow;
+const showWatermark = siteConfig.appearance.showWatermark;
+const brandLogoImage = siteConfig.appearance.brandLogoImage === 'wordmark' 
+  ? siteConfig.branding.wordmark 
+  : siteConfig.branding.logo;
 const availableThemes = [
     siteConfig.appearance.enableLightTheme ? 'light' : null,
     siteConfig.appearance.enableDarkTheme ? 'dark' : null,
@@ -72,6 +79,7 @@ const activeLinkClass = (href: string) => {
 };
 
 const selectedTheme = bannerThemes[bannerTone];
+const hasAfterHeader = Astro.slots.has('afterHeader');
 const hasFeature = Astro.slots.has('feature');
 const canonicalUrl = resolveSiteUrl(pathname);
 const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
@@ -245,29 +253,37 @@ const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
             <div class="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
                 <a href="/" class="flex min-w-0 items-center gap-3 text-slate-950">
                     <span class="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-white shadow-lg shadow-slate-900/10 ring-1 ring-slate-200 sm:h-12 sm:w-12">
-                        <img src={siteConfig.branding.logo.src} alt={siteConfig.branding.logo.alt} class="h-full w-full object-cover" width={siteConfig.branding.logo.width} height={siteConfig.branding.logo.height} loading="eager" decoding="async" />
+                        <img 
+                            src={brandLogoImage.src} 
+                            alt={brandLogoImage.alt} 
+                            class="h-full w-full object-cover" 
+                            {...('width' in brandLogoImage && 'height' in brandLogoImage ? { width: brandLogoImage.width, height: brandLogoImage.height } : {})}
+                            loading="eager" 
+                            decoding="async" 
+                        />
                     </span>
-                    <span class="min-w-0">
-                        <span class="block truncate text-[0.65rem] font-semibold uppercase tracking-[0.26em] text-sky-700 sm:text-xs sm:tracking-[0.32em]">{siteConfig.branding.eyebrow}</span>
-                        <span class="block truncate text-lg font-extrabold tracking-tight sm:text-xl">{siteConfig.site.name}</span>
-                    </span>
+                    {showWatermark && siteConfig.branding.watermark.src && (
+                        <img 
+                            src={siteConfig.branding.watermark.src} 
+                            alt={siteConfig.branding.watermark.alt} 
+                            class="h-auto max-h-12" 
+                            loading="eager" 
+                            decoding="async" 
+                        />
+                    )}
+                    {showBrandName && (
+                        <span class="min-w-0">
+                            {showEyebrow && (
+                                <span class="block truncate text-[0.65rem] font-semibold uppercase tracking-[0.26em] text-sky-700 sm:text-xs sm:tracking-[0.32em]">{siteConfig.branding.eyebrow}</span>
+                            )}
+                            {showSiteName && (
+                                <span class="block truncate text-lg font-extrabold tracking-tight sm:text-xl">{siteConfig.site.name}</span>
+                            )}
+                        </span>
+                    )}
                 </a>
 
                 <div class="flex items-center gap-2 md:hidden">
-                    {searchEnabled && (
-                        <button
-                            type="button"
-                            data-search-open
-                            class="inline-flex items-center justify-center rounded-xl border border-slate-200 p-2 text-slate-700 transition hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400"
-                            aria-label="Open search"
-                        >
-                            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <circle cx="11" cy="11" r="7" />
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M20 20l-3.5-3.5" />
-                            </svg>
-                        </button>
-                    )}
-
                     <button
                         id="mobile-nav-toggle"
                         type="button"
@@ -350,6 +366,14 @@ const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
             </div>
 
         </header>
+
+        {hasAfterHeader && (
+            <section class="bg-slate-50 px-4 py-4 sm:px-6 lg:px-8">
+                <div class="mx-auto w-full max-w-7xl">
+                    <slot name="afterHeader" />
+                </div>
+            </section>
+        )}
 
         <nav id="mobile-nav-menu" class="fixed inset-x-0 bottom-0 z-70 hidden md:hidden" style="top: 76px;" aria-label="Mobile navigation" aria-hidden="true">
             <div id="mobile-nav-backdrop" class="absolute inset-0 bg-slate-950/60 backdrop-blur-sm"></div>
