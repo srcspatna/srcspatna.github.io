@@ -5,6 +5,7 @@ type BannerTone = 'blue' | 'emerald' | 'amber';
 
 const {
   title = 'Greenwood School',
+    description = 'Greenwood School portal for announcements, school pages, and parent-student updates.',
   bannerEyebrow,
   bannerTitle,
   bannerText,
@@ -12,6 +13,7 @@ const {
   mainClass = 'mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 lg:px-8',
 } = Astro.props as {
   title?: string;
+    description?: string;
   bannerEyebrow?: string;
   bannerTitle?: string;
   bannerText?: string;
@@ -26,6 +28,10 @@ const navLinks = [
 ];
 
 const pathname = Astro.url.pathname;
+const logoSrc = '/src/assets/logo.png';
+const faviconSvg = '/src/assets/logo_favicon.png';
+const faviconIco = '/src/assets/logo_favicon.png';
+const previewImage = '/src/assets/logo_favicon.png';
 const bannerThemes: Record<BannerTone, { shell: string; badge: string; glow: string }> = {
   blue: {
     shell: 'from-slate-950 via-blue-900 to-sky-600',
@@ -62,22 +68,55 @@ const hasFeature = Astro.slots.has('feature');
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0f172a" />
+    <link rel="icon" type="image/svg+xml" href={faviconSvg} />
+    <link rel="icon" type="image/x-icon" href={faviconIco} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Greenwood School" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={previewImage} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={previewImage} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Merriweather:wght@700&display=swap" rel="stylesheet" />
+    
 </head>
 <body class="min-h-screen bg-slate-50 text-slate-900 antialiased">
     <div class="flex min-h-screen flex-col">
         <header class="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur">
             <div class="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-                <a href="/" class="flex items-center gap-3 text-slate-950">
-                    <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-950 text-lg font-bold text-white shadow-lg shadow-slate-900/15">GS</span>
-                    <span>
-                        <span class="block text-xs font-semibold uppercase tracking-[0.32em] text-sky-700">Learning Campus</span>
-                        <span class="block text-xl font-extrabold tracking-tight">Greenwood School</span>
+                <a href="/" class="flex min-w-0 items-center gap-3 text-slate-950">
+                    <span class="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-white shadow-lg shadow-slate-900/10 ring-1 ring-slate-200 sm:h-12 sm:w-12">
+                        <img src={logoSrc} alt="Greenwood School logo" class="h-full w-full object-cover" width="48" height="48" loading="eager" decoding="async" />
+                    </span>
+                    <span class="min-w-0">
+                        <span class="block truncate text-[0.65rem] font-semibold uppercase tracking-[0.26em] text-sky-700 sm:text-xs sm:tracking-[0.32em]">Learning Campus</span>
+                        <span class="block truncate text-lg font-extrabold tracking-tight sm:text-xl">Greenwood School</span>
                     </span>
                 </a>
-                <nav class="flex items-center gap-2 sm:gap-3">
+
+                <button
+                    id="mobile-nav-toggle"
+                    type="button"
+                    class="inline-flex items-center justify-center rounded-xl border border-slate-200 p-2 text-slate-700 transition hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 md:hidden"
+                    aria-expanded="false"
+                    aria-controls="mobile-nav-menu"
+                    aria-label="Toggle navigation"
+                >
+                    <svg id="mobile-nav-open-icon" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                    <svg id="mobile-nav-close-icon" class="hidden h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M6 18L18 6" />
+                    </svg>
+                </button>
+
+                <nav class="hidden items-center gap-2 sm:gap-3 md:flex" aria-label="Primary navigation">
                     {navLinks.map((link) => (
                         <a
                             href={link.href}
@@ -93,6 +132,24 @@ const hasFeature = Astro.slots.has('feature');
                     ))}
                 </nav>
             </div>
+
+            <nav id="mobile-nav-menu" class="hidden border-t border-slate-200 bg-white/95 px-4 pb-4 pt-3 md:hidden" aria-label="Mobile navigation">
+                <div class="mx-auto grid w-full max-w-7xl gap-2">
+                    {navLinks.map((link) => (
+                        <a
+                            href={link.href}
+                            class:list={[
+                                'rounded-xl px-4 py-3 text-sm font-semibold transition-colors duration-200',
+                                activeLinkClass(link.href)
+                                    ? 'bg-slate-950 text-white'
+                                    : 'text-slate-700 hover:bg-slate-100 hover:text-slate-950',
+                            ]}
+                        >
+                            {link.label}
+                        </a>
+                    ))}
+                </div>
+            </nav>
         </header>
 
         {bannerTitle && (
@@ -140,5 +197,39 @@ const hasFeature = Astro.slots.has('feature');
             </div>
         </footer>
     </div>
+
+    <script>
+        const toggleButton = document.getElementById('mobile-nav-toggle');
+        const mobileMenu = document.getElementById('mobile-nav-menu');
+        const openIcon = document.getElementById('mobile-nav-open-icon');
+        const closeIcon = document.getElementById('mobile-nav-close-icon');
+        const mobileLinks = mobileMenu?.querySelectorAll('a');
+
+        const closeMobileMenu = () => {
+            mobileMenu?.classList.add('hidden');
+            openIcon?.classList.remove('hidden');
+            closeIcon?.classList.add('hidden');
+            toggleButton?.setAttribute('aria-expanded', 'false');
+        };
+
+        toggleButton?.addEventListener('click', () => {
+            const isHidden = mobileMenu?.classList.toggle('hidden');
+            const isOpen = isHidden === false;
+
+            openIcon?.classList.toggle('hidden', isOpen);
+            closeIcon?.classList.toggle('hidden', !isOpen);
+            toggleButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+
+        mobileLinks?.forEach((link) => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768) {
+                closeMobileMenu();
+            }
+        });
+    </script>
 </body>
 </html>
