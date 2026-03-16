@@ -41,6 +41,7 @@ export const siteConfig = {
   },
   features: {
     breadcrumbs: true, // set to false to disable breadcrumbs site-wide
+    search: true, // set to false to disable global search UI and behavior
   },
   navigation: [
     { href: '/', label: 'Home' },
