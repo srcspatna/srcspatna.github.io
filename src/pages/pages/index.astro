@@ -9,55 +9,41 @@ type ListingItem = {
   href: string;
   title: string;
   description: string;
-  dateLabel?: string;
   tag: string;
-  sortValue: number;
 };
-
-const PAGE_SIZE = 6;
-
-const formatDate = (value?: string) => {
-  if (!value) {
-    return undefined;
-  }
-
-  const parsedDate = new Date(value);
-
-  if (Number.isNaN(parsedDate.valueOf())) {
-    return undefined;
-  }
-
-  return parsedDate.toLocaleDateString('en-US', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-  });
-};
-
-const extractDateString = (value?: string) => value?.match(/\d{4}-\d{2}-\d{2}/)?.[0];
+const prettyLabel = (segment: string) => segment
+  .replace(/-/g, ' ')
+  .replace(/\b\w/g, (char) => char.toUpperCase());
 
 const entries = await getCollection('pages');
 
-const pageItems: ListingItem[] = entries
-  .map((entry) => {
-    const slug = entry.slug || entry.id.replace(/\.(md|mdx)$/, '').replace(/\/index$/, '');
-    const dateString = entry.data.date || extractDateString(slug);
-    const parsedTime = dateString ? new Date(dateString).valueOf() : 0;
+const categoryMap = new Map<string, { description?: string; count: number }>();
 
-    return {
-      href: `/pages/${slug}/`,
-      title: entry.data.title?.trim() || 'School Page',
-      description: entry.data.description?.trim() || 'Open this school page to view detailed information and reference material.',
-      dateLabel: formatDate(dateString),
-      tag: entry.data.section?.trim() || 'Page',
-      sortValue: Number.isNaN(parsedTime) ? 0 : parsedTime,
-    };
-  })
-  .sort((left, right) => right.sortValue - left.sortValue);
+for (const entry of entries) {
+  const slug = entry.id.replace(/\.(md|mdx)$/, '').replace(/\/index$/, '');
+  const [topLevel] = slug.split('/');
 
-const totalItems = pageItems.length;
-const lastPage = Math.max(1, Math.ceil(totalItems / PAGE_SIZE));
-const data = pageItems.slice(0, PAGE_SIZE);
+  if (!topLevel || topLevel === slug) {
+    continue;
+  }
+
+  const previous = categoryMap.get(topLevel);
+
+  categoryMap.set(topLevel, {
+    description: previous?.description || entry.data.description?.trim(),
+    count: (previous?.count || 0) + 1,
+  });
+}
+
+const data: ListingItem[] = [...categoryMap.entries()]
+  .sort(([left], [right]) => left.localeCompare(right))
+  .map(([category, meta]) => ({
+    href: `/pages/${category}/`,
+    title: prettyLabel(category),
+    description: meta.description || `Browse ${meta.count} pages in the ${prettyLabel(category)} category.`,
+    tag: 'Category',
+  }));
+
 const pageTitle = buildPageTitle('School Pages');
 ---
 
@@ -70,21 +56,5 @@ const pageTitle = buildPageTitle('School Pages');
         <ContentCard item={item} tone="emerald" />
       ))}
     </div>
-
-    {lastPage > 1 && (
-      <nav class="flex flex-wrap items-center justify-center gap-3 border-t border-slate-200 pt-8">
-        <span class="inline-flex rounded-full border border-slate-200 px-5 py-2 text-sm font-semibold text-slate-300">
-          Previous
-        </span>
-
-        <span class="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">
-          Page 1 of {lastPage}
-        </span>
-
-        <a href="/pages/page/2" class="inline-flex rounded-full border border-slate-300 px-5 py-2 text-sm font-semibold text-slate-700 transition hover:border-slate-950 hover:text-slate-950">
-          Next
-        </a>
-      </nav>
-    )}
   </section>
 </Layout>

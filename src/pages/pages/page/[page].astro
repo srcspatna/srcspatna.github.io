@@ -1,0 +1,138 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getCollection } from 'astro:content';
+import Layout from '../../../layouts/PagesLayout.astro';
+import ContentCard from '../../../components/ContentCard.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import { buildPageTitle } from '../../../config/site';
+
+type ListingItem = {
+  href: string;
+  title: string;
+  description: string;
+  dateLabel?: string;
+  tag: string;
+  sortValue: number;
+};
+
+type ListingPage = {
+  data: ListingItem[];
+  currentPage: number;
+  lastPage: number;
+  prev?: string;
+  next?: string;
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const PAGE_SIZE = 6;
+
+  const formatDate = (value?: string) => {
+    if (!value) {
+      return undefined;
+    }
+
+    const parsedDate = new Date(value);
+
+    if (Number.isNaN(parsedDate.valueOf())) {
+      return undefined;
+    }
+
+    return parsedDate.toLocaleDateString('en-US', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+    });
+  };
+
+  const extractDateString = (value?: string) => value?.match(/\d{4}-\d{2}-\d{2}/)?.[0];
+
+  const entries = await getCollection('pages');
+
+  const items: ListingItem[] = entries
+    .map((entry) => {
+      const slug = entry.id.replace(/\.(md|mdx)$/, '').replace(/\/index$/, '');
+      const dateString = entry.data.date || extractDateString(slug);
+      const parsedTime = dateString ? new Date(dateString).valueOf() : 0;
+
+      return {
+        href: `/pages/${slug}/`,
+        title: entry.data.title?.trim() || 'School Page',
+        description: entry.data.description?.trim() || 'Open this school page to view detailed information and reference material.',
+        dateLabel: formatDate(dateString),
+        tag: entry.data.section?.trim() || 'Page',
+        sortValue: Number.isNaN(parsedTime) ? 0 : parsedTime,
+      };
+    })
+    .sort((left, right) => right.sortValue - left.sortValue);
+
+  const lastPage = Math.max(1, Math.ceil(items.length / PAGE_SIZE));
+  const paths = [];
+
+  for (let currentPage = 2; currentPage <= lastPage; currentPage += 1) {
+    const start = (currentPage - 1) * PAGE_SIZE;
+    const end = start + PAGE_SIZE;
+
+    paths.push({
+      params: { page: String(currentPage) },
+      props: {
+        page: {
+          data: items.slice(start, end),
+          currentPage,
+          lastPage,
+          prev: currentPage === 2 ? '/pages' : `/pages/page/${currentPage - 1}`,
+          next: currentPage === lastPage ? undefined : `/pages/page/${currentPage + 1}`,
+        } satisfies ListingPage,
+      },
+    });
+  }
+
+  return paths;
+};
+
+const { page } = Astro.props as { page: ListingPage };
+const pageTitle = buildPageTitle(`School Pages - Page ${page.currentPage}`);
+---
+
+<Layout title={pageTitle}>
+  <section class="space-y-8">
+    <Breadcrumbs
+      items={[
+        { label: 'Home', href: '/' },
+        { label: 'Pages', href: '/pages' },
+        { label: `Page ${page.currentPage}` },
+      ]}
+    />
+
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-2 xl:grid-cols-3">
+      {page.data.map((item) => (
+        <ContentCard item={item} tone="emerald" />
+      ))}
+    </div>
+
+    <nav class="flex flex-wrap items-center justify-center gap-3 border-t border-slate-200 pt-8">
+      {page.prev ? (
+        <a href={page.prev} class="inline-flex rounded-full border border-slate-300 px-5 py-2 text-sm font-semibold text-slate-700 transition hover:border-slate-950 hover:text-slate-950">
+          Previous
+        </a>
+      ) : (
+        <span class="inline-flex rounded-full border border-slate-200 px-5 py-2 text-sm font-semibold text-slate-300">
+          Previous
+        </span>
+      )}
+
+      <span class="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">
+        Page {page.currentPage} of {page.lastPage}
+      </span>
+
+      {page.next ? (
+        <a href={page.next} class="inline-flex rounded-full border border-slate-300 px-5 py-2 text-sm font-semibold text-slate-700 transition hover:border-slate-950 hover:text-slate-950">
+          Next
+        </a>
+      ) : (
+        <span class="inline-flex rounded-full border border-slate-200 px-5 py-2 text-sm font-semibold text-slate-300">
+          Next
+        </span>
+      )}
+    </nav>
+  </section>
+</Layout>
