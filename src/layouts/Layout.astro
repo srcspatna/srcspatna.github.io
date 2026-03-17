@@ -83,6 +83,25 @@ const hasAfterHeader = Astro.slots.has('afterHeader');
 const hasFeature = Astro.slots.has('feature');
 const canonicalUrl = resolveSiteUrl(pathname);
 const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
+const currentYear = new Date().getFullYear();
+const footerAboutText = 'Legacy of 95 years of excellence in the domain of education reflected in the world class premier institutions of higher learning by Shri Ram family - SRCC & LSR. Ranked as one of the Best CBSE Schools in Bihar by the EW Magazine, SRCS focuses on the holistic growth of the child. We cater to learning upto senior secondary level and provide career counselling as well.';
+const footerNavigationLinks = [
+    { href: '/pages/blog/', label: 'Our Blogs' },
+    { href: '/pages/circular/', label: 'Circulars' },
+    { href: '/pages/admission/contact-us/', label: 'Contact Us' },
+    { href: '/pages/admission/fee-structure/pre-primary/', label: 'Fee-Structure - Pre-Primary' },
+    { href: '/pages/admission/fee-structure/primary-to-secondary/', label: 'Fee-Structure - Primary to Secondary' },
+    { href: '/pages/admission/fee-structure/senior-secondary/', label: 'Fee-Structure - Senior Secondary' },
+];
+const footerSocialLinks = [
+    { label: 'Facebook', href: 'https://www.facebook.com/groups/astroid/' },
+    { label: 'X', href: 'https://x.com/' },
+    { label: 'Github', href: 'https://github.com/templaza/astroid-framework' },
+    { label: 'Linked', href: 'https://linkedin.com/' },
+    { label: 'Dribbble', href: 'https://dribbble.com/templaza' },
+];
+const formattedMobile = siteConfig.contact.mobile.replace('+91', '+91 ');
+const formattedPhone = siteConfig.contact.phone.replace('+91', '+91 ');
 ---
 
 <!DOCTYPE html>
@@ -146,7 +165,7 @@ const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
     data-theme-default={defaultTheme}
     data-theme-modes={JSON.stringify(availableThemes)}
 >
-    <div class="flex min-h-screen flex-col">
+    <div id="site-top" class="flex min-h-screen flex-col">
         {topBarEnabled && (
             <div class:list={[
                 'border-b border-slate-800 bg-slate-950 text-slate-100',
@@ -530,11 +549,119 @@ const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
             <slot />
         </main>
 
-        <footer class="border-t border-slate-200 bg-white">
-            <div class="mx-auto flex w-full max-w-7xl flex-col gap-3 px-4 py-8 text-sm text-slate-500 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
-                <p>© {new Date().getFullYear()} {siteConfig.site.name}. {siteConfig.footer.primaryText}</p>
-                <p>{siteConfig.footer.secondaryText}</p>
+        <footer class="relative border-t border-slate-800 bg-slate-950 text-slate-100">
+            <div class="mx-auto w-full max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+                <div class="grid gap-12 lg:grid-cols-[1.5fr_1fr_1fr] lg:gap-10">
+                    <div>
+                        <h2 class="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">SRCS, Patna</h2>
+                        <p class="mt-6 max-w-2xl text-base leading-7 text-slate-300">{footerAboutText}</p>
+
+                        <div class="mt-8 flex items-center gap-5 text-slate-300">
+                            {footerSocialLinks.map((social) => (
+                                <a
+                                    href={social.href}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    class="inline-flex h-8 w-8 items-center justify-center transition hover:-translate-y-0.5 hover:text-amber-300"
+                                    aria-label={social.label}
+                                    title={social.label}
+                                >
+                                    {social.label === 'Facebook' && (
+                                        <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                            <path d="M13.5 8H16V5h-2.5A4.5 4.5 0 009 9.5V12H7v3h2v4h3v-4h2.5l.5-3H12V9.5c0-.9.6-1.5 1.5-1.5z" />
+                                        </svg>
+                                    )}
+                                    {social.label === 'X' && (
+                                        <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                            <path d="M18.9 3H22l-6.77 7.74L23 21h-6.08l-4.76-6.21L6.72 21H3.6l7.24-8.27L1 3h6.23l4.3 5.67L18.9 3zm-1.06 16.13h1.68L6.33 4.8H4.52l13.32 14.33z" />
+                                        </svg>
+                                    )}
+                                    {social.label === 'Github' && (
+                                        <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                            <path d="M12 2a10 10 0 00-3.16 19.49c.5.1.68-.22.68-.48v-1.88c-2.78.6-3.37-1.18-3.37-1.18-.45-1.13-1.1-1.44-1.1-1.44-.9-.61.07-.6.07-.6 1 .07 1.52 1.03 1.52 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.64-1.33-2.22-.25-4.56-1.1-4.56-4.95 0-1.1.39-2 .99-2.71-.1-.25-.43-1.28.1-2.66 0 0 .82-.26 2.69 1.03a9.31 9.31 0 014.89 0c1.86-1.29 2.67-1.03 2.67-1.03.54 1.38.2 2.41.1 2.66.62.71 1 1.6 1 2.71 0 3.86-2.35 4.7-4.59 4.94.36.31.68.9.68 1.81v2.68c0 .27.18.59.69.49A10 10 0 0012 2z" />
+                                        </svg>
+                                    )}
+                                    {social.label === 'Linked' && (
+                                        <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                            <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.14 1.45-2.14 2.94v5.66H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.27 2.37 4.27 5.46v6.28zM5.32 7.43a2.07 2.07 0 110-4.14 2.07 2.07 0 010 4.14zM7.1 20.45H3.54V9H7.1v11.45z" />
+                                        </svg>
+                                    )}
+                                    {social.label === 'Dribbble' && (
+                                        <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                            <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm6.86 4.8a8 8 0 012.02 4.88 25.36 25.36 0 00-5.5-.17 19.34 19.34 0 00-.83-1.86c2.5-1.01 3.64-2.47 4.3-3.38zM12 4c1.9 0 3.65.67 5.02 1.78-.55.82-1.5 2.03-3.68 2.92A40.55 40.55 0 0011.1 4.1c.3-.06.6-.1.9-.1zM8.84 4.65A38.88 38.88 0 0111 9.12a33.4 33.4 0 01-7 .23A8.02 8.02 0 018.84 4.65zM4 12v-.56c.18 0 .36.01.55.01 2.12 0 4.22-.28 6.24-.77.3.58.58 1.17.83 1.77l-.41.12C7.96 13.55 6.1 16.2 5.36 17.43A7.97 7.97 0 014 12zm2.82 6.66c.56-.95 2.14-3.23 5.17-4.29.12-.04.23-.08.35-.11a29.85 29.85 0 011.14 5.69A8.01 8.01 0 016.82 18.66zM15.44 19.3a31.76 31.76 0 00-.99-5.18 23.27 23.27 0 015.97.27A8.01 8.01 0 0115.44 19.3z" />
+                                        </svg>
+                                    )}
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-bold text-white">React Out</h3>
+                        <ul class="mt-6 space-y-4 text-base leading-7 text-slate-300">
+                            <li>
+                                <a href={`mailto:${siteConfig.contact.email}`} class="inline-flex items-start gap-3 transition hover:text-amber-300">
+                                    <svg class="mt-1 h-6 w-6 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                        <path d="M3 5a2 2 0 012-2h14a2 2 0 012 2v1.24l-9 5.5-9-5.5V5zm0 3.59l8.47 5.18a1 1 0 001.06 0L21 8.59V19a2 2 0 01-2 2H5a2 2 0 01-2-2V8.59z" />
+                                    </svg>
+                                    <span>{siteConfig.contact.email}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href={`tel:${siteConfig.contact.phone}`} class="inline-flex items-start gap-3 transition hover:text-amber-300">
+                                    <svg class="mt-1 h-6 w-6 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                        <path d="M6.62 10.79a15.52 15.52 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.32.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1C10.3 21 3 13.7 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.24 1.02l-2.21 2.2z" />
+                                    </svg>
+                                    <span>{formattedPhone}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href={`tel:${siteConfig.contact.mobile}`} class="inline-flex items-start gap-3 transition hover:text-amber-300">
+                                    <svg class="mt-1 h-6 w-6 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                        <path d="M7 2h10a2 2 0 012 2v16a2 2 0 01-2 2H7a2 2 0 01-2-2V4a2 2 0 012-2zm5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
+                                    </svg>
+                                    <span>{formattedMobile}</span>
+                                </a>
+                            </li>
+                            <li class="inline-flex items-start gap-3">
+                                <svg class="mt-1 h-6 w-6 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                    <path d="M12 2a8 8 0 00-8 8c0 5.25 6.5 11.2 7.23 11.86a1.2 1.2 0 001.54 0C13.5 21.2 20 15.25 20 10a8 8 0 00-8-8zm0 10.5A2.5 2.5 0 1112 7a2.5 2.5 0 010 5.5z" />
+                                </svg>
+                                <span>{siteConfig.contact.address}</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-bold text-white">Navigate</h3>
+                        <ul class="mt-6 space-y-4 text-base leading-7 text-slate-300">
+                            {footerNavigationLinks.map((link) => (
+                                <li>
+                                    <a href={link.href} class="transition hover:text-amber-300">{link.label}</a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mt-14 flex flex-col gap-4 border-t border-slate-800 pt-8 text-sm text-slate-400 sm:flex-row sm:items-center sm:justify-between">
+                    <p>© SHRI RAM CENTENNIAL SCHOOL {currentYear}, All Rights Reserved.</p>
+                    <a href="/pages/admission/policy-and-procedure/" class="transition hover:text-amber-300">Policy &amp; Procedure</a>
+                </div>
             </div>
+
+            <a
+                id="back-to-top-button"
+                href="#site-top"
+                class="fixed bottom-6 right-6 z-40 inline-flex h-14 w-14 items-center justify-center rounded-full bg-amber-500 text-slate-950 shadow-lg shadow-amber-950/40 transition duration-200 hover:-translate-y-0.5 hover:bg-amber-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-300"
+                aria-label="Back to top"
+                title="Back to top"
+            >
+                <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 19V5" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 12l7-7 7 7" />
+                </svg>
+            </a>
         </footer>
     </div>
 
@@ -576,6 +703,7 @@ const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
         const searchInput = searchEnabled ? document.getElementById('site-search-input') : null;
         const searchStatus = searchEnabled ? document.getElementById('site-search-status') : null;
         const searchResults = searchEnabled ? document.getElementById('site-search-results') : null;
+        const backToTopButton = document.getElementById('back-to-top-button');
 
         let searchIndexJson = '[]';
         let searchLoaded = false;
@@ -655,6 +783,22 @@ const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
             openIcon?.classList.toggle('hidden', isOpen);
             closeIcon?.classList.toggle('hidden', !isOpen);
             toggleButton?.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        };
+
+        const updateBackToTopVisibility = () => {
+            if (!(backToTopButton instanceof HTMLAnchorElement)) {
+                return;
+            }
+
+            const shouldShow = window.scrollY > 120;
+
+            backToTopButton.classList.toggle('opacity-0', !shouldShow);
+            backToTopButton.classList.toggle('pointer-events-none', !shouldShow);
+            backToTopButton.classList.toggle('translate-y-2', !shouldShow);
+            backToTopButton.classList.toggle('opacity-100', shouldShow);
+            backToTopButton.classList.toggle('translate-y-0', shouldShow);
+            backToTopButton.setAttribute('aria-hidden', shouldShow ? 'false' : 'true');
+            backToTopButton.tabIndex = shouldShow ? 0 : -1;
         };
 
         const getMobileMenuTopOffset = () => {
@@ -921,6 +1065,9 @@ const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
                 closeMobileMenu();
             }
         });
+
+        updateBackToTopVisibility();
+        window.addEventListener('scroll', updateBackToTopVisibility, { passive: true });
     </script>
 </body>
 </html>
