@@ -91,7 +91,7 @@ content:
   - name: footer
     label: Footer
     type: file
-    path: src/content/data/footer
+    path: src/content/data/footer.md
     fields:
       - { name: primaryText, label: Primary Text, type: string }
       - { name: secondaryText, label: Secondary Text, type: string }
