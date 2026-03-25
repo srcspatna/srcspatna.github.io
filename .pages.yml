@@ -62,7 +62,7 @@ content:
     type: collection
     path: src/content/data/showcase
     view:
-      fields: [ description ]
+      fields: [ eyebrow, title, description ]
     fields:
       - { name: eyebrow, label: Eyebrow, type: string }
       - { name: title, label: Title, type: string }
