@@ -2,8 +2,7 @@
 title: 'Why SRCS Patna Is Best For 11th-12th Arts'
 section: 'Articles'
 sourceUrl: 'https://srcspatna.com/page/why-srcs-patna-is-the-best-school-in-patna-for-11th-12th-arts'
-description: 'Why SRCS Patna is the Best School in Patna for 11th & 12th Arts.
-SRCS Patna has earned its reputation as the Top school in Patna for 11th and 12th Arts.'
+description: 'Why SRCS Patna is the Best School in Patna for 11th & 12th Arts. SRCS Patna has earned its reputation as the Top school in Patna for 11th and 12th Arts.'
 ---
 
 # Cultivating Your Artistic Mind: Why SRCS Patna is the Best School in Patna for 11th & 12th Arts
