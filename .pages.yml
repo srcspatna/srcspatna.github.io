@@ -54,9 +54,9 @@ content:
     type: collection
     path: src/content/data/marquee_items
     view:
-      fields: [ body ]
+      fields: [ description ]
     fields:
-      - { name: body, label: Body, type: rich-text, options: { input: src/assets, output: /assets } }
+      - { name: description, label: Description, type: string }
   - name: home
     label: Home page
     type: file
