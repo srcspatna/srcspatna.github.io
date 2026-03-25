@@ -12,18 +12,12 @@ content:
     view:
       fields: [ title, draft, date ]
     fields:
-      - { name: layout, type: string, hidden: true, default: "../layouts/PostsLayout.astro" }
-      - { name: author, label: Author, type: string }
-      - { name: pubDatetime, label: Publish Date, type: date }
-      - { name: modDatetime, label: Modified Date, type: date }
       - { name: title, label: Title, type: string, required: true }
-      - { name: ogImage, label: Title, type: string }
+      - { name : section, label: Section, type: string, required: true }
       - { name: slug, label: Slug, type: string }
-      - { name: featured, label: Featured, type: boolean }
-      - { name: draft, label: Draft, type: boolean }
-      - { name: tags, label: Tags, type: string, list: true }
+      - { name: sourceUrl, label: "Source Url", type: string }
       - { name: description, label: Description, type: string }
-      - { name: body, label: Body, type: rich-text }
+      - { name: body, label: Body, type: rich-text, options: { input: src/assets, output: /assets } }
   - name: pages
     label: Pages
     type: collection
