@@ -49,6 +49,14 @@ content:
       - { name: slug, label: Slug, type: string }
       - { name: description, label: Description, type: string }
       - { name: body, label: Body, type: rich-text, options: { input: src/assets, output: /assets } }
+  - name: marquee_items
+    label: Marquee Items
+    type: collection
+    path: src/content/data/marquee_items
+    view:
+      fields: [ body ]
+    fields:
+      - { name: body, label: Body, type: rich-text, options: { input: src/assets, output: /assets } }
   - name: home
     label: Home page
     type: file
