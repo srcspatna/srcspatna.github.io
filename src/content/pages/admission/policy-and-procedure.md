@@ -5,6 +5,8 @@ sourceUrl: 'https://srcspatna.com/admission/top-10-school-in-patna-policy-and-pr
 description: 'Top School in Patna. Shaping Young Minds: Policy and Procedure at SRCS Patna, a Top School in Patna'
 ---
 
+<section class="seo-only">
+
 ## Shaping Young Minds: Policy and Procedure at SRCS Patna, a Top School in Patna
 
 
@@ -42,6 +44,9 @@ By choosing SRCS Patna, you are choosing a school that is committed to academic 
 
 **Ready to learn more?** Visit our website at [https://srcspatna.com](https://srcspatna.com/) to explore our admissions process and delve deeper into the exceptional educational experience offered at SRCS Patna, a **top 10 school in Patna**.
 
+</section>
+
+## Policy & Procedure
 
 1. Admission Application Forms and Prospectus are available at the school campus and can also be downloaded from the website
 

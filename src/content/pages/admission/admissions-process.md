@@ -1,10 +1,11 @@
 ---
-title: 'Admission Form'
+title: 'Admission Process'
 section: 'Admission'
 sourceUrl: 'https://srcspatna.com/admission/top-school-in-patna-the-admissions-process'
 description: 'Top School in Patna. Taking the First Step: The Admissions Process at SRCS Patna, a Top School in Patna. Admission Form'
 ---
 
+<section class="seo-only">
 ## Taking the First Step: The Admissions Process at SRCS Patna, a Top School in Patna
 
 
@@ -45,3 +46,36 @@ Being accepted into SRCS Patna signifies the beginning of an exciting new chapte
 
 
 Visit our website at [https://srcspatna.com](https://srcspatna.com/) to access the online application form and explore the admissions process in detail. We are confident that SRCS Patna, a **top school in Patna**, is the perfect place for your child to thrive.
+</section>
+
+## Admission Process
+
+### Step 1: Registration & Application
+
+The journey begins with the Online/Offline Registration. Parents can fill out the Admission Enquiry Form available on our website or visit the school campus to collect the Prospectus and Application Form.
+Requirement: Payment of a non-refundable registration fee.
+
+### Step 2: Document Submission
+
+Once registered, please submit the following documents for verification:
+Copy of the student’s Birth Certificate.
+Two recent passport-size photographs of the student and parents.
+Previous year’s Report Card/Mark Sheet (for Grade 1 and above).
+Copy of Aadhar Card (Student and Parents).
+
+### Step 3: Interaction & Assessment
+
+We believe in understanding every child’s potential.
+For Pre-Primary: A friendly interaction with the child and parents.
+For Grade 1 & Above: A basic Aptitude Assessment in English and Mathematics to identify the student's learning level.
+Principal’s Interaction: A final meeting to discuss the school’s philosophy and the child’s goals.
+
+### Step 4: Admission Offer & Confirmation
+
+Successful candidates will receive an Admission Offer. To secure the seat, parents must:
+Submit the Transfer Certificate (TC) from the previous school.
+Deposit the Admission Fee and other applicable charges within the specified timeline.
+
+### Step 5: Welcome to the Family
+
+Upon fee confirmation, the student is officially enrolled! Parents will receive the Welcome Kit, which includes the school calendar, uniform details, transport routes, and login credentials for the School Parent App.
