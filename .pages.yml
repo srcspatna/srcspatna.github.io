@@ -77,7 +77,7 @@ content:
           label: Accent,
           type: select,
           options: {
-            values: [ "Blue", "Red", "Green", "Yellow" ]
+            values: [ "amber", "emerald", "blue" ]
           }
         }
   - name: home
