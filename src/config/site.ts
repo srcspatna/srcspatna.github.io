@@ -35,7 +35,7 @@ export const siteConfig = {
       alt: 'Shri Ram Centenary School preview image',
     },
     watermark: {
-      src: '/src/assets/logo_name_150.png', // Add watermark image path when ready
+      src: wordmarkImage.src,
       alt: 'Shri Ram Centenary School watermark',
     },
   },
