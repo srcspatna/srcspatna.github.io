@@ -93,4 +93,5 @@ content:
     type: file
     path: src/pages/data/footer
     fields:
-      - { name: description, label: Description, type: string }
+      - { name: primaryText, label: Primary Text, type: string }
+      - { name: secondaryText, label: Secondary Text, type: string }
