@@ -88,3 +88,9 @@ content:
       - { name: layout, type: string, hidden: true, default: "../layouts/PageLayout.astro" }
       - { name: title, label: Title, type: string }
       - { name: body, label: Body, type: rich-text, options: { input: src/assets, output: /assets } }
+  - name: footer
+    label: Footer
+    type: file
+    path: src/pages/data/footer
+    fields:
+      - { name: description, label: Description, type: string }
