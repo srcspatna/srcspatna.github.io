@@ -1,8 +1,8 @@
 ---
-layout: ../layouts/PagesLayout.astro
-title: Contact Us
-description: At SRCS Patna, consistently ranked among the best schools in Patna
-  | Contact Form of Best School of Patna | Contact Best School of Patna
+title: 'Contact Us'
+section: 'Admission'
+sourceUrl: 'https://srcspatna.com/admission/contact-us'
+description: 'At SRCS Patna, consistently ranked among the best schools in Patna | Contact Form of Best School of Patna | Contact Best School of Patna'
 ---
 <section class="seo-only">
 # Contact Form of Best School of Patna

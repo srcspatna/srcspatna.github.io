@@ -2,6 +2,12 @@
 title: INFORMATION OF THE SCHOOL
 slug: information-of-the-school
 ---
+
+<section class="seo-only">
+  <h2>Best CBSE School in Patna</h2>
+  <p>Extra SEO-supporting content for search engines.</p>
+</section>
+
 # **INFORMATION OF THE SCHOOL**
 
 |     |     |

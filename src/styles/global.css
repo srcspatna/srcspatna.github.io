@@ -110,3 +110,21 @@ html.dark .content-shell :global(td) {
 html.dark .content-shell :global(blockquote) {
 	color: rgb(148 163 184);
 }
+
+/*
+	Use these classes for on-page SEO text that should remain in HTML
+	while staying visually hidden for site visitors.
+*/
+.seo-only,
+.seo-hidden {
+	position: absolute !important;
+	width: 1px !important;
+	height: 1px !important;
+	padding: 0 !important;
+	margin: -1px !important;
+	overflow: hidden !important;
+	clip: rect(0, 0, 0, 0) !important;
+	clip-path: inset(50%) !important;
+	white-space: nowrap !important;
+	border: 0 !important;
+}
