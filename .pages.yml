@@ -57,6 +57,29 @@ content:
       fields: [ description ]
     fields:
       - { name: description, label: Description, type: string }
+  - name: marquee_items
+    label: Marquee Items
+    type: collection
+    path: src/content/data/marquee_items
+    view:
+      fields: [ description ]
+    fields:
+      - { name: eyebrow, label: Eyebrow, type: string }
+      - { name: title, label: Title, type: string }
+      - { name: description, label: Description, type: string }
+      - { name: ctaLabel, label: CTA Label, type: string }
+      - { name: ctaHref, label: CTA Href, type: string }
+      - { name: secondaryLabel, label: Secondary Label, type: string }
+      - { name: secondaryHref, label: Secondary Href, type: string }
+      - { name: statLabel, label: Stat Label, type: string }
+      - { name: statValue, label: Stat Value, type: string }
+      - { name: accent,
+          label: Accent,
+          type: select,
+          options: {
+            values: [ "Blue", "Red", "Green", "Yellow" ]
+          }
+        }
   - name: home
     label: Home page
     type: file
