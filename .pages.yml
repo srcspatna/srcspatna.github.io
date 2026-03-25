@@ -57,10 +57,10 @@ content:
       fields: [ description ]
     fields:
       - { name: description, label: Description, type: string }
-  - name: marquee_items
-    label: Marquee Items
+  - name: showcase
+    label: Showcase
     type: collection
-    path: src/content/data/marquee_items
+    path: src/content/data/showcase
     view:
       fields: [ description ]
     fields:
