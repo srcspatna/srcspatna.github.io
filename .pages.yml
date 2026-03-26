@@ -37,7 +37,6 @@ content:
       - { name: description, label: Description, type: string }
       - { name: body, label: Body, type: rich-text,
           options: { 
-            format: html,
             input: src/assets/posts,
             output: /assets/posts
           } 
@@ -57,7 +56,6 @@ content:
       - { name: description, label: Description, type: string }
       - { name: body, label: Body, type: rich-text, 
           options: { 
-            format: html,
             input: src/assets/pages,
             output: /assets/pages
           } 
