@@ -35,12 +35,6 @@ content:
       - { name: slug, label: Slug, type: string }
       - { name: sourceUrl, label: "Source Url", type: string }
       - { name: description, label: Description, type: string }
-      - { name: seobody, label: "SEO Body", type: rich-text,
-          options: {
-            input: src/assets/posts,
-            output: /assets/posts
-          }
-        }
       - { name: body, label: Body, type: rich-text,
           options: { 
             input: src/assets/posts,
@@ -48,6 +42,12 @@ content:
           } 
         }
       - { name: seo, component: seo, label: SEO Meta Data }
+      - { name: seobody, label: "SEO Body", type: rich-text,
+          options: {
+            input: src/assets/posts,
+            output: /assets/posts
+          }
+        }
   - name: pages
     label: Pages
     type: collection
@@ -60,12 +60,6 @@ content:
       - { name: slug, label: Slug, type: string }
       - { name: sourceUrl, label: "Source Url", type: string }
       - { name: description, label: Description, type: string }
-      - { name: seobody, label: "SEO Body", type: rich-text,
-          options: {
-            input: src/assets/pages,
-            output: /assets/pages
-          }
-        }
       - { name: body, label: Body, type: rich-text, 
           options: { 
             input: src/assets/pages,
@@ -73,6 +67,12 @@ content:
           } 
         }
       - { name: seo, component: seo, label: SEO Meta Data }
+      - { name: seobody, label: "SEO Body", type: rich-text,
+          options: {
+            input: src/assets/pages,
+            output: /assets/pages
+          }
+        }
   - name: achievers-gallery
     label: Achievers Gallery
     type: collection
