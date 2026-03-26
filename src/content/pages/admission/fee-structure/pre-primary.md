@@ -1,6 +1,6 @@
 ---
 title: 'Fee Structure – Pre-Primary'
-section: 'Admission'
+section: 'Fee Structure'
 sourceUrl: 'https://srcspatna.com/admission/fee-structure/fee-structure-at-srcs-patna-the-best-school-in-patna-for-pre-primary'
 description: 'Best School in Patna for Pre-Primary. Investing in Your Child'
 ---

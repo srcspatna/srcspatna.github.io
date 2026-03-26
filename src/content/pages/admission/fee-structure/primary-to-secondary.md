@@ -1,6 +1,6 @@
 ---
 title: 'Fee Structure – Class 1 to 10'
-section: 'Admission'
+section: 'Fee Structure'
 sourceUrl: 'https://srcspatna.com/admission/fee-structure/here-there-srcs-patna-is-the-best-school-in-patna-for-primary-and-secondary-education'
 description: 'Best School in Patna. Cultivating Excellence: Why SRCS Patna is the Best School in Patna for Primary and Secondary Education'
 ---
