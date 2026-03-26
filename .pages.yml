@@ -21,7 +21,13 @@ content:
       - { name: slug, label: Slug, type: string }
       - { name: sourceUrl, label: "Source Url", type: string }
       - { name: description, label: Description, type: string }
-      - { name: body, label: Body, type: rich-text, options: { input: src/assets, output: /assets } }
+      - { name: body, label: Body, type: rich-text,
+          options: { 
+            format: html,
+            input: src/assets/posts,
+            output: /assets/posts
+          } 
+        }
   - name: pages
     label: Pages
     type: collection
@@ -34,7 +40,12 @@ content:
       - { name: slug, label: Slug, type: string }
       - { name: sourceUrl, label: "Source Url", type: string }
       - { name: description, label: Description, type: string }
-      - { name: body, label: Body, type: rich-text, options: { input: src/assets, output: /assets } }
+      - { name: body, label: Body, type: rich-text, 
+          options: { 
+            input: src/assets/pages,
+            output: /assets/pages
+          } 
+        }
   - name: achievers-gallery
     label: Achievers Gallery
     type: collection
