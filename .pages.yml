@@ -13,14 +13,21 @@ components:
     label: SEO
     fields:
       - name: focus_keyword
-        label: SEO Focus Keyword
+        label: Focus Keyword
         type: string
       - name: seo_title
-        label: SEO Title
+        label: Title
         type: string
       - name: seo_description
-        label: SEO Description
+        label: Description
         type: text
+      - name: seo_body
+        label: "Body"
+        type: rich-text
+        options: {
+          input: src/assets/seo,
+          output: /assets/seo
+        }
 content:
   - name: posts
     label: Posts
@@ -42,12 +49,6 @@ content:
           } 
         }
       - { name: seo, component: seo, label: SEO Meta Data }
-      - { name: seobody, label: "SEO Body", type: rich-text,
-          options: {
-            input: src/assets/posts,
-            output: /assets/posts
-          }
-        }
   - name: pages
     label: Pages
     type: collection
@@ -67,12 +68,6 @@ content:
           } 
         }
       - { name: seo, component: seo, label: SEO Meta Data }
-      - { name: seobody, label: "SEO Body", type: rich-text,
-          options: {
-            input: src/assets/pages,
-            output: /assets/pages
-          }
-        }
   - name: achievers-gallery
     label: Achievers Gallery
     type: collection
