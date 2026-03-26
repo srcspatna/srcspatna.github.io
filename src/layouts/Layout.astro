@@ -23,7 +23,6 @@ const {
   mainClass?: string;
 };
 
-const navLinks = siteConfig.navigation;
 const activeSocialLinks = siteConfig.socialLinks.filter((link) => link.href.trim().length > 0);
 const searchEnabled = siteConfig.features.search;
 const themeToggleEnabled = siteConfig.features.themeToggle;
@@ -71,6 +70,74 @@ const bannerThemes: Record<BannerTone, { shell: string; badge: string; glow: str
   },
 };
 
+type NavigationNode = {
+    href?: string;
+    label?: string;
+    items?: NavigationNode[];
+};
+
+type HeaderNavItem = {
+    href: string;
+    label: string;
+    children: HeaderNavItem[];
+};
+
+const normalizeNavigation = (items: NavigationNode[] = []): HeaderNavItem[] => {
+    const links: HeaderNavItem[] = [];
+
+    for (const item of items) {
+        const children = normalizeNavigation(Array.isArray(item.items) ? item.items : []);
+
+        if (typeof item.href === 'string' && typeof item.label === 'string') {
+            links.push({ href: item.href, label: item.label, children });
+        } else if (children.length > 0) {
+            // Allow container nodes with only nested `items` in JSON.
+            links.push(...children);
+        }
+    }
+
+    return links;
+};
+
+const escapeHtml = (value: string) => value
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+
+const renderDesktopMenu = (items: HeaderNavItem[], depth = 0): string => items.map((item) => {
+    const hasChildren = item.children.length > 0;
+    const activeClass = activeLinkClass(item.href)
+        ? 'bg-slate-950 text-white'
+        : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950';
+    const itemClasses = depth === 0
+        ? `inline-flex items-center gap-1 rounded-full px-4 py-2 text-sm font-semibold transition-colors duration-200 ${activeClass}`
+        : 'block rounded-xl px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 hover:text-slate-950';
+    const caret = hasChildren
+        ? '<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" /></svg>'
+        : '';
+    const submenuClass = depth === 0 ? 'nav-submenu nav-submenu-root' : 'nav-submenu nav-submenu-flyout';
+
+    return `<li class="nav-menu-item">
+        <a href="${escapeHtml(item.href)}" class="${itemClasses}">${escapeHtml(item.label)}${caret}</a>
+        ${hasChildren ? `<ul class="${submenuClass}">${renderDesktopMenu(item.children, depth + 1)}</ul>` : ''}
+    </li>`;
+}).join('');
+
+const renderMobileMenu = (items: HeaderNavItem[], depth = 0): string => items.map((item) => {
+    const hasChildren = item.children.length > 0;
+    const activeClass = activeLinkClass(item.href)
+        ? 'bg-slate-950 text-white'
+        : 'text-slate-700 hover:bg-slate-100 hover:text-slate-950';
+    const marginClass = depth > 0 ? 'ml-4 mt-1 border-l border-slate-200 pl-2' : '';
+
+    return `<div class="${marginClass}">
+        <a href="${escapeHtml(item.href)}" class="block rounded-xl px-4 py-3 text-sm font-semibold transition-colors duration-200 ${activeClass}">${escapeHtml(item.label)}</a>
+        ${hasChildren ? renderMobileMenu(item.children, depth + 1) : ''}
+    </div>`;
+}).join('');
+
 const activeLinkClass = (href: string) => {
   if (href === '/') {
     return pathname === '/';
@@ -85,8 +152,15 @@ const hasFeature = Astro.slots.has('feature');
 const canonicalUrl = resolveSiteUrl(pathname);
 const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
 const currentYear = new Date().getFullYear();
+const navigationEntries = await getCollection('navigation');
+const navFromContent = normalizeNavigation(navigationEntries[0]?.data.header_navigation || []);
+const navLinks: HeaderNavItem[] = navFromContent.length > 0
+    ? navFromContent
+    : siteConfig.navigation.map((item) => ({ ...item, children: [] }));
+const desktopMenuHtml = renderDesktopMenu(navLinks);
+const mobileMenuHtml = renderMobileMenu(navLinks);
 const footerEntries = await getCollection('footer');
-const footerData = footerEntries[0]?.data;
+const footerData = footerEntries[0]?.data.footer;
 const footerAboutText = [footerData?.primaryText, footerData?.secondaryText].filter(Boolean).join(' ')
     || 'Thoughtful learning, clear communication, and modern school operations.';
 const footerNavigationLinks = [
@@ -325,20 +399,8 @@ const formattedPhone = siteConfig.contact.phone.replace('+91', '+91 ');
                 </div>
 
                 <div class="hidden items-center gap-2 sm:gap-3 md:flex">
-                    <nav class="flex items-center gap-2 sm:gap-3" aria-label="Primary navigation">
-                        {navLinks.map((link) => (
-                            <a
-                                href={link.href}
-                                class:list={[
-                                    'rounded-full px-4 py-2 text-sm font-semibold transition-colors duration-200',
-                                    activeLinkClass(link.href)
-                                        ? 'bg-slate-950 text-white'
-                                        : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950',
-                                ]}
-                            >
-                                {link.label}
-                            </a>
-                        ))}
+                    <nav class="primary-desktop-nav" aria-label="Primary navigation">
+                        <ul class="flex items-center gap-2 sm:gap-3" set:html={desktopMenuHtml}></ul>
                     </nav>
 
                     {searchEnabled && (
@@ -402,20 +464,7 @@ const formattedPhone = siteConfig.contact.phone.replace('+91', '+91 ');
             <div id="mobile-nav-backdrop" class="absolute inset-0 bg-slate-950/60 backdrop-blur-sm"></div>
             <div id="mobile-nav-panel" class="absolute right-0 top-0 flex h-full w-full max-w-md translate-x-full flex-col overflow-hidden bg-white shadow-2xl transition-transform duration-300 ease-out">
                 <div class="flex-1 overflow-y-auto p-4">
-                    <div class="grid gap-2 pb-4">
-                    {navLinks.map((link) => (
-                        <a
-                            href={link.href}
-                            class:list={[
-                                'rounded-xl px-4 py-3 text-sm font-semibold transition-colors duration-200',
-                                activeLinkClass(link.href)
-                                    ? 'bg-slate-950 text-white'
-                                    : 'text-slate-700 hover:bg-slate-100 hover:text-slate-950',
-                            ]}
-                        >
-                            {link.label}
-                        </a>
-                    ))}
+                    <div class="grid gap-2 pb-4" set:html={mobileMenuHtml}>
                     </div>
                 </div>
 
@@ -669,6 +718,74 @@ const formattedPhone = siteConfig.contact.phone.replace('+91', '+91 ');
         </footer>
     </div>
 
+    <style>
+        :global(.primary-desktop-nav),
+        :global(.primary-desktop-nav > ul),
+        :global(.primary-desktop-nav .nav-menu-item) {
+            overflow: visible;
+        }
+
+        :global(.primary-desktop-nav .nav-menu-item) {
+            position: relative;
+            list-style: none;
+        }
+
+        :global(.primary-desktop-nav .nav-menu-item::after) {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 100%;
+            width: 100%;
+            height: 0.55rem;
+        }
+
+        :global(.primary-desktop-nav .nav-submenu) {
+            display: none;
+            min-width: 18rem;
+            position: absolute;
+            z-index: 70;
+            border: 1px solid rgb(226 232 240);
+            border-radius: 1rem;
+            background: rgb(255 255 255);
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.15);
+            padding: 0.4rem;
+        }
+
+        :global(.primary-desktop-nav .nav-submenu-root) {
+            left: 0;
+            top: calc(100% + 0.35rem);
+        }
+
+        :global(.primary-desktop-nav .nav-submenu-root.nav-submenu-left) {
+            left: auto;
+            right: 0;
+        }
+
+        :global(.primary-desktop-nav .nav-submenu-flyout) {
+            left: calc(100% + 0.35rem);
+            top: 0;
+        }
+
+        :global(.primary-desktop-nav .nav-submenu-flyout.nav-submenu-left) {
+            left: auto;
+            right: calc(100% + 0.35rem);
+        }
+
+        :global(.primary-desktop-nav .nav-submenu-flyout::before) {
+            content: '';
+            position: absolute;
+            left: -0.55rem;
+            top: 0;
+            width: 0.55rem;
+            height: 100%;
+        }
+
+        :global(.primary-desktop-nav .nav-menu-item:hover > .nav-submenu),
+        :global(.primary-desktop-nav .nav-menu-item:focus-within > .nav-submenu) {
+            display: block;
+        }
+    </style>
+
     <script>
         // @ts-nocheck
         const toggleButton = document.getElementById('mobile-nav-toggle');
@@ -708,6 +825,7 @@ const formattedPhone = siteConfig.contact.phone.replace('+91', '+91 ');
         const searchStatus = searchEnabled ? document.getElementById('site-search-status') : null;
         const searchResults = searchEnabled ? document.getElementById('site-search-results') : null;
         const backToTopButton = document.getElementById('back-to-top-button');
+        const desktopNav = document.querySelector('.primary-desktop-nav');
 
         let searchIndexJson = '[]';
         let searchLoaded = false;
@@ -857,6 +975,79 @@ const formattedPhone = siteConfig.contact.phone.replace('+91', '+91 ');
         themeToggles.forEach((button) => {
             button.addEventListener('click', cycleTheme);
         });
+
+        const measureSubmenuRect = (submenu) => {
+            const prevDisplay = submenu.style.display;
+            const prevVisibility = submenu.style.visibility;
+            const prevPointerEvents = submenu.style.pointerEvents;
+
+            submenu.style.display = 'block';
+            submenu.style.visibility = 'hidden';
+            submenu.style.pointerEvents = 'none';
+
+            const rect = submenu.getBoundingClientRect();
+
+            submenu.style.display = prevDisplay;
+            submenu.style.visibility = prevVisibility;
+            submenu.style.pointerEvents = prevPointerEvents;
+
+            return rect;
+        };
+
+        const placeSubmenuHorizontally = (menuItem) => {
+            if (!(menuItem instanceof HTMLElement)) {
+                return;
+            }
+
+            const submenu = menuItem.querySelector(':scope > .nav-submenu');
+
+            if (!(submenu instanceof HTMLElement)) {
+                return;
+            }
+
+            submenu.classList.remove('nav-submenu-left');
+
+            const parentRect = menuItem.getBoundingClientRect();
+            const submenuRect = measureSubmenuRect(submenu);
+            const isRoot = submenu.classList.contains('nav-submenu-root');
+            const gap = 6;
+            const viewportPadding = 8;
+
+            const spaceRight = isRoot
+                ? window.innerWidth - parentRect.left - viewportPadding
+                : window.innerWidth - parentRect.right - gap - viewportPadding;
+
+            if (submenuRect.width > spaceRight) {
+                submenu.classList.add('nav-submenu-left');
+            }
+        };
+
+        const setupDesktopSubmenuPlacement = () => {
+            if (!(desktopNav instanceof HTMLElement)) {
+                return;
+            }
+
+            const menuItems = desktopNav.querySelectorAll('.nav-menu-item');
+
+            menuItems.forEach((item) => {
+                item.addEventListener('mouseenter', () => placeSubmenuHorizontally(item));
+                item.addEventListener('focusin', () => placeSubmenuHorizontally(item));
+            });
+
+            const repositionVisibleMenus = () => {
+                if (window.innerWidth < 768) {
+                    return;
+                }
+
+                const visibleParents = desktopNav.querySelectorAll('.nav-menu-item:hover, .nav-menu-item:focus-within');
+                visibleParents.forEach((item) => placeSubmenuHorizontally(item));
+            };
+
+            window.addEventListener('resize', repositionVisibleMenus);
+            window.addEventListener('scroll', repositionVisibleMenus, { passive: true });
+        };
+
+        setupDesktopSubmenuPlacement();
 
         const closeMobileMenu = () => {
             if (!mobileMenu || !mobileNavPanel) {

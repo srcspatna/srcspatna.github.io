@@ -1,0 +1,56 @@
+{
+  "header_navigation": [
+    {
+      "href": "/",
+      "label": "Home"
+    },
+    {
+      "href": "/pages",
+      "label": "Pages"
+    },
+    {
+      "href": "/posts",
+      "label": "Posts"
+    },
+    {
+      "href": "/pages/admission",
+      "label": "Admission",
+      "items": [
+        {
+          "href": "/pages/admission/fee-structure",
+          "label": "Fee Structure"
+        },
+        {
+          "href": "/pages/admission/fee-structure/pre-primary",
+          "label": "Pre Primary"
+        },
+        {
+          "href": "/pages/admission/fee-structure/primary-to-secondary",
+          "label": "Primary to Secondary"
+        },
+        {
+          "href": "/pages/admission/fee-structure/senior-secondary",
+          "label": "Senior Secondary",
+          "items": [
+            {
+              "href": "/pages/admission/fee-structure/senior-secondary/science",
+              "label": "Senior Secondary - Science"
+            },
+            {
+              "href": "/pages/admission/fee-structure/senior-secondary/commerce",
+              "label": "Senior Secondary - Commerce"
+            },
+            {
+              "href": "/pages/admission/fee-structure/senior-secondary/humanities",
+              "label": "Senior Secondary - Humanities"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "href": "/pages/contact",
+      "label": "Contact"
+    }
+  ]
+}

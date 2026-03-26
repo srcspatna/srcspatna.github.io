@@ -63,11 +63,27 @@ const showcaseCollection = defineCollection({
 const footerCollection = defineCollection({
   loader: glob({
     base: './src/content/data',
-    pattern: 'footer.{md,mdx}',
+    pattern: 'footer.json',
   }),
   schema: z.object({
-    primaryText: z.string().optional(),
-    secondaryText: z.string().optional(),
+    footer: z.object({
+      primaryText: z.string().optional(),
+      secondaryText: z.string().optional(),
+    }),
+  }),
+});
+
+const navigationCollection = defineCollection({
+  loader: glob({
+    base: './src/content/data',
+    pattern: 'navigation.json',
+  }),
+  schema: z.object({
+    header_navigation: z.array(z.object({
+      href: z.string().optional(),
+      label: z.string().optional(),
+      items: z.array(z.any()).optional(),
+    })),
   }),
 });
 
@@ -77,4 +93,5 @@ export const collections = {
   marquee_items: marqueeItemsCollection,
   showcase: showcaseCollection,
   footer: footerCollection,
+  navigation: navigationCollection,
 };
