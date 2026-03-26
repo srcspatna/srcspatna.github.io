@@ -12,6 +12,7 @@ const pagesCollection = defineCollection({
     section: z.string().optional(),
     sourceUrl: z.string().url().optional(),
     date: z.string().optional(),
+    seobody: z.string().optional(),
   }),
 });
 
@@ -26,6 +27,7 @@ const postsCollection = defineCollection({
     section: z.string().optional(),
     sourceUrl: z.string().url().optional(),
     date: z.string().optional(),
+    seobody: z.string().optional(),
   }),
 });
 

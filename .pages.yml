@@ -35,6 +35,12 @@ content:
       - { name: slug, label: Slug, type: string }
       - { name: sourceUrl, label: "Source Url", type: string }
       - { name: description, label: Description, type: string }
+      - { name: seobody, label: "SEO Body", type: rich-text,
+          options: {
+            input: src/assets/posts,
+            output: /assets/posts
+          }
+        }
       - { name: body, label: Body, type: rich-text,
           options: { 
             input: src/assets/posts,
@@ -54,6 +60,12 @@ content:
       - { name: slug, label: Slug, type: string }
       - { name: sourceUrl, label: "Source Url", type: string }
       - { name: description, label: Description, type: string }
+      - { name: seobody, label: "SEO Body", type: rich-text,
+          options: {
+            input: src/assets/pages,
+            output: /assets/pages
+          }
+        }
       - { name: body, label: Body, type: rich-text, 
           options: { 
             input: src/assets/pages,
