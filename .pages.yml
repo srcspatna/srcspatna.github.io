@@ -12,6 +12,8 @@ components:
     type: object
     label: SEO
     fields:
+      - name: target_keyword
+        type: string
       - name: seo_title
         type: string
       - name: seo_description
