@@ -157,19 +157,57 @@ const navFromContent = normalizeNavigation(navigationEntries[0]?.data.header_nav
 const navLinks: HeaderNavItem[] = navFromContent.length > 0
     ? navFromContent
     : siteConfig.navigation.map((item) => ({ ...item, children: [] }));
+const topbarSocialFromContent = (navigationEntries[0]?.data.topbar_social_links || [])
+    .filter((item) => typeof item.href === 'string' && typeof item.label === 'string')
+    .map((item) => ({ href: item.href as string, label: item.label as string }));
+const topbarSocialLinks = topbarSocialFromContent.length > 0 ? topbarSocialFromContent : activeSocialLinks;
+const topbarNavigationFromContent = (navigationEntries[0]?.data.topbar_navigation_links || [])
+    .filter((item) => typeof item.label === 'string')
+    .map((item) => ({
+        href: typeof item.href === 'string' ? item.href.replace(/^email:/, 'mailto:') : undefined,
+        label: item.label as string,
+        leftIcon: typeof item.left_icon === 'string' ? item.left_icon : undefined,
+    }));
+const topbarInfoLinks = topbarNavigationFromContent.length > 0 ? topbarNavigationFromContent : [
+    { href: undefined, label: siteConfig.contact.address, leftIcon: 'map-pin' },
+    { href: `tel:${siteConfig.contact.mobile}`, label: siteConfig.contact.mobile, leftIcon: 'phone' },
+    { href: `tel:${siteConfig.contact.phone}`, label: siteConfig.contact.phone, leftIcon: 'phone' },
+    { href: `mailto:${siteConfig.contact.email}`, label: siteConfig.contact.email, leftIcon: 'mail' },
+    { href: undefined, label: siteConfig.contact.officeTime, leftIcon: 'clock' },
+];
 const desktopMenuHtml = renderDesktopMenu(navLinks);
 const mobileMenuHtml = renderMobileMenu(navLinks);
+const footerNavigationFromContent = (navigationEntries[0]?.data.footer_navigation || [])
+    .filter((item) => typeof item.href === 'string' && typeof item.label === 'string')
+    .map((item) => ({ href: item.href as string, label: item.label as string }));
 const footerEntries = await getCollection('footer');
 const footerData = footerEntries[0]?.data.footer;
 const footerAboutText = [footerData?.primaryText, footerData?.secondaryText].filter(Boolean).join(' ')
     || 'Thoughtful learning, clear communication, and modern school operations.';
-const footerNavigationLinks = [
+const footerNavigationLinks = footerNavigationFromContent.length > 0 ? footerNavigationFromContent : [
     { href: '/pages/blog/', label: 'Our Blogs' },
     { href: '/pages/circular/', label: 'Circulars' },
     { href: '/pages/admission/contact-us/', label: 'Contact Us' },
     { href: '/pages/admission/fee-structure/pre-primary/', label: 'Fee-Structure - Pre-Primary' },
     { href: '/pages/admission/fee-structure/primary-to-secondary/', label: 'Fee-Structure - Primary to Secondary' },
     { href: '/pages/admission/fee-structure/senior-secondary/', label: 'Fee-Structure - Senior Secondary' },
+];
+const formattedMobile = siteConfig.contact.mobile.replace('+91', '+91 ');
+const formattedPhone = siteConfig.contact.phone.replace('+91', '+91 ');
+const footerContactFromContent = (navigationEntries[0]?.data.footer_contact_info || [])
+    .filter((item) => typeof item.label === 'string')
+    .map((item) => ({
+        href: typeof item.href === 'string' ? item.href : undefined,
+        label: item.label as string,
+        leftIcon: typeof item.left_icon === 'string' ? item.left_icon : undefined,
+        rightIcon: typeof item.right_icon === 'string' ? item.right_icon : undefined,
+    }));
+const footerContactInfo = footerContactFromContent.length > 0 ? footerContactFromContent : [
+    { href: `mailto:${siteConfig.contact.email}`, label: siteConfig.contact.email, leftIcon: 'mail' },
+    { href: `tel:${siteConfig.contact.phone}`, label: formattedPhone, leftIcon: 'phone' },
+    { href: `tel:${siteConfig.contact.mobile}`, label: formattedMobile, leftIcon: 'phone' },
+    { label: siteConfig.contact.address, leftIcon: 'map-pin' },
+    { label: siteConfig.contact.officeTime, leftIcon: 'clock' },
 ];
 const footerSocialLinks = [
     { label: 'Facebook', href: 'https://www.facebook.com/groups/astroid/' },
@@ -178,8 +216,6 @@ const footerSocialLinks = [
     { label: 'Linked', href: 'https://linkedin.com/' },
     { label: 'Dribbble', href: 'https://dribbble.com/templaza' },
 ];
-const formattedMobile = siteConfig.contact.mobile.replace('+91', '+91 ');
-const formattedPhone = siteConfig.contact.phone.replace('+91', '+91 ');
 ---
 
 <!DOCTYPE html>
@@ -257,53 +293,83 @@ const formattedPhone = siteConfig.contact.phone.replace('+91', '+91 ');
                             topBarContactInfoShowOnSmallScreen ? '' : 'hidden',
                             topBarContactInfoShowOnLargeScreen ? 'lg:flex' : 'lg:hidden',
                         ]}>
-                        <span class="inline-flex items-center gap-1.5">
-                            <svg class="h-3.5 w-3.5 text-amber-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1118 0z" />
-                                <circle cx="12" cy="10" r="3" />
-                            </svg>
-                            {siteConfig.contact.address}
-                        </span>
-
-                        <a href={`tel:${siteConfig.contact.mobile}`} class="inline-flex items-center gap-1.5 transition hover:text-white">
-                            <svg class="h-3.5 w-3.5 text-amber-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.15 11.8 19.79 19.79 0 01.08 3.18 2 2 0 012.06 1h3a2 2 0 012 1.72c.12.9.33 1.77.62 2.6a2 2 0 01-.45 2.11L6.1 8.59a16 16 0 006.31 6.31l1.16-1.16a2 2 0 012.11-.45c.83.29 1.7.5 2.6.62A2 2 0 0122 16.92z" />
-                            </svg>
-                            {siteConfig.contact.mobile}
-                        </a>
-
-                        <a href={`tel:${siteConfig.contact.phone}`} class="inline-flex items-center gap-1.5 transition hover:text-white">
-                            <svg class="h-3.5 w-3.5 text-amber-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.15 11.8 19.79 19.79 0 01.08 3.18 2 2 0 012.06 1h3a2 2 0 012 1.72c.12.9.33 1.77.62 2.6a2 2 0 01-.45 2.11L6.1 8.59a16 16 0 006.31 6.31l1.16-1.16a2 2 0 012.11-.45c.83.29 1.7.5 2.6.62A2 2 0 0122 16.92z" />
-                            </svg>
-                            {siteConfig.contact.phone}
-                        </a>
-
-                        <a href={`mailto:${siteConfig.contact.email}`} class="inline-flex items-center gap-1.5 transition hover:text-white">
-                            <svg class="h-3.5 w-3.5 text-amber-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 4h16v16H4z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M22 6l-10 7L2 6" />
-                            </svg>
-                            {siteConfig.contact.email}
-                        </a>
-
-                        <span class="inline-flex items-center gap-1.5 text-slate-300">
-                            <svg class="h-3.5 w-3.5 text-amber-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                <circle cx="12" cy="12" r="10" />
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l4 2" />
-                            </svg>
-                            {siteConfig.contact.officeTime}
-                        </span>
+                        {topbarInfoLinks.map((item) => (
+                            item.href ? (
+                                <a href={item.href} class="inline-flex items-center gap-1.5 transition hover:text-white">
+                                    {item.leftIcon === 'map-pin' && (
+                                        <svg class="h-3.5 w-3.5 text-amber-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1118 0z" />
+                                            <circle cx="12" cy="10" r="3" />
+                                        </svg>
+                                    )}
+                                    {item.leftIcon === 'phone' && (
+                                        <svg class="h-3.5 w-3.5 text-amber-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.15 11.8 19.79 19.79 0 01.08 3.18 2 2 0 012.06 1h3a2 2 0 012 1.72c.12.9.33 1.77.62 2.6a2 2 0 01-.45 2.11L6.1 8.59a16 16 0 006.31 6.31l1.16-1.16a2 2 0 012.11-.45c.83.29 1.7.5 2.6.62A2 2 0 0122 16.92z" />
+                                        </svg>
+                                    )}
+                                    {item.leftIcon === 'mail' && (
+                                        <svg class="h-3.5 w-3.5 text-amber-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4h16v16H4z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M22 6l-10 7L2 6" />
+                                        </svg>
+                                    )}
+                                    {item.leftIcon === 'clock' && (
+                                        <svg class="h-3.5 w-3.5 text-amber-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                            <circle cx="12" cy="12" r="10" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l4 2" />
+                                        </svg>
+                                    )}
+                                    {item.leftIcon === 'whatsapp' && (
+                                        <svg class="h-3.5 w-3.5 text-amber-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                            <path d="M20.52 3.48A11.93 11.93 0 0012.05 0C5.52 0 .2 5.3.2 11.82c0 2.08.54 4.11 1.57 5.9L0 24l6.47-1.7a11.8 11.8 0 005.58 1.42h.01c6.53 0 11.85-5.3 11.85-11.82 0-3.16-1.23-6.13-3.39-8.42zM12.06 21.7h-.01a9.8 9.8 0 01-4.98-1.36l-.36-.21-3.84 1.01 1.03-3.75-.23-.39a9.74 9.74 0 01-1.5-5.18C2.17 6.4 6.58 2 12.05 2c2.6 0 5.04 1.01 6.87 2.85a9.66 9.66 0 012.83 6.86c0 5.43-4.41 9.84-9.69 9.84zm5.37-7.32c-.29-.14-1.73-.85-2- .95-.27-.1-.47-.14-.67.14-.2.29-.77.95-.94 1.14-.17.19-.35.21-.64.07-.29-.14-1.24-.46-2.36-1.48-.87-.78-1.46-1.75-1.63-2.04-.17-.29-.02-.45.13-.59.13-.13.29-.35.43-.52.14-.17.19-.29.29-.48.1-.19.05-.36-.02-.5-.07-.14-.67-1.6-.92-2.2-.24-.58-.48-.5-.67-.5h-.57c-.19 0-.5.07-.77.36-.27.29-1.01.99-1.01 2.41 0 1.42 1.03 2.79 1.17 2.98.14.19 2.02 3.08 4.89 4.32.68.29 1.22.46 1.64.59.69.22 1.32.19 1.81.12.55-.08 1.73-.71 1.97-1.39.24-.69.24-1.28.17-1.4-.07-.12-.26-.19-.55-.33z" />
+                                        </svg>
+                                    )}
+                                    <span>{item.label}</span>
+                                </a>
+                            ) : (
+                                <span class="inline-flex items-center gap-1.5 text-slate-300">
+                                    {item.leftIcon === 'map-pin' && (
+                                        <svg class="h-3.5 w-3.5 text-amber-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1118 0z" />
+                                            <circle cx="12" cy="10" r="3" />
+                                        </svg>
+                                    )}
+                                    {item.leftIcon === 'phone' && (
+                                        <svg class="h-3.5 w-3.5 text-amber-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.15 11.8 19.79 19.79 0 01.08 3.18 2 2 0 012.06 1h3a2 2 0 012 1.72c.12.9.33 1.77.62 2.6a2 2 0 01-.45 2.11L6.1 8.59a16 16 0 006.31 6.31l1.16-1.16a2 2 0 012.11-.45c.83.29 1.7.5 2.6.62A2 2 0 0122 16.92z" />
+                                        </svg>
+                                    )}
+                                    {item.leftIcon === 'mail' && (
+                                        <svg class="h-3.5 w-3.5 text-amber-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4h16v16H4z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M22 6l-10 7L2 6" />
+                                        </svg>
+                                    )}
+                                    {item.leftIcon === 'clock' && (
+                                        <svg class="h-3.5 w-3.5 text-amber-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                            <circle cx="12" cy="12" r="10" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l4 2" />
+                                        </svg>
+                                    )}
+                                    {item.leftIcon === 'whatsapp' && (
+                                        <svg class="h-3.5 w-3.5 text-amber-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                            <path d="M20.52 3.48A11.93 11.93 0 0012.05 0C5.52 0 .2 5.3.2 11.82c0 2.08.54 4.11 1.57 5.9L0 24l6.47-1.7a11.8 11.8 0 005.58 1.42h.01c6.53 0 11.85-5.3 11.85-11.82 0-3.16-1.23-6.13-3.39-8.42zM12.06 21.7h-.01a9.8 9.8 0 01-4.98-1.36l-.36-.21-3.84 1.01 1.03-3.75-.23-.39a9.74 9.74 0 01-1.5-5.18C2.17 6.4 6.58 2 12.05 2c2.6 0 5.04 1.01 6.87 2.85a9.66 9.66 0 012.83 6.86c0 5.43-4.41 9.84-9.69 9.84z" />
+                                        </svg>
+                                    )}
+                                    <span>{item.label}</span>
+                                </span>
+                            )
+                        ))}
                         </div>
                     )}
 
-                    {topBarSocialIconsEnabled && activeSocialLinks.length > 0 && (
+                    {topBarSocialIconsEnabled && topbarSocialLinks.length > 0 && (
                         <div class:list={[
                             'flex items-center gap-2',
                             topBarSocialIconsShowOnSmallScreen ? '' : 'hidden',
                             topBarSocialIconsShowOnLargeScreen ? 'lg:flex' : 'lg:hidden',
                         ]}>
-                            {activeSocialLinks.map((social) => (
+                            {topbarSocialLinks.map((social) => (
                                 <a
                                     href={social.href}
                                     target="_blank"
@@ -652,36 +718,64 @@ const formattedPhone = siteConfig.contact.phone.replace('+91', '+91 ');
                     <div>
                         <h3 class="text-2xl font-bold text-white">React Out</h3>
                         <ul class="mt-6 space-y-4 text-base leading-7 text-slate-300">
-                            <li>
-                                <a href={`mailto:${siteConfig.contact.email}`} class="inline-flex items-start gap-3 transition hover:text-amber-300">
-                                    <svg class="mt-1 h-6 w-6 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                                        <path d="M3 5a2 2 0 012-2h14a2 2 0 012 2v1.24l-9 5.5-9-5.5V5zm0 3.59l8.47 5.18a1 1 0 001.06 0L21 8.59V19a2 2 0 01-2 2H5a2 2 0 01-2-2V8.59z" />
-                                    </svg>
-                                    <span>{siteConfig.contact.email}</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href={`tel:${siteConfig.contact.phone}`} class="inline-flex items-start gap-3 transition hover:text-amber-300">
-                                    <svg class="mt-1 h-6 w-6 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                                        <path d="M6.62 10.79a15.52 15.52 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.32.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1C10.3 21 3 13.7 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.24 1.02l-2.21 2.2z" />
-                                    </svg>
-                                    <span>{formattedPhone}</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href={`tel:${siteConfig.contact.mobile}`} class="inline-flex items-start gap-3 transition hover:text-amber-300">
-                                    <svg class="mt-1 h-6 w-6 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                                        <path d="M7 2h10a2 2 0 012 2v16a2 2 0 01-2 2H7a2 2 0 01-2-2V4a2 2 0 012-2zm5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
-                                    </svg>
-                                    <span>{formattedMobile}</span>
-                                </a>
-                            </li>
-                            <li class="inline-flex items-start gap-3">
-                                <svg class="mt-1 h-6 w-6 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                                    <path d="M12 2a8 8 0 00-8 8c0 5.25 6.5 11.2 7.23 11.86a1.2 1.2 0 001.54 0C13.5 21.2 20 15.25 20 10a8 8 0 00-8-8zm0 10.5A2.5 2.5 0 1112 7a2.5 2.5 0 010 5.5z" />
-                                </svg>
-                                <span>{siteConfig.contact.address}</span>
-                            </li>
+                            {footerContactInfo.map((item) => {
+                                const isLink = typeof item.href === 'string' && item.href.trim().length > 0;
+                                const href = item.href?.replace(/^email:/, 'mailto:');
+
+                                return (
+                                    <li>
+                                        {isLink ? (
+                                            <a href={href} class="inline-flex items-start gap-3 transition hover:text-amber-300">
+                                                {item.leftIcon === 'mail' && (
+                                                    <svg class="mt-1 h-6 w-6 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                                        <path d="M3 5a2 2 0 012-2h14a2 2 0 012 2v1.24l-9 5.5-9-5.5V5zm0 3.59l8.47 5.18a1 1 0 001.06 0L21 8.59V19a2 2 0 01-2 2H5a2 2 0 01-2-2V8.59z" />
+                                                    </svg>
+                                                )}
+                                                {item.leftIcon === 'phone' && (
+                                                    <svg class="mt-1 h-6 w-6 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                                        <path d="M6.62 10.79a15.52 15.52 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.32.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1C10.3 21 3 13.7 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.24 1.02l-2.21 2.2z" />
+                                                    </svg>
+                                                )}
+                                                {item.leftIcon === 'map-pin' && (
+                                                    <svg class="mt-1 h-6 w-6 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                                        <path d="M12 2a8 8 0 00-8 8c0 5.25 6.5 11.2 7.23 11.86a1.2 1.2 0 001.54 0C13.5 21.2 20 15.25 20 10a8 8 0 00-8-8zm0 10.5A2.5 2.5 0 1112 7a2.5 2.5 0 010 5.5z" />
+                                                    </svg>
+                                                )}
+                                                {item.leftIcon === 'clock' && (
+                                                    <svg class="mt-1 h-6 w-6 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                                        <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 11h-5V7h2v4h3v2z" />
+                                                    </svg>
+                                                )}
+                                                <span>{item.label}</span>
+                                            </a>
+                                        ) : (
+                                            <span class="inline-flex items-start gap-3">
+                                                {item.leftIcon === 'mail' && (
+                                                    <svg class="mt-1 h-6 w-6 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                                        <path d="M3 5a2 2 0 012-2h14a2 2 0 012 2v1.24l-9 5.5-9-5.5V5zm0 3.59l8.47 5.18a1 1 0 001.06 0L21 8.59V19a2 2 0 01-2 2H5a2 2 0 01-2-2V8.59z" />
+                                                    </svg>
+                                                )}
+                                                {item.leftIcon === 'phone' && (
+                                                    <svg class="mt-1 h-6 w-6 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                                        <path d="M6.62 10.79a15.52 15.52 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.32.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1C10.3 21 3 13.7 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.24 1.02l-2.21 2.2z" />
+                                                    </svg>
+                                                )}
+                                                {item.leftIcon === 'map-pin' && (
+                                                    <svg class="mt-1 h-6 w-6 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                                        <path d="M12 2a8 8 0 00-8 8c0 5.25 6.5 11.2 7.23 11.86a1.2 1.2 0 001.54 0C13.5 21.2 20 15.25 20 10a8 8 0 00-8-8zm0 10.5A2.5 2.5 0 1112 7a2.5 2.5 0 010 5.5z" />
+                                                    </svg>
+                                                )}
+                                                {item.leftIcon === 'clock' && (
+                                                    <svg class="mt-1 h-6 w-6 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                                        <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 11h-5V7h2v4h3v2z" />
+                                                    </svg>
+                                                )}
+                                                <span>{item.label}</span>
+                                            </span>
+                                        )}
+                                    </li>
+                                );
+                            })}
                         </ul>
                     </div>
 

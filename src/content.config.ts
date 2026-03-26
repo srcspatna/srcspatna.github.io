@@ -84,6 +84,28 @@ const navigationCollection = defineCollection({
       label: z.string().optional(),
       items: z.array(z.any()).optional(),
     })),
+    footer_navigation: z.array(z.object({
+      href: z.string().optional(),
+      label: z.string().optional(),
+    })).optional(),
+    footer_contact_info: z.array(z.object({
+      href: z.string().optional(),
+      label: z.string().optional(),
+      left_icon: z.string().optional(),
+      right_icon: z.string().optional(),
+    })).optional(),
+    topbar_social_links: z.array(z.object({
+      href: z.string().optional(),
+      label: z.string().optional(),
+      left_icon: z.string().optional(),
+      right_icon: z.string().optional(),
+    })).optional(),
+    topbar_navigation_links: z.array(z.object({
+      href: z.string().optional(),
+      label: z.string().optional(),
+      left_icon: z.string().optional(),
+      right_icon: z.string().optional(),
+    })).optional(),
   }),
 });
 

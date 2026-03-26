@@ -85,23 +85,52 @@
   ],
   "footer_navigation": [
     {
-      "href": "/pages/about-us",
-      "label": "About Us"
+      "href": "/pages/blogs",
+      "label": "Blogs"
     },
     {
-      "href": "/pages/facilities",
-      "label": "Facilities"
+      "href": "/pages/articles/circular/",
+      "label": "Circulars"
     },
     {
-      "href": "/pages/beyond-academics",
-      "label": "Beyond Academics"
+      "href": "/pages/admission/contact-us/",
+      "label": "Contact Us"
     },
     {
-      "href": "/pages/careers",
-      "label": "Careers"
+      "href": "/pages/admission/fee-structure",
+      "label": "Fee Structure"
     }
   ],
-  "social_links": [
+  "topbar_navigation_links": [
+    {
+      "href": "https://maps.app.goo.gl/RYfJpb2by7guNupv5",
+      "label": "Bhogipur, Near Shahpur, Jaganpura, Patna, Bihar, 804453",
+      "left_icon": "map-pin",
+      "right_icon": "external-link"
+    },
+    {
+      "href": "tel:+918873002603",
+      "label": "+918873002603",
+      "left_icon": "phone"
+    },
+    {
+      "href": "tel:+918873002602",
+      "label": "+918873002602",
+      "left_icon": "phone"
+    },
+    {
+      "href": "mailto:info@srcspatna.com",
+      "label": "info@srcspatna.com",
+      "left_icon": "mail"
+    },
+    {
+      "href": "https://wa.me/918873002603",
+      "label": "+918873002603",
+      "left_icon": "whatsapp",
+      "right_icon": "external-link"
+    }
+  ],
+  "topbar_social_links": [
     {
       "href": "https://www.facebook.com/patna.srcs",
       "label": "Facebook",
@@ -129,27 +158,30 @@
   ],
   "footer_contact_info": [
     {
-      "href": "https://www.facebook.com/patna.srcs",
-      "label": "Facebook",
-      "left_icon": "facebook",
+      "href": "tel:+918873002603",
+      "label": "+918873002603",
+      "left_icon": "phone"
+    },
+    {
+      "href": "tel:+918873002602",
+      "label": "+918873002602",
+      "left_icon": "phone"
+    },
+    {
+      "href": "email:info@srcspatna.com",
+      "label": "info@srcspatna.com",
+      "left_icon": "mail"
+    },
+    {
+      "href": "https://wa.me/918873002603",
+      "label": "+918873002603",
+      "left_icon": "whatsapp",
       "right_icon": "external-link"
     },
     {
-      "href": "https://www.linkedin.com/company/srcspatna",
-      "label": "LinkedIn",
-      "left_icon": "linkedin",
-      "right_icon": "external-link"
-    },
-    {
-      "href": "https://instagram.com/srcs_patna",
-      "label": "Instagram",
-      "left_icon": "instagram",
-      "right_icon": "external-link"
-    },
-    {
-      "href": "https://www.youtube.com/@srcs_patna",
-      "label": "YouTube",
-      "left_icon": "youtube",
+      "href": "https://share.google/wH34zPADRelLaYBgy",
+      "label": "Bhogipur, Near Shahpur, Jaganpura, Patna, Bihar, 804453",
+      "left_icon": "map-pin",
       "right_icon": "external-link"
     }
   ]
