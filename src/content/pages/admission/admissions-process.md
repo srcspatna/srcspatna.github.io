@@ -2,11 +2,11 @@
 title: Admission Process
 section: Admission
 sourceUrl: https://srcspatna.com/admission/top-school-in-patna-the-admissions-process
-description: "Top School in Patna. Taking the First Step: The Admissions Process
-  at SRCS Patna, a Top School in Patna. Admission Form"
+description: "Taking the First Step: The Admissions Process at SRCS Patna."
 seo:
   focus_keyword: top school in Patna
-  seo_title: Enrolling your child at SRCS Patna, a consistently ranked top school in Patna
+  seo_title: "Top School in Patna. Taking the First Step: The Admissions Process
+    at SRCS Patna, a Top School in Patna."
   seo_description: Enrolling your child at SRCS Patna, a consistently ranked top
     school in Patna, marks the beginning of an enriching educational journey.
   seo_body: >-
