@@ -12,8 +12,8 @@ components:
     type: object
     label: SEO
     fields:
-      - name: primary_keyword
-        label: SEO Primary Keyword
+      - name: focus_keyword
+        label: SEO Focus Keyword
         type: string
       - name: seo_title
         label: SEO Title
