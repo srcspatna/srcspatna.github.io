@@ -3,8 +3,6 @@ title: INFORMATION OF THE SCHOOL
 section: Posts
 slug: information-of-the-school
 ---
-# INFORMATION OF THE SCHOOL
-
 
 | Name | SHRI RAM CENTENNIAL SCHOOL |
 | ---------------------------------------------------- | -------------------------------------------------------------------------------------------- |
