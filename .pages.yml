@@ -11,6 +11,7 @@ content:
     path: src/content/posts
     view:
       fields: [ title, draft, date ]
+    filename: "{year}-{month}-{day}-{fields.slug}.md"
     fields:
       - { name: title, label: Title, type: string, required: true }
       - { name : section, label: Section, type: string, required: true }
