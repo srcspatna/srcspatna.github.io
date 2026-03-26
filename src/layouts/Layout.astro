@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { getCollection } from 'astro:content';
 import { resolveSiteUrl, siteConfig } from '../config/site';
 
 type BannerTone = 'blue' | 'emerald' | 'amber';
@@ -84,7 +85,10 @@ const hasFeature = Astro.slots.has('feature');
 const canonicalUrl = resolveSiteUrl(pathname);
 const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
 const currentYear = new Date().getFullYear();
-const footerAboutText = 'Legacy of 95 years of excellence in the domain of education reflected in the world class premier institutions of higher learning by Shri Ram family - SRCC & LSR. Ranked as one of the Best CBSE Schools in Bihar by the EW Magazine, SRCS focuses on the holistic growth of the child. We cater to learning upto senior secondary level and provide career counselling as well.';
+const footerEntries = await getCollection('footer');
+const footerData = footerEntries[0]?.data;
+const footerAboutText = [footerData?.primaryText, footerData?.secondaryText].filter(Boolean).join(' ')
+    || 'Thoughtful learning, clear communication, and modern school operations.';
 const footerNavigationLinks = [
     { href: '/pages/blog/', label: 'Our Blogs' },
     { href: '/pages/circular/', label: 'Circulars' },

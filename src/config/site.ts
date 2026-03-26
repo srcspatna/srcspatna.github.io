@@ -91,13 +91,6 @@ export const siteConfig = {
     officeTime: 'Mon-Sat : 09:00am - 03:30pm',
   },
   home: {
-    marqueeItems: [
-      'Admissions open for 2026-27 session',
-      'Safe campus with modern learning spaces',
-      'Transport, hostel, sports, and activity support',
-      'Parent-friendly updates, circulars, and notices',
-      'Academic focus with co-curricular growth',
-    ],
     activitySlides: [
       {
         imageSrc: backgroundImage.src,
@@ -121,48 +114,6 @@ export const siteConfig = {
         href: '/pages/blog/achievers-gallery/',
       },
     ],
-    sliderSlides: [
-      {
-        eyebrow: 'Admissions',
-        title: 'Start your child\'s journey with a school built for clarity and care.',
-        description: 'Explore admissions, fee structure, hostel facilities, and school policies from one streamlined experience.',
-        ctaLabel: 'Open Admission Pages',
-        ctaHref: '/pages/admission/',
-        secondaryLabel: 'Fee Structure',
-        secondaryHref: '/pages/admission/fee-structure/',
-        statLabel: 'Support',
-        statValue: 'Parents, hostel, transport',
-        accent: 'amber',
-      },
-      {
-        eyebrow: 'School Life',
-        title: 'See academics, activities, and infrastructure without digging through the site.',
-        description: 'Browse facilities, curriculum, holiday lists, annual reports, and beyond-academics pages in a single flow.',
-        ctaLabel: 'View Facilities',
-        ctaHref: '/pages/facilities/',
-        secondaryLabel: 'Browse Categories',
-        secondaryHref: '/pages/',
-        statLabel: 'Coverage',
-        statValue: 'Academics, sports, culture',
-        accent: 'emerald',
-      },
-      {
-        eyebrow: 'Updates',
-        title: 'Keep announcements and circulars visible right from the first screen.',
-        description: 'Recent posts, job opportunities, circulars, and important notices stay one click away for parents and students.',
-        ctaLabel: 'Read Circulars',
-        ctaHref: '/pages/circular/',
-        secondaryLabel: 'Latest Posts',
-        secondaryHref: '/posts/',
-        statLabel: 'Access',
-        statValue: 'Quick, organized, current',
-        accent: 'blue',
-      },
-    ],
-  },
-  footer: {
-    primaryText: 'Thoughtful learning, clear communication, and modern school operations.',
-    secondaryText: 'Pages and posts are organized for quick access to school updates and information.',
   },
 } as const;
 

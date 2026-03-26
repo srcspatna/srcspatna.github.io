@@ -31,7 +31,50 @@ const postsCollection = defineCollection({
   }),
 });
 
+const marqueeItemsCollection = defineCollection({
+  loader: glob({
+    base: './src/content/data/marquee_items',
+    pattern: '**/*.{md,mdx}',
+  }),
+  schema: z.object({
+    description: z.string(),
+  }),
+});
+
+const showcaseCollection = defineCollection({
+  loader: glob({
+    base: './src/content/data/showcase',
+    pattern: '**/*.{md,mdx}',
+  }),
+  schema: z.object({
+    eyebrow: z.string(),
+    title: z.string(),
+    description: z.string(),
+    ctaLabel: z.string(),
+    ctaHref: z.string(),
+    secondaryLabel: z.string(),
+    secondaryHref: z.string(),
+    statLabel: z.string(),
+    statValue: z.string(),
+    accent: z.enum(['amber', 'emerald', 'blue']),
+  }),
+});
+
+const footerCollection = defineCollection({
+  loader: glob({
+    base: './src/content/data',
+    pattern: 'footer.{md,mdx}',
+  }),
+  schema: z.object({
+    primaryText: z.string().optional(),
+    secondaryText: z.string().optional(),
+  }),
+});
+
 export const collections = {
   pages: pagesCollection,
   posts: postsCollection,
+  marquee_items: marqueeItemsCollection,
+  showcase: showcaseCollection,
+  footer: footerCollection,
 };

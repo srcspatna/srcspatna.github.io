@@ -48,6 +48,28 @@ const extractDateString = (value?: string) => value?.match(/\d{4}-\d{2}-\d{2}/)?
 
 const pageEntries = await getCollection('pages');
 const postEntries = await getCollection('posts');
+const marqueeEntries = await getCollection('marquee_items');
+const showcaseEntries = await getCollection('showcase');
+
+const marqueeItems = marqueeEntries
+	.sort((left, right) => left.id.localeCompare(right.id))
+	.map((entry) => entry.data.description.trim())
+	.filter(Boolean);
+
+const showcaseSlides = showcaseEntries
+	.sort((left, right) => left.id.localeCompare(right.id))
+	.map((entry) => ({
+		eyebrow: entry.data.eyebrow,
+		title: entry.data.title,
+		description: entry.data.description,
+		ctaLabel: entry.data.ctaLabel,
+		ctaHref: entry.data.ctaHref,
+		secondaryLabel: entry.data.secondaryLabel,
+		secondaryHref: entry.data.secondaryHref,
+		statLabel: entry.data.statLabel,
+		statValue: entry.data.statValue,
+		accent: entry.data.accent,
+	}));
 
 const categoryMap = new Map<string, number>();
 
@@ -133,8 +155,8 @@ const totalPosts = postEntries.length;
 		<HomeShowcase
 			activitySlides={siteConfig.home.activitySlides}
 			featuredItems={featuredPostItems}
-			marqueeItems={siteConfig.home.marqueeItems}
-			slides={siteConfig.home.sliderSlides}
+			marqueeItems={marqueeItems}
+			slides={showcaseSlides}
 		/>
 	</Fragment>
 
