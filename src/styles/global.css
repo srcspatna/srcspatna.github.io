@@ -23,10 +23,6 @@ html.dark .bg-white {
 	background-color: rgb(15 23 42) !important;
 }
 
-html.dark header .bg-white {
-	background-color: white !important;
-}
-
 html.dark .bg-slate-50 {
 	background-color: rgb(2 6 23) !important;
 }
