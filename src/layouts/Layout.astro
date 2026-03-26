@@ -1006,19 +1006,50 @@ const formattedPhone = siteConfig.contact.phone.replace('+91', '+91 ');
             }
 
             submenu.classList.remove('nav-submenu-left');
+            submenu.style.transform = '';
 
             const parentRect = menuItem.getBoundingClientRect();
             const submenuRect = measureSubmenuRect(submenu);
             const isRoot = submenu.classList.contains('nav-submenu-root');
             const gap = 6;
             const viewportPadding = 8;
+            const maxViewportWidth = Math.max(220, window.innerWidth - (viewportPadding * 2));
 
             const spaceRight = isRoot
                 ? window.innerWidth - parentRect.left - viewportPadding
                 : window.innerWidth - parentRect.right - gap - viewportPadding;
+            const spaceLeft = isRoot
+                ? parentRect.right - viewportPadding
+                : parentRect.left - gap - viewportPadding;
 
+            // Flip to left whenever right side is insufficient.
             if (submenuRect.width > spaceRight) {
                 submenu.classList.add('nav-submenu-left');
+            }
+
+            // If left is even tighter than right, keep it on right.
+            if (submenuRect.width > spaceLeft && spaceLeft < spaceRight) {
+                submenu.classList.remove('nav-submenu-left');
+            }
+
+            submenu.style.maxWidth = `${maxViewportWidth}px`;
+
+            // Final viewport clamp for both first-level and nested submenus.
+            const placedRect = measureSubmenuRect(submenu);
+            let shiftX = 0;
+
+            if (placedRect.right > window.innerWidth - viewportPadding) {
+                shiftX = (window.innerWidth - viewportPadding) - placedRect.right;
+            }
+
+            const leftAfterShift = placedRect.left + shiftX;
+
+            if (leftAfterShift < viewportPadding) {
+                shiftX += viewportPadding - leftAfterShift;
+            }
+
+            if (shiftX !== 0) {
+                submenu.style.transform = `translateX(${shiftX}px)`;
             }
         };
 

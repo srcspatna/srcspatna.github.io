@@ -6,11 +6,29 @@
     },
     {
       "href": "/pages",
-      "label": "Pages"
-    },
-    {
-      "href": "/posts",
-      "label": "Posts"
+      "label": "Pages",
+      "items": [
+        {
+          "href": "/pages/articles",
+          "label": "Articles",
+          "items": [
+            {
+              "href": "/pages/articles/circular/",
+              "label": "Circular"
+            },
+            {
+              "href": "/pages/articles/blogs/",
+              "label": "Blogs",
+              "items": [
+                {
+                  "href": "/pages/articles/blogs/achievers-gallery/",
+                  "label": "Achievers Gallery"
+                }
+              ]
+            }
+          ]
+        }
+      ]
     },
     {
       "href": "/pages/admission",
@@ -49,8 +67,90 @@
       ]
     },
     {
-      "href": "/pages/contact",
-      "label": "Contact"
+      "href": "/pages/about-us",
+      "label": "About Us"
+    },
+    {
+      "href": "/pages/facilities",
+      "label": "Facilities"
+    },
+    {
+      "href": "/pages/beyond-academics",
+      "label": "Beyond Academics"
+    },
+    {
+      "href": "/pages/careers",
+      "label": "Careers"
+    }
+  ],
+  "footer_navigation": [
+    {
+      "href": "/pages/about-us",
+      "label": "About Us"
+    },
+    {
+      "href": "/pages/facilities",
+      "label": "Facilities"
+    },
+    {
+      "href": "/pages/beyond-academics",
+      "label": "Beyond Academics"
+    },
+    {
+      "href": "/pages/careers",
+      "label": "Careers"
+    }
+  ],
+  "social_links": [
+    {
+      "href": "https://www.facebook.com/patna.srcs",
+      "label": "Facebook",
+      "left_icon": "facebook",
+      "right_icon": "external-link"
+    },
+    {
+      "href": "https://www.linkedin.com/company/srcspatna",
+      "label": "LinkedIn",
+      "left_icon": "linkedin",
+      "right_icon": "external-link"
+    },
+    {
+      "href": "https://instagram.com/srcs_patna",
+      "label": "Instagram",
+      "left_icon": "instagram",
+      "right_icon": "external-link"
+    },
+    {
+      "href": "https://www.youtube.com/@srcs_patna",
+      "label": "YouTube",
+      "left_icon": "youtube",
+      "right_icon": "external-link"
+    }
+  ],
+  "footer_contact_info": [
+    {
+      "href": "https://www.facebook.com/patna.srcs",
+      "label": "Facebook",
+      "left_icon": "facebook",
+      "right_icon": "external-link"
+    },
+    {
+      "href": "https://www.linkedin.com/company/srcspatna",
+      "label": "LinkedIn",
+      "left_icon": "linkedin",
+      "right_icon": "external-link"
+    },
+    {
+      "href": "https://instagram.com/srcs_patna",
+      "label": "Instagram",
+      "left_icon": "instagram",
+      "right_icon": "external-link"
+    },
+    {
+      "href": "https://www.youtube.com/@srcs_patna",
+      "label": "YouTube",
+      "left_icon": "youtube",
+      "right_icon": "external-link"
     }
   ]
 }
