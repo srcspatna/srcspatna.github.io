@@ -5,7 +5,6 @@ sourceUrl: https://srcspatna.com/admission/fee-structure/here-there-srcs-patna-i
 description: "Best School in Patna. Cultivating Excellence: Why SRCS Patna is
   the Best School in Patna for Primary and Secondary Education"
 ---
-<section class="seo-only">
 ## Cultivating Excellence: Why SRCS Patna is the Best School in Patna for Primary and Secondary Education
 
 Finding the **best school in Patna** for your child's primary and secondary education is a crucial decision. At SRCS Patna, we take immense pride in offering a seamless educational journey that nurtures young minds and equips them for success. Here's why SRCS Patna stands out as the **best school in Patna** for this crucial stage:
@@ -21,14 +20,13 @@ Choosing SRCS Patna is an investment in your child's future. Our exceptional pri
 
 **Ready to embark on this rewarding journey with the best school in Patna?** Visit our website at [https://srcspatna.com](https://srcspatna.com/) to learn more about our programs and admissions process. We are confident that SRCS Patna is the perfect place for your child to blossom!
 
-</section>
+&nbsp;
 
 ### Fee Structure – Primary to Secondary
 
 
 | FEE BREAKUP | TYPE | PAYABLE | AMOUNT (₹) |
 | -------------------------------------- | ------------------------ | ----------------------------------- | ---------- |
-| I TO X |  |  |  |
 | Registration Fee | One-time Non-Refundable | At the time of Registration | 3000/- |
 | Admission Fee | One-time Non-Refundable | At the time of Admission | 48,000/- |
 | Annual Charges | Every Year | At the time of Admission/Every Year | 17,000/- |
