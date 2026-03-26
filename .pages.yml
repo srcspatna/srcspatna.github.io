@@ -52,7 +52,7 @@ content:
     fields:
       - { name: description, label: Description, type: string }
   - name: showcase
-    label: Showcase
+    label: Showcase Items
     type: collection
     path: src/content/data/showcase
     view:
