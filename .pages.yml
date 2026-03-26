@@ -12,9 +12,9 @@ components:
     type: object
     label: SEO
     fields:
-      - name: title
+      - name: seo_title
         type: string
-      - name: description
+      - name: seo_description
         type: text
 content:
   - name: posts
