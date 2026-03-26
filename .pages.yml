@@ -1,9 +1,12 @@
 media:
-  input: public
-  output: /
-media:
-  input: src/assets
-  output: /assets
+  - name: public_media
+    label: Public Assets
+    input: public
+    output: /
+  - name: source_assets
+    label: Source Assets
+    input: src/assets
+    output: /assets
 content:
   - name: posts
     label: Posts
