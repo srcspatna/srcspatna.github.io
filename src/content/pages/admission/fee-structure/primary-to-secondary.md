@@ -23,7 +23,7 @@ Choosing SRCS Patna is an investment in your child's future. Our exceptional pri
 
 </section>
 
-### Fee Structure - Class 1 To 10
+### Fee Structure – Primary to Secondary
 
 
 | FEE BREAKUP | TYPE | PAYABLE | AMOUNT (₹) |
