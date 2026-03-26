@@ -1,6 +1,6 @@
 ---
-title: 'Annual Report'
-section: 'Beyond Academics'
+title: 'Annual Report 2025-2026'
+section: 'Annual Report'
 sourceUrl: 'https://srcspatna.com/beyond-academics/annual-report'
 ---
 
