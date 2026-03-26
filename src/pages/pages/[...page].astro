@@ -54,28 +54,43 @@ const entries = await getCollection('pages');
 const toSlug = (value: string) => value.replace(/\.(md|mdx)$/, '').replace(/\/index$/, '');
 const entry = entries.find((item) => toSlug(item.id) === currentPath);
 const categoryPrefix = `${currentPath}/`;
-const categoryItems = entries
-  .map((item) => {
-    const slug = toSlug(item.id);
+// Collect all distinct direct-child slugs under the current category,
+// including virtual directories that have no own .md / index.md file.
+const directChildMap = new Map<string, { data?: (typeof entries)[0]['data'] }>();
 
-    return {
-      slug,
-      data: item.data,
-    };
-  })
-  .filter((item) => item.slug.startsWith(categoryPrefix))
-  .filter((item) => {
-    const relativePath = item.slug.slice(categoryPrefix.length);
+for (const item of entries) {
+  const slug = toSlug(item.id);
 
-    return relativePath.length > 0 && !relativePath.includes('/');
-  })
-  .map((item) => ({
-    href: `/pages/${item.slug}/`,
-    title: item.data.title?.trim() || prettyLabel(item.slug.split('/').pop() || 'Page'),
-    description: item.data.description?.trim() || 'Open this category page to view complete details.',
-    dateLabel: formatDate(item.data.date),
-    tag: item.data.section?.trim() || 'Page',
-  }));
+  if (!slug.startsWith(categoryPrefix)) {
+    continue;
+  }
+
+  const relativePath = slug.slice(categoryPrefix.length);
+
+  if (!relativePath) {
+    continue;
+  }
+
+  const firstSegment = relativePath.split('/')[0];
+  const childSlug = `${categoryPrefix}${firstSegment}`;
+
+  if (!directChildMap.has(childSlug)) {
+    directChildMap.set(childSlug, {});
+  }
+
+  // Attach frontmatter data only when this entry IS the direct child (not deeper).
+  if (!relativePath.includes('/')) {
+    directChildMap.get(childSlug)!.data = item.data;
+  }
+}
+
+const categoryItems = [...directChildMap.entries()].map(([slug, { data }]) => ({
+  href: `/pages/${slug}/`,
+  title: data?.title?.trim() || prettyLabel(slug.split('/').pop() || 'Page'),
+  description: data?.description?.trim() || `Browse all pages in the ${prettyLabel(slug.split('/').pop() || 'Section')} category.`,
+  dateLabel: formatDate(data?.date),
+  tag: data?.section?.trim() || 'Category',
+}));
 
 const isCategoryPage = categoryItems.length > 0;
 
