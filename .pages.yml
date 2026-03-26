@@ -132,3 +132,9 @@ content:
     fields:
       - { name: primaryText, label: Primary Text, type: string }
       - { name: secondaryText, label: Secondary Text, type: string }
+  - name: social_links
+    label: Social Links
+    type: file
+    path: src/content/data/social_links.md
+    fields:
+      - { name: label, label: href, type: string }
