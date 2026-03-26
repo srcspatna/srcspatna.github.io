@@ -128,13 +128,20 @@ content:
   - name: footer
     label: Footer
     type: file
-    path: src/content/data/footer.md
+    path: src/content/data/footer.json
     fields:
       - { name: primaryText, label: Primary Text, type: string }
       - { name: secondaryText, label: Secondary Text, type: string }
   - name: social_links
     label: Social Links
     type: file
-    path: src/content/data/social_links.md
+    path: src/content/data/social_links.json # Changed to .json for your requirement
+    format: json
+    list: true # This allows adding multiple dynamic entries
     fields:
-      - { name: label, label: href, type: string }
+      - name: label
+        label: Label (e.g. Twitter)
+        type: string
+      - name: href
+        label: URL
+        type: string
