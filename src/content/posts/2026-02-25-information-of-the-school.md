@@ -2,7 +2,7 @@
 title: INFORMATION OF THE SCHOOL
 section: Posts
 slug: information-of-the-school
-seobody: >-
+seo_body: >-
   # Nursery School Fees in Patna | Best school for nursery in Patna
 
 

@@ -3,7 +3,7 @@ title: 'A Comprehensive Guide To Nursery School Fees In Patna'
 section: 'Articles'
 sourceUrl: 'https://srcspatna.com/page/a-comprehensive-guide-to-nursery-school-fees-in-patna'
 description: 'Transparency is key when choosing the best school for nursery in Patna for your child. Here'
-seobody: |
+seo_body: |
   # Nursery School Fees in Patna | Best school for nursery in Patna
 
   ## Building Bright Beginnings: A Comprehensive Guide to Nursery School Fees in Patna
