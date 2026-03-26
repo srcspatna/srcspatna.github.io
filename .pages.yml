@@ -12,11 +12,14 @@ components:
     type: object
     label: SEO
     fields:
-      - name: target_keyword
+      - name: primary_keyword
+        label: SEO Primary Keyword
         type: string
       - name: seo_title
+        label: SEO Title
         type: string
       - name: seo_description
+        label: SEO Description
         type: text
 content:
   - name: posts
