@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
+import { marked } from 'marked';
 import GlobalLayout from '../../layouts/Layout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { buildPageTitle } from '../../config/site';
@@ -21,7 +22,8 @@ if (!entry) {
 }
 
 const { Content } = await render(entry);
-const seobody = entry.data.seobody?.trim() || '';
+const seobodyRaw = entry.data.seobody?.trim() || '';
+const seobody = seobodyRaw ? await marked.parse(seobodyRaw) : '';
 const pageTitle = entry.data.title?.trim() || 'School Post';
 const pageDescription = entry.data.description?.trim();
 const crumbSegments = currentPath.split('/').filter(Boolean);

@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
+import { marked } from 'marked';
 import GlobalLayout from '../../layouts/Layout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import ContentCard from '../../components/ContentCard.astro';
@@ -117,7 +118,8 @@ const breadcrumbItems = [
 ];
 
 let Content;
-const seobody = entry?.data.seobody?.trim() || '';
+const seobodyRaw = entry?.data.seobody?.trim() || '';
+const seobody = seobodyRaw ? await marked.parse(seobodyRaw) : '';
 
 if (entry && !isCategoryPage) {
   ({ Content } = await render(entry));
