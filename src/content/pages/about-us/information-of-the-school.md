@@ -1,14 +1,11 @@
 ---
-title: 'Information of the School'
-section: 'About Us'
-sourceUrl: 'https://srcspatna.com/about-us/information-of-the-school'
+title: Information of the School
+section: About Us
+sourceUrl: https://srcspatna.com/about-us/information-of-the-school
 ---
 
-# INFORMATION OF THE SCHOOL
-
-
 | Name | SHRI RAM CENTENNIAL SCHOOL |
-| --- | --- |
+| ---------------------------------------------------- | -------------------------------------------------------------------------------------------- |
 | Address | BHOGIPUR, NEAR SAHPUR, JAGANPURA, PATNA - 804453 |
 | Email | This email address is being protected from spambots. You need JavaScript enabled to view it. |
 | Contact No. | +91 8873002602, +918873002603, +918873002609 |
@@ -17,7 +14,7 @@ sourceUrl: 'https://srcspatna.com/about-us/information-of-the-school'
 | Affiliation No. | 330653 |
 | Affiliation with the Board since | 2016 |
 | Name of Trust | SHARDA EDUCATIONAL TRUST, PATNA |
-| | Registered under Section 25 of the Company Act, 1956. |
+|  | Registered under Section 25 of the Company Act, 1956. |
 | In Acres | 02 ACRE |
 | In Sq. mts | 8093.7128 SQ.MTR |
 | Built up area (Sq. mts) | 1250 |
@@ -38,7 +35,7 @@ sourceUrl: 'https://srcspatna.com/about-us/information-of-the-school'
 
 
 | NAME | SUNIL KUMAR SINGH |
-| --- | --- |
+| ------------- | -------------------------------------------------------------------------------------------- |
 | FATHSE’S NAME | SHRI RAM LAYA SINGH |
 | ADDRESS | K-45, Hanuman Nagar, Kankarbagh, Patna 800020 |
 | OCCUPATION | BUSINESS & SOCIAL SERVICES |
@@ -46,3 +43,6 @@ sourceUrl: 'https://srcspatna.com/about-us/information-of-the-school'
 | DESIGNATION | SECRETARY |
 | PHONE | +91 8873118444 |
 | E-Mail | This email address is being protected from spambots. You need JavaScript enabled to view it. |
+
+
+&nbsp;
