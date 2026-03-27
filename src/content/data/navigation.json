@@ -5,32 +5,6 @@
       "label": "Home"
     },
     {
-      "href": "/pages",
-      "label": "Pages",
-      "items": [
-        {
-          "href": "/pages/articles",
-          "label": "Articles",
-          "items": [
-            {
-              "href": "/pages/articles/circular/",
-              "label": "Circular"
-            },
-            {
-              "href": "/pages/articles/blogs/",
-              "label": "Blogs",
-              "items": [
-                {
-                  "href": "/pages/articles/blogs/achievers-gallery/",
-                  "label": "Achievers Gallery"
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
       "href": "/pages/admission",
       "label": "Admission",
       "items": [
