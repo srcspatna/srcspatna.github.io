@@ -143,8 +143,6 @@ seo:
 
 CHEQUES IN FAVOUR OF: - SHRI RAM CENTENNIAL SCHOOL
 
-&nbsp;
-
 [Policy & Procedure](/admission/top-10-school-in-patna-policy-and-procedure) [Fee Structure - Senior Secondary (New Student's)](/admission/fee-structure/fee-structure-at-srcs-patna-the-best-school-in-patna-for-pre-primary-2)  [Fee Structure - Pre-Primary](/admission/fee-structure/fee-structure-at-srcs-patna-the-best-school-in-patna-for-pre-primary) [Fee Structure - Class 1 To 10](/admission/fee-structure/here-there-srcs-patna-is-the-best-school-in-patna-for-primary-and-secondary-education) [Fee Structure - STD-11 to 12](/admission/fee-structure/best-school-in-patna-for-senior-secondary-fee-structure) [Admission Form](/admission/top-school-in-patna-the-admissions-process) [Contact Us](/admission/contact-us)
 
 Call on 8873002602 Call on 8873002603 [What'sApp](https://wa.me/918873002603) [Map | School location](https://maps.app.goo.gl/hT1b4dNgrtCxdJSAA)
