@@ -59,7 +59,11 @@
   ],
   "footer_navigation": [
     {
-      "href": "/pages/blogs",
+      "href": "/pages",
+      "label": "Pages"
+    },
+    {
+      "href": "/pages/articles/blogs",
       "label": "Blogs"
     },
     {
@@ -67,7 +71,7 @@
       "label": "Circulars"
     },
     {
-      "href": "/pages/admission/contact-us/",
+      "href": "https://srcspatna.com/admission/contact-us",
       "label": "Contact Us"
     },
     {

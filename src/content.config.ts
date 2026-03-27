@@ -67,8 +67,16 @@ const footerCollection = defineCollection({
   }),
   schema: z.object({
     footer: z.object({
+      label: z.string().optional(),
+      description: z.string().optional(),
       primaryText: z.string().optional(),
       secondaryText: z.string().optional(),
+      social_links: z.array(z.object({
+        href: z.string().optional(),
+        label: z.string().optional(),
+        left_icon: z.string().optional(),
+        right_icon: z.string().optional(),
+      })).optional(),
     }),
   }),
 });

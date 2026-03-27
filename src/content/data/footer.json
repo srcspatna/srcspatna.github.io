@@ -1,6 +1,32 @@
 {
   "footer": {
-    "primaryText": "Thoughtful learning, clear communication, and modern school operations.",
-    "secondaryText": "Pages and posts are organized for quick access to school updates and information."
+    "label": "SRCS, Patna",
+    "description": "Legacy of 95 years of excellence in the domain of education reflected in the world class premier institutions of higher learning by Shri Ram family - SRCC & LSR. Ranked as one of the the Best CBSE Schools in Bihar by the EW Magazine, SRCS focuses on the holistic growth of the child. We cater to learning upto senior secondary level and provide career counselling as well.",
+    "social_links": [
+      {
+        "href": "https://www.facebook.com/patna.srcs",
+        "label": "Facebook",
+        "left_icon": "facebook",
+        "right_icon": "external-link"
+      },
+      {
+        "href": "https://www.linkedin.com/company/srcspatna",
+        "label": "LinkedIn",
+        "left_icon": "linkedin",
+        "right_icon": "external-link"
+      },
+      {
+        "href": "https://instagram.com/srcs_patna",
+        "label": "Instagram",
+        "left_icon": "instagram",
+        "right_icon": "external-link"
+      },
+      {
+        "href": "https://www.youtube.com/@srcs_patna",
+        "label": "YouTube",
+        "left_icon": "youtube",
+        "right_icon": "external-link"
+      }
+    ]
   }
 }
