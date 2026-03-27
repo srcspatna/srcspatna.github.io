@@ -94,6 +94,30 @@ seo:
     available. By fostering open dialogue, we can work together to create a
     nurturing and enriching learning environment for all our students.
 ---
-# [Contact Form](https://srcspatna.com/admission/contact-us)
+# Contact Us
 
-&nbsp;
+We are happy to help with admissions, academics, fee details, facilities, and general school queries.
+Please fill out the contact form below and our team will respond as soon as possible.
+
+## When to Use This Form
+
+- Admission-related questions
+- Fee structure and policy clarifications
+- Transport, hostel, and facilities queries
+- General school information requests
+
+## What to Include in Your Message
+
+- Student name (if applicable)
+- Class or grade (if known)
+- Your contact number and email
+- A clear description of your question
+
+## Contact Details
+
+- Phone: +91 8873002602, +91 8873002603
+- Email: info@srcspatna.com
+- Address: Bhogipur, Near Shahpur, Jaganpura, Patna, Bihar, 804453
+- Office Hours: Monday to Saturday, 9:00 AM to 3:30 PM
+
+Our support team will review your enquiry and get back to you promptly.
