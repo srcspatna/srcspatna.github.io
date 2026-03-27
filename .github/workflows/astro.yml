@@ -66,6 +66,15 @@ jobs:
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
         working-directory: ${{ env.BUILD_PATH }}
+      - name: Validate required public env
+        env:
+          PUBLIC_CONTACT_FORM_ENDPOINT: ${{ secrets.PUBLIC_CONTACT_FORM_ENDPOINT }}
+        run: |
+          if [ -z "${PUBLIC_CONTACT_FORM_ENDPOINT}" ]; then
+            echo "Missing required secret: PUBLIC_CONTACT_FORM_ENDPOINT"
+            exit 1
+          fi
+          echo "PUBLIC_CONTACT_FORM_ENDPOINT is configured for build."
       - name: Build with Astro
         env:
           PUBLIC_CONTACT_FORM_ENDPOINT: ${{ secrets.PUBLIC_CONTACT_FORM_ENDPOINT }}
