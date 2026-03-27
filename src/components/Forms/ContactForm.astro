@@ -27,9 +27,9 @@ const {
   serverUnavailableMessage?: string;
 };
 
-const resolvedEndpoint = endpoint?.trim() || '';
+const resolvedEndpoint = endpoint?.trim() || '/api/contact';
 const resolvedMethod = method || 'POST';
-const isEnabled = siteConfig.forms.contact.enabled && resolvedEndpoint.length > 0;
+const isEnabled = siteConfig.forms.contact.enabled;
 ---
 
 <section class:list={[
@@ -43,7 +43,7 @@ const isEnabled = siteConfig.forms.contact.enabled && resolvedEndpoint.length > 
 
   {!isEnabled ? (
     <p class="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900 dark:border-amber-800 dark:bg-amber-900/20 dark:text-amber-200">
-      Contact form endpoint is not configured. Set PUBLIC_CONTACT_FORM_ENDPOINT to enable submissions.
+      Contact form is currently unavailable.
     </p>
   ) : (
     <form class="space-y-4" data-contact-form data-endpoint={resolvedEndpoint} data-method={resolvedMethod} data-source={source}>
