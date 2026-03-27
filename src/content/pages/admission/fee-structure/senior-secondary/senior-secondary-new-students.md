@@ -2,8 +2,15 @@
 title: Fee Structure - Senior Secondary (New Student's)
 section: Admission
 sourceUrl: https://srcspatna.com/admission/fee-structure/fee-structure-at-srcs-patna-the-best-school-in-patna-for-pre-primary-2
-description: Best School in Patna for Pre-Primary. Investing in Your Child
+description: We are committed to providing a high-quality education while
+  ensuring our fees are transparent and competitive.
 seo:
+  focus_keyword: best school in Patna
+  seo_title: Choosing the best school in Patna for your child's pre-primary
+    education is a significant decision.
+  seo_description: "Choosing the best school in Patna for your child's pre-primary
+    education is a significant decision. At SRCS Patna, we understand that
+    affordability is a key factor in this process. "
   seo_body: >-
     ## Investing in Your Child's Future: Fee Structure at SRCS Patna, the Best
     School in Patna for Pre-Primary
