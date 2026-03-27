@@ -4,7 +4,8 @@ import { marked } from 'marked';
 import GlobalLayout from '../../layouts/Layout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import ContentCard from '../../components/ContentCard.astro';
-import { buildPageTitle } from '../../config/site';
+import ContactForm from '../../components/Forms/ContactForm.astro';
+import { buildPageTitle, siteConfig } from '../../config/site';
 
 const prettyLabel = (segment: string) => segment
   .replace(/-/g, ' ')
@@ -94,6 +95,8 @@ const categoryItems = [...directChildMap.entries()].map(([slug, { data }]) => ({
 }));
 
 const isCategoryPage = categoryItems.length > 0;
+const showContactForm = !isCategoryPage && Boolean(entry?.data.show_contact_form) && siteConfig.forms.contact.enabled;
+const contactFormSource = entry?.data.contact_form_source?.trim() || currentPath || 'pages';
 
 if (!entry && !isCategoryPage) {
   throw new Error(`Page content not found for slug: ${currentPath}`);
@@ -144,10 +147,18 @@ if (entry && !isCategoryPage) {
       </div>
     </section>
   ) : (
-    <article class="content-shell mx-auto max-w-4xl overflow-hidden rounded-4xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900 sm:p-10">
-      {seoBodyHtml && <section class="seo-only" set:html={seoBodyHtml} />}
-      {Content && <Content />}
-    </article>
+    <section class="space-y-8">
+      <article class="content-shell mx-auto max-w-4xl overflow-hidden rounded-4xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900 sm:p-10">
+        {seoBodyHtml && <section class="seo-only" set:html={seoBodyHtml} />}
+        {Content && <Content />}
+      </article>
+
+      {showContactForm && (
+        <div class="mx-auto max-w-4xl">
+          <ContactForm source={contactFormSource} />
+        </div>
+      )}
+    </section>
   )}
 </GlobalLayout>
 

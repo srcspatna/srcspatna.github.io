@@ -14,6 +14,15 @@ type CustomTagConfig = {
   html: string;
 };
 
+type ContactFormConfig = {
+  enabled: boolean;
+  endpoint: string;
+  method: 'POST' | 'PUT';
+  successMessage: string;
+  errorMessage: string;
+  serverUnavailableMessage: string;
+};
+
 export const siteConfig = {
   site: {
     name: 'Shri Ram Centenary School, Patna',
@@ -77,6 +86,16 @@ export const siteConfig = {
       //   html: '<script>/* provider snippet */</script>',
       // },
     ] as CustomTagConfig[],
+  },
+  forms: {
+    contact: {
+      enabled: true,
+      endpoint: import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT ?? '',
+      method: 'POST' as const,
+      successMessage: 'Thanks for contacting us. Our team will get back to you shortly.',
+      errorMessage: 'Unable to submit your form right now. Please try again after some time.',
+      serverUnavailableMessage: 'Our enquiry service is temporarily unavailable. Please try again after some time.',
+    } as ContactFormConfig,
   },
   features: {
     breadcrumbs: true, // set to false to disable breadcrumbs site-wide

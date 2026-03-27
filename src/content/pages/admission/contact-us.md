@@ -2,6 +2,8 @@
 title: Contact Us
 section: Admission
 sourceUrl: https://srcspatna.com/admission/contact-us
+show_contact_form: true
+contact_form_source: admission-contact-us-page
 description: At SRCS Patna, consistently ranked among the best schools in Patna
   | Contact Form of Best School of Patna | Contact Best School of Patna
 seo:

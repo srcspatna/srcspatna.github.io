@@ -13,6 +13,8 @@ const pagesCollection = defineCollection({
     sourceUrl: z.string().url().optional(),
     date: z.string().optional(),
     seo_body: z.string().optional(),
+    show_contact_form: z.boolean().optional(),
+    contact_form_source: z.string().optional(),
   }),
 });
 
