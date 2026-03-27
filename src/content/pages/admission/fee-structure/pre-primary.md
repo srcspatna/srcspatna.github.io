@@ -4,6 +4,13 @@ section: Fee Structure
 sourceUrl: https://srcspatna.com/admission/fee-structure/fee-structure-at-srcs-patna-the-best-school-in-patna-for-pre-primary
 description: Best School in Patna for Pre-Primary. Investing in Your Child
 seo:
+  focus_keyword: Best School in Patna
+  seo_title: Fee Structure at SRCS Patna, the Best School in Patna for Pre-Primary
+  seo_description: Choosing the best school in Patna for your child's pre-primary
+    education is a significant decision. At SRCS Patna, we understand that
+    affordability is a key factor in this process. We are committed to providing
+    a high-quality education while ensuring our fees are transparent and
+    competitive.
   seo_body: >-
     ## Investing in Your Child's Future: Fee Structure at SRCS Patna, the Best
     School in Patna for Pre-Primary
