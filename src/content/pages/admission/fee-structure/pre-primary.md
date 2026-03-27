@@ -136,46 +136,7 @@ seo:
 
 CHEQUES IN FAVOUR OF: - SHRI RAM CENTENNIAL SCHOOL
 
-### Age requirement at the time of admission
-
-
-| Class | Minimum Age as on 31st March 2025 |
-| ------- | --------------------------------- |
-| Nursery | 3 years |
-| KG-1 | 4 years |
-| KG-2 | 5 years |
-| STD-1 | 6 years |
-| STD-2 | 7 years |
-| STD-3 | 8 years |
-| STD-4 | 9 years |
-| STD-5 | 10 years |
-| STD-6 | 11 years |
-| STD-7 | 12 years |
-| STD-8 | 13 years |
-| STD-9 | 14 years |
-| STD-10 | 15 years |
-| STD-11 | 16 years |
-
-
-### List of Documents required at the time of admission: -
-
-(1) Aadhaar Card of student, Mother& Father (Xerox)
-
-(2) Student Birth Certificate (Xerox)
-
-(3) Passport Size Photo: - Student – 4, Mother – 2, Father – 2
-
-(4) Transfer Certificate (Original)
-
-(5) Migration Certificate (Original)
-
-(6) Marksheet (Xerox copy)
-
-(7) Present Address Proof (Xerox)
-
-(8) PEN no. of student from previous school (Grade-II onwards)
-
-CHEQUES IN FAVOUR OF: - SHRI RAM CENTENNIAL SCHOOL
+&nbsp;
 
 [Policy & Procedure](/admission/top-10-school-in-patna-policy-and-procedure) [Fee Structure - Senior Secondary (New Student's)](/admission/fee-structure/fee-structure-at-srcs-patna-the-best-school-in-patna-for-pre-primary-2)  [Fee Structure - Pre-Primary](/admission/fee-structure/fee-structure-at-srcs-patna-the-best-school-in-patna-for-pre-primary) [Fee Structure - Class 1 To 10](/admission/fee-structure/here-there-srcs-patna-is-the-best-school-in-patna-for-primary-and-secondary-education) [Fee Structure - STD-11 to 12](/admission/fee-structure/best-school-in-patna-for-senior-secondary-fee-structure) [Admission Form](/admission/top-school-in-patna-the-admissions-process) [Contact Us](/admission/contact-us)
 
