@@ -2,18 +2,17 @@
 title: Fee Structure - Senior Secondary
 section: Admission
 sourceUrl: https://srcspatna.com/admission/fee-structure/best-school-in-patna-for-senior-secondary-fee-structure
-description: "Best School in Patna for Senior Secondary. Demystifying the
-  Investment: Fee Structure for Senior Secondary Education at SRCS Patna, the
-  Best School in Patna."
+description: We are committed to providing a high-quality education while
+  ensuring our fees are transparent and competitive.
 seo:
-  focus_keyword: Best School in Patna
+  focus_keyword: Best Schools in Patna
   seo_title: Fee Structure for Senior Secondary Education at SRCS Patna, the Best
-    School in Patna
+    Schools in Patna
   seo_description: "Choosing the best school in Patna for this critical stage can
     significantly impact their college preparedness and future prospects. "
   seo_body: >-
     ## Demystifying the Investment: Fee Structure for Senior Secondary (11th and
-    12th) Education at SRCS Patna, the Best School in Patna
+    12th) Education at SRCS Patna, the Best Schools in Patna
 
 
     Equipping your child for success in senior secondary (11th and 12th)
