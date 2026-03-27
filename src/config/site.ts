@@ -25,7 +25,7 @@ type ContactFormConfig = {
 
 export const siteConfig = {
   site: {
-    name: 'Shri Ram Centenary School, Patna',
+    name: 'Shri Ram Centennial School, Patna',
     shortName: 'SRCS, Patna',
     url: 'https://srcspatna.in',
     domain: 'srcspatna.in',
@@ -36,13 +36,13 @@ export const siteConfig = {
     eyebrow: 'Joie de vivre',
     logo: {
       src: logoImage.src,
-      alt: 'Shri Ram Centenary School logo',
+      alt: 'Shri Ram Centennial School logo',
       width: 48,
       height: 48,
     },
     wordmark: {
       src: wordmarkImage.src,
-      alt: 'Shri Ram Centenary School wordmark',
+      alt: 'Shri Ram Centennial School wordmark',
     },
     favicon: {
       src: faviconImage.src,
@@ -50,16 +50,16 @@ export const siteConfig = {
     },
     previewImage: {
       src: faviconImage.src,
-      alt: 'Shri Ram Centenary School preview image',
+      alt: 'Shri Ram Centennial School preview image',
     },
     watermark: {
       src: wordmarkImage.src,
-      alt: 'Shri Ram Centenary School watermark',
+      alt: 'Shri Ram Centennial School watermark',
     },
   },
   seo: {
-    defaultTitle: 'Shri Ram Centenary School, Patna',
-    defaultDescription: 'Shri Ram Centenary School, Patna portal for announcements, school pages, and parent-student updates.',
+    defaultTitle: 'Shri Ram Centennial School, Patna',
+    defaultDescription: 'Shri Ram Centennial School, Patna portal for announcements, school pages, and parent-student updates.',
     titleSeparator: ' | ',
     twitterCard: 'summary',
     robots: 'index,follow',
@@ -119,7 +119,7 @@ export const siteConfig = {
     enableSystemTheme: true, // allow device automatic mode option
     showBrandName: true, // set to false to show only logo without name/eyebrow
     brandLogoImage: 'logo' as 'logo' | 'wordmark', // which image to use as brand logo
-    showSiteName: false, // set to false to hide 'Shri Ram Centenary School, Patna'
+    showSiteName: false, // set to false to hide 'Shri Ram Centennial School, Patna'
     showEyebrow: false, // set to false to hide 'Joie de vivre'
     showWatermark: true, // set to false to hide watermark image in header
   },
