@@ -2,6 +2,8 @@
 title: Our Edge
 section: Facilities
 sourceUrl: https://srcspatna.com/facilities/our-edge
+seo:
+  focus_keyword: 7CS
 ---
 # Our Edge – 7CS
 
