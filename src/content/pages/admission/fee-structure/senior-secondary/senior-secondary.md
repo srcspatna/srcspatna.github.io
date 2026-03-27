@@ -1,5 +1,5 @@
 ---
-title: Fee Structure – Class 11 & 12
+title: Fee Structure - Senior Secondary
 section: Admission
 sourceUrl: https://srcspatna.com/admission/fee-structure/best-school-in-patna-for-senior-secondary-fee-structure
 description: "Best School in Patna for Senior Secondary. Demystifying the
