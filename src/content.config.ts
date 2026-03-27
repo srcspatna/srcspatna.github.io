@@ -87,14 +87,21 @@ const navigationCollection = defineCollection({
     pattern: 'navigation.json',
   }),
   schema: z.object({
-    header_navigation: z.array(z.object({
+    header_navigation: z.array(z.lazy(() => z.object({
       href: z.string().optional(),
       label: z.string().optional(),
-      items: z.array(z.any()).optional(),
-    })),
+      right_icon: z.string().optional(),
+      items: z.array(z.lazy(() => z.object({
+        href: z.string().optional(),
+        label: z.string().optional(),
+        right_icon: z.string().optional(),
+        items: z.array(z.any()).optional(),
+      }))).optional(),
+    }))),
     footer_navigation: z.array(z.object({
       href: z.string().optional(),
       label: z.string().optional(),
+      right_icon: z.string().optional(),
     })).optional(),
     footer_contact_info: z.array(z.object({
       href: z.string().optional(),

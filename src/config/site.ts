@@ -5,6 +5,15 @@ import logoImage from '../assets/logo_50.png';
 import fullWordmarkImage from '../assets/logo_name.png';
 import wordmarkImage from '../assets/logo_name_150.png';
 
+type CustomTagPlacement = 'head' | 'body-start' | 'body-end';
+
+type CustomTagConfig = {
+  id: string;
+  enabled: boolean;
+  placement: CustomTagPlacement;
+  html: string;
+};
+
 export const siteConfig = {
   site: {
     name: 'Shri Ram Centenary School, Patna',
@@ -45,6 +54,29 @@ export const siteConfig = {
     titleSeparator: ' | ',
     twitterCard: 'summary',
     robots: 'index,follow',
+  },
+  tracking: {
+    gtm: {
+      enabled: true,
+      containerId: import.meta.env.PUBLIC_GTM_ID ?? '',
+      dataLayerName: 'dataLayer',
+    },
+    ga4: {
+      enabled: true,
+      measurementId: import.meta.env.PUBLIC_GA4_ID ?? '',
+      viaTagManager: true,
+      sendPageView: true,
+    },
+    customTags: [
+      // Add any custom provider snippet here without touching layout code.
+      // Example:
+      // {
+      //   id: 'meta-pixel-base',
+      //   enabled: false,
+      //   placement: 'head',
+      //   html: '<script>/* provider snippet */</script>',
+      // },
+    ] as CustomTagConfig[],
   },
   features: {
     breadcrumbs: true, // set to false to disable breadcrumbs site-wide

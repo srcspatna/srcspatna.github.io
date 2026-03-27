@@ -52,6 +52,24 @@ const topBarSocialIconsShowOnSmallScreen = siteConfig.features.topBarSocialIcons
 const topBarSocialIconsShowOnLargeScreen = siteConfig.features.topBarSocialIconsShowOnLargeScreen;
 const navbarStickyEnabled = siteConfig.features.navbarSticky;
 const pathname = Astro.url.pathname;
+const trackingConfig = siteConfig.tracking;
+const gtmId = trackingConfig.gtm.containerId.trim();
+const gtmDataLayerName = trackingConfig.gtm.dataLayerName.trim() || 'dataLayer';
+const gtmEnabled = trackingConfig.gtm.enabled && gtmId.length > 0;
+const ga4Id = trackingConfig.ga4.measurementId.trim();
+const ga4Enabled = trackingConfig.ga4.enabled && !trackingConfig.ga4.viaTagManager && ga4Id.length > 0;
+const customTrackingTags = trackingConfig.customTags.filter((tag) => tag.enabled && tag.html.trim().length > 0);
+const headTrackingTags = customTrackingTags.filter((tag) => tag.placement === 'head');
+const bodyStartTrackingTags = customTrackingTags.filter((tag) => tag.placement === 'body-start');
+const bodyEndTrackingTags = customTrackingTags.filter((tag) => tag.placement === 'body-end');
+const gtmInlineScript = gtmEnabled
+    ? `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','${gtmDataLayerName}','${gtmId}');`
+    : '';
+const ga4BootstrapScript = ga4Enabled
+    ? `window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${ga4Id}', { send_page_view: ${trackingConfig.ga4.sendPageView ? 'true' : 'false'} });`
+    : '';
+const gtmNoScriptSrc = `https://www.googletagmanager.com/ns.html?id=${gtmId}`;
+const ga4ScriptSrc = `https://www.googletagmanager.com/gtag/js?id=${ga4Id}`;
 const bannerThemes: Record<BannerTone, { shell: string; badge: string; glow: string }> = {
   blue: {
     shell: 'from-slate-950 via-blue-900 to-sky-600',
@@ -73,13 +91,21 @@ const bannerThemes: Record<BannerTone, { shell: string; badge: string; glow: str
 type NavigationNode = {
     href?: string;
     label?: string;
+    right_icon?: string;
     items?: NavigationNode[];
 };
 
 type HeaderNavItem = {
     href: string;
     label: string;
+    rightIcon?: string;
     children: HeaderNavItem[];
+};
+
+type FooterNavLink = {
+    href: string;
+    label: string;
+    rightIcon?: string;
 };
 
 const normalizeNavigation = (items: NavigationNode[] = []): HeaderNavItem[] => {
@@ -89,7 +115,12 @@ const normalizeNavigation = (items: NavigationNode[] = []): HeaderNavItem[] => {
         const children = normalizeNavigation(Array.isArray(item.items) ? item.items : []);
 
         if (typeof item.href === 'string' && typeof item.label === 'string') {
-            links.push({ href: item.href, label: item.label, children });
+            links.push({
+                href: item.href,
+                label: item.label,
+                rightIcon: typeof item.right_icon === 'string' ? item.right_icon : undefined,
+                children,
+            });
         } else if (children.length > 0) {
             // Allow container nodes with only nested `items` in JSON.
             links.push(...children);
@@ -117,10 +148,13 @@ const renderDesktopMenu = (items: HeaderNavItem[], depth = 0): string => items.m
     const caret = hasChildren
         ? '<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" /></svg>'
         : '';
+    const rightIcon = item.rightIcon === 'external-link'
+        ? '<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7" /><path stroke-linecap="round" stroke-linejoin="round" d="M8 7h9v9" /></svg>'
+        : '';
     const submenuClass = depth === 0 ? 'nav-submenu nav-submenu-root' : 'nav-submenu nav-submenu-flyout';
 
     return `<li class="nav-menu-item">
-        <a href="${escapeHtml(item.href)}" class="${itemClasses}">${escapeHtml(item.label)}${caret}</a>
+        <a href="${escapeHtml(item.href)}" class="${itemClasses}">${escapeHtml(item.label)}${rightIcon}${caret}</a>
         ${hasChildren ? `<ul class="${submenuClass}">${renderDesktopMenu(item.children, depth + 1)}</ul>` : ''}
     </li>`;
 }).join('');
@@ -131,9 +165,12 @@ const renderMobileMenu = (items: HeaderNavItem[], depth = 0): string => items.ma
         ? 'bg-slate-950 text-white'
         : 'text-slate-700 hover:bg-slate-100 hover:text-slate-950 dark:text-slate-200 dark:hover:bg-slate-700/70 dark:hover:text-white';
     const marginClass = depth > 0 ? 'ml-4 mt-1 border-l border-slate-200 pl-2' : '';
+    const rightIcon = item.rightIcon === 'external-link'
+        ? '<svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7" /><path stroke-linecap="round" stroke-linejoin="round" d="M8 7h9v9" /></svg>'
+        : '';
 
     return `<div class="${marginClass}">
-        <a href="${escapeHtml(item.href)}" class="block rounded-xl px-4 py-3 text-sm font-semibold transition-colors duration-200 ${activeClass}">${escapeHtml(item.label)}</a>
+        <a href="${escapeHtml(item.href)}" class="inline-flex w-full items-center gap-1.5 rounded-xl px-4 py-3 text-sm font-semibold transition-colors duration-200 ${activeClass}">${escapeHtml(item.label)}${rightIcon}</a>
         ${hasChildren ? renderMobileMenu(item.children, depth + 1) : ''}
     </div>`;
 }).join('');
@@ -156,7 +193,7 @@ const navigationEntries = await getCollection('navigation');
 const navFromContent = normalizeNavigation(navigationEntries[0]?.data.header_navigation || []);
 const navLinks: HeaderNavItem[] = navFromContent.length > 0
     ? navFromContent
-    : siteConfig.navigation.map((item) => ({ ...item, children: [] }));
+    : siteConfig.navigation.map((item) => ({ ...item, rightIcon: undefined, children: [] }));
 const topbarSocialFromContent = (navigationEntries[0]?.data.topbar_social_links || [])
     .filter((item) => typeof item.href === 'string' && typeof item.label === 'string')
     .map((item) => ({ href: item.href as string, label: item.label as string }));
@@ -167,6 +204,7 @@ const topbarNavigationFromContent = (navigationEntries[0]?.data.topbar_navigatio
         href: typeof item.href === 'string' ? item.href.replace(/^email:/, 'mailto:') : undefined,
         label: item.label as string,
         leftIcon: typeof item.left_icon === 'string' ? item.left_icon : undefined,
+        rightIcon: typeof item.right_icon === 'string' ? item.right_icon : undefined,
     }));
 const topbarInfoLinks = topbarNavigationFromContent.length > 0 ? topbarNavigationFromContent : [
     { href: undefined, label: siteConfig.contact.address, leftIcon: 'map-pin' },
@@ -179,13 +217,17 @@ const desktopMenuHtml = renderDesktopMenu(navLinks);
 const mobileMenuHtml = renderMobileMenu(navLinks);
 const footerNavigationFromContent = (navigationEntries[0]?.data.footer_navigation || [])
     .filter((item) => typeof item.href === 'string' && typeof item.label === 'string')
-    .map((item) => ({ href: item.href as string, label: item.label as string }));
+    .map((item) => ({
+        href: item.href as string,
+        label: item.label as string,
+        rightIcon: typeof item.right_icon === 'string' ? item.right_icon : undefined,
+    }));
 const footerEntries = await getCollection('footer');
 const footerData = footerEntries[0]?.data.footer;
 const footerHeading = footerData?.label?.trim() || 'About Us';
 const footerAboutText = (footerData?.description?.trim() || [footerData?.primaryText, footerData?.secondaryText].filter(Boolean).join(' '))
     || 'Thoughtful learning, clear communication, and modern school operations.';
-const footerNavigationLinks = footerNavigationFromContent.length > 0 ? footerNavigationFromContent : [
+const footerNavigationLinks: FooterNavLink[] = footerNavigationFromContent.length > 0 ? footerNavigationFromContent : [
     { href: '/pages/blog/', label: 'Our Blogs' },
     { href: '/pages/circular/', label: 'Circulars' },
     { href: '/pages/admission/contact-us/', label: 'Contact Us' },
@@ -250,6 +292,10 @@ const footerSocialLinks = footerSocialFromContent.length > 0
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Merriweather:wght@700&display=swap" rel="stylesheet" />
+    {gtmEnabled && <script is:inline set:html={gtmInlineScript}></script>}
+    {ga4Enabled && <script async src={ga4ScriptSrc}></script>}
+    {ga4Enabled && <script is:inline set:html={ga4BootstrapScript}></script>}
+    {headTrackingTags.map((tag) => <Fragment set:html={tag.html} />)}
     <script is:inline define:vars={{ defaultTheme, availableThemes }}>
         (() => {
             const storageKey = 'site-theme';
@@ -285,6 +331,12 @@ const footerSocialLinks = footerSocialFromContent.length > 0
     data-theme-default={defaultTheme}
     data-theme-modes={JSON.stringify(availableThemes)}
 >
+    {gtmEnabled && (
+        <noscript>
+            <iframe src={gtmNoScriptSrc} height="0" width="0" style="display:none;visibility:hidden"></iframe>
+        </noscript>
+    )}
+    {bodyStartTrackingTags.map((tag) => <Fragment set:html={tag.html} />)}
     <div id="site-top" class="flex min-h-screen flex-col">
         {topBarEnabled && (
             <div class:list={[
@@ -331,6 +383,12 @@ const footerSocialLinks = footerSocialFromContent.length > 0
                                         </svg>
                                     )}
                                     <span>{item.label}</span>
+                                    {'rightIcon' in item && item.rightIcon === 'external-link' && (
+                                        <svg class="h-3.5 w-3.5 text-amber-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 7h9v9" />
+                                        </svg>
+                                    )}
                                 </a>
                             ) : (
                                 <span class="inline-flex items-center gap-1.5 text-slate-300">
@@ -359,10 +417,16 @@ const footerSocialLinks = footerSocialFromContent.length > 0
                                     )}
                                     {item.leftIcon === 'whatsapp' && (
                                         <svg class="h-3.5 w-3.5 text-amber-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                                            <path d="M20.52 3.48A11.93 11.93 0 0012.05 0C5.52 0 .2 5.3.2 11.82c0 2.08.54 4.11 1.57 5.9L0 24l6.47-1.7a11.8 11.8 0 005.58 1.42h.01c6.53 0 11.85-5.3 11.85-11.82 0-3.16-1.23-6.13-3.39-8.42zM12.06 21.7h-.01a9.8 9.8 0 01-4.98-1.36l-.36-.21-3.84 1.01 1.03-3.75-.23-.39a9.74 9.74 0 01-1.5-5.18C2.17 6.4 6.58 2 12.05 2c2.6 0 5.04 1.01 6.87 2.85a9.66 9.66 0 012.83 6.86c0 5.43-4.41 9.84-9.69 9.84z" />
+                                            <path d="M20.52 3.48A11.93 11.93 0 0012.05 0C5.52 0 .2 5.3.2 11.82c0 2.08.54 4.11 1.57 5.9L0 24l6.47-1.7a11.8 11.8 0 005.58 1.42h.01c6.53 0 11.85-5.3 11.85-11.82 0-3.16-1.23-6.13-3.39-8.42zM12.06 21.7h-.01a9.8 9.8 0 01-4.98-1.36l-.36-.21-3.84 1.01 1.03-3.75-.23-.39a9.74 9.74 0 01-1.5-5.18C2.17 6.4 6.58 2 12.05 2c2.6 0 5.04 1.01 6.87 2.85a9.66 9.66 0 012.83 6.86c0 5.43-4.41 9.84-9.69 9.84zm5.37-7.32c-.29-.14-1.73-.85-2- .95-.27-.1-.47-.14-.67.14-.2.29-.77.95-.94 1.14-.17.19-.35.21-.64.07-.29-.14-1.24-.46-2.36-1.48-.87-.78-1.46-1.75-1.63-2.04-.17-.29-.02-.45.13-.59.13-.13.29-.35.43-.52.14-.17.19-.29.29-.48.1-.19.05-.36-.02-.5-.07-.14-.67-1.6-.92-2.2-.24-.58-.48-.5-.67-.5h-.57c-.19 0-.5.07-.77.36-.27.29-1.01.99-1.01 2.41 0 1.42 1.03 2.79 1.17 2.98.14.19 2.02 3.08 4.89 4.32.68.29 1.22.46 1.64.59.69.22 1.32.19 1.81.12.55-.08 1.73-.71 1.97-1.39.24-.69.24-1.28.17-1.4-.07-.12-.26-.19-.55-.33z" />
                                         </svg>
                                     )}
                                     <span>{item.label}</span>
+                                    {'rightIcon' in item && item.rightIcon === 'external-link' && (
+                                        <svg class="h-3.5 w-3.5 text-amber-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 7h9v9" />
+                                        </svg>
+                                    )}
                                 </span>
                             )
                         ))}
@@ -771,7 +835,7 @@ const footerSocialLinks = footerSocialFromContent.length > 0
                                                 )}
                                                 <span class="inline-flex items-center gap-2">
                                                     <span>{item.label}</span>
-                                                    {item.rightIcon === 'external-link' && (
+                                                    {'rightIcon' in item && item.rightIcon === 'external-link' && (
                                                         <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                                                             <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7" />
                                                             <path stroke-linecap="round" stroke-linejoin="round" d="M8 7h9v9" />
@@ -808,7 +872,7 @@ const footerSocialLinks = footerSocialFromContent.length > 0
                                                 )}
                                                 <span class="inline-flex items-center gap-2">
                                                     <span>{item.label}</span>
-                                                    {item.rightIcon === 'external-link' && (
+                                                    {'rightIcon' in item && item.rightIcon === 'external-link' && (
                                                         <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                                                             <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7" />
                                                             <path stroke-linecap="round" stroke-linejoin="round" d="M8 7h9v9" />
@@ -828,7 +892,15 @@ const footerSocialLinks = footerSocialFromContent.length > 0
                         <ul class="mt-6 space-y-4 text-base leading-7 text-slate-300">
                             {footerNavigationLinks.map((link) => (
                                 <li>
-                                    <a href={link.href} class="transition hover:text-amber-300">{link.label}</a>
+                                    <a href={link.href} class="inline-flex items-center gap-1.5 transition hover:text-amber-300">
+                                        <span>{link.label}</span>
+                                        {link.rightIcon === 'external-link' && (
+                                            <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7h9v9" />
+                                            </svg>
+                                        )}
+                                    </a>
                                 </li>
                             ))}
                         </ul>
@@ -1439,5 +1511,6 @@ const footerSocialLinks = footerSocialFromContent.length > 0
         updateBackToTopVisibility();
         window.addEventListener('scroll', updateBackToTopVisibility, { passive: true });
     </script>
+    {bodyEndTrackingTags.map((tag) => <Fragment set:html={tag.html} />)}
 </body>
 </html>

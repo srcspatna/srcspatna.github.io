@@ -9,34 +9,40 @@
       "label": "Admission",
       "items": [
         {
+          "href": "/pages/admission/admissions-process/",
+          "label": "Admissions Process"
+        },
+        {
           "href": "/pages/admission/fee-structure",
-          "label": "Fee Structure"
-        },
-        {
-          "href": "/pages/admission/fee-structure/pre-primary",
-          "label": "Pre Primary"
-        },
-        {
-          "href": "/pages/admission/fee-structure/primary-to-secondary",
-          "label": "Primary to Secondary"
-        },
-        {
-          "href": "/pages/admission/fee-structure/senior-secondary",
-          "label": "Senior Secondary",
+          "label": "Fee Structure",
           "items": [
             {
-              "href": "/pages/admission/fee-structure/senior-secondary/science",
-              "label": "Senior Secondary - Science"
+              "href": "/pages/admission/fee-structure/pre-primary",
+              "label": "Pre Primary"
             },
             {
-              "href": "/pages/admission/fee-structure/senior-secondary/commerce",
-              "label": "Senior Secondary - Commerce"
+              "href": "/pages/admission/fee-structure/primary-to-secondary",
+              "label": "Primary to Secondary"
             },
             {
-              "href": "/pages/admission/fee-structure/senior-secondary/humanities",
-              "label": "Senior Secondary - Humanities"
+              "href": "/pages/admission/fee-structure/senior-secondary",
+              "label": "Senior Secondary"
             }
           ]
+        },
+        {
+          "href": "https://www.shriramcentennialschoolpatna.schoolbellq.com/apply_online",
+          "label": "Admission Form",
+          "right_icon": "external-link"
+        },
+        {
+          "href": "/pages/admission/hostel-facility/",
+          "label": "Hostel Facility"
+        },
+        {
+          "href": "https://srcspatna.com/admission/contact-us",
+          "label": "Contact Us",
+          "right_icon": "external-link"
         }
       ]
     },
@@ -72,7 +78,8 @@
     },
     {
       "href": "https://srcspatna.com/admission/contact-us",
-      "label": "Contact Us"
+      "label": "Contact Us",
+      "right_icon": "external-link"
     },
     {
       "href": "/pages/admission/fee-structure",
@@ -83,8 +90,7 @@
     {
       "href": "https://maps.app.goo.gl/RYfJpb2by7guNupv5",
       "label": "Bhogipur, Near Shahpur, Jaganpura, Patna, Bihar, 804453",
-      "left_icon": "map-pin",
-      "right_icon": "external-link"
+      "left_icon": "map-pin"
     },
     {
       "href": "tel:+918873002603",
@@ -104,34 +110,29 @@
     {
       "href": "https://wa.me/918873002603",
       "label": "+918873002603",
-      "left_icon": "whatsapp",
-      "right_icon": "external-link"
+      "left_icon": "whatsapp"
     }
   ],
   "topbar_social_links": [
     {
       "href": "https://www.facebook.com/patna.srcs",
       "label": "Facebook",
-      "left_icon": "facebook",
-      "right_icon": "external-link"
+      "left_icon": "facebook"
     },
     {
       "href": "https://www.linkedin.com/company/srcspatna",
       "label": "LinkedIn",
-      "left_icon": "linkedin",
-      "right_icon": "external-link"
+      "left_icon": "linkedin"
     },
     {
       "href": "https://instagram.com/srcs_patna",
       "label": "Instagram",
-      "left_icon": "instagram",
-      "right_icon": "external-link"
+      "left_icon": "instagram"
     },
     {
       "href": "https://www.youtube.com/@srcs_patna",
       "label": "YouTube",
-      "left_icon": "youtube",
-      "right_icon": "external-link"
+      "left_icon": "youtube"
     }
   ],
   "footer_contact_info": [
@@ -146,15 +147,14 @@
       "left_icon": "phone"
     },
     {
-      "href": "email:info@srcspatna.com",
+      "href": "mailto:info@srcspatna.com",
       "label": "info@srcspatna.com",
       "left_icon": "mail"
     },
     {
       "href": "https://wa.me/918873002603",
       "label": "+918873002603",
-      "left_icon": "whatsapp",
-      "right_icon": "external-link"
+      "left_icon": "whatsapp"
     },
     {
       "href": "https://share.google/wH34zPADRelLaYBgy",
