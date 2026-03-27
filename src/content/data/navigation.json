@@ -40,9 +40,8 @@
           "label": "Hostel Facility"
         },
         {
-          "href": "https://srcspatna.com/admission/contact-us",
-          "label": "Contact Us",
-          "right_icon": "external-link"
+          "href": "/pages/admission/contact-us/",
+          "label": "Contact Us"
         }
       ]
     },
@@ -77,9 +76,8 @@
       "label": "Circulars"
     },
     {
-      "href": "https://srcspatna.com/admission/contact-us",
-      "label": "Contact Us",
-      "right_icon": "external-link"
+      "href": "/pages/admission/contact-us/",
+      "label": "Contact Us"
     },
     {
       "href": "/pages/admission/fee-structure",
