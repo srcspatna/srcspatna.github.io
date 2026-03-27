@@ -1,5 +1,5 @@
 ---
-title: Fee Structure – Class 11 & 12 (New Students)
+title: Fee Structure - Senior Secondary (New Student's)
 section: Admission
 sourceUrl: https://srcspatna.com/admission/fee-structure/fee-structure-at-srcs-patna-the-best-school-in-patna-for-pre-primary-2
 description: Best School in Patna for Pre-Primary. Investing in Your Child
