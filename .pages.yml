@@ -42,6 +42,8 @@ content:
       - { name: slug, label: Slug, type: string }
       - { name: sourceUrl, label: "Source Url", type: string }
       - { name: description, label: Description, type: string }
+      - { name: "date", label: "Date", widget: "datetime" }
+      - { name: "previewImage", label: "Preview Image", widget: "image", required: false }
       - { name: body, label: Body, type: rich-text,
           options: { 
             input: src/assets/posts,
@@ -61,6 +63,8 @@ content:
       - { name: slug, label: Slug, type: string }
       - { name: sourceUrl, label: "Source Url", type: string }
       - { name: description, label: Description, type: string }
+      - { name: "date", label: "Date", widget: "datetime" }
+      - { name: "previewImage", label: "Preview Image", widget: "image", required: false }
       - { name: body, label: Body, type: rich-text, 
           options: { 
             input: src/assets/pages,
@@ -75,10 +79,11 @@ content:
     view:
       fields: [ title, draft, date ]
     fields:
-      - { name: layout, type: string, hidden: true, default: "../layouts/PostsLayout.astro" }
       - { name: title, label: Title, type: string, required: true }
       - { name: slug, label: Slug, type: string }
       - { name: description, label: Description, type: string }
+      - { name: "date", label: "Date", widget: "datetime" }
+      - { name: "previewImage", label: "Preview Image", widget: "image", required: false }
       - { name: body, label: Body, type: rich-text, 
           options: { 
             format: html,
