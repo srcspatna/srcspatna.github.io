@@ -1,6 +1,6 @@
 import faviconImage from '../assets/logo_favicon.png';
 import backgroundImage from '../assets/background.svg';
-import campusImage from '../assets/logo.png';
+import previewImage from '../assets/previewImage.jpg';
 import logoImage from '../assets/logo_50.png';
 import fullWordmarkImage from '../assets/logo_name.png';
 import wordmarkImage from '../assets/logo_name_150.png';
@@ -55,7 +55,7 @@ export const siteConfig = {
       type: 'image/png',
     },
     previewImage: {
-      src: faviconImage.src,
+      src: previewImage.src,
       alt: 'Shri Ram Centennial School preview image',
     },
     watermark: {
@@ -157,7 +157,7 @@ export const siteConfig = {
         href: '/pages/beyond-academics/hobbies-cultural-activities/',
       },
       {
-        imageSrc: campusImage.src,
+        imageSrc: previewImage.src,
         imageAlt: 'School activity and campus placeholder image',
         title: 'Games, movement, and team play',
         description: 'Use this slide for sports day, indoor games, and outdoor participation visuals.',
