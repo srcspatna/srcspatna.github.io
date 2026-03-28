@@ -1,4 +1,4 @@
-import { siteConfig } from "./site";
+import { siteConfig, resolveSiteUrl } from "./site";
 
 // Central JSON-LD config for use across the site
 
@@ -36,11 +36,11 @@ export const organizationJsonLd = {
   "url": siteConfig.site.url,
   "logo": {
     "@type": "ImageObject",
-    "url": siteConfig.branding.logo.src,
+    "url": resolveSiteUrl(siteConfig.branding.logo.src),
     "width": "512",
     "height": "512"
   },
-  "image": siteConfig.branding.previewImage.src,
+  "image": resolveSiteUrl(siteConfig.branding.previewImage.src),
   "description": siteConfig.seo.defaultDescription,
   "address": {
     "@type": "PostalAddress",
@@ -52,8 +52,8 @@ export const organizationJsonLd = {
   },
   "geo": {
     "@type": "GeoCoordinates",
-    "latitude": "25.5512", // Replace with actual if known
-    "longitude": "85.1812" // Replace with actual if known
+    "latitude": "25.5512", 
+    "longitude": "85.1812"
   },
   "contactPoint": [
     {
