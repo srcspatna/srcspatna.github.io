@@ -5,17 +5,22 @@ import GlobalLayout from '../../layouts/Layout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { buildPageTitle } from '../../config/site';
 
+
 export async function getStaticPaths() {
   const entries = await getCollection('posts');
-
-  return entries.map((entry) => ({
-    params: { page: entry.slug || entry.id.replace(/\.(md|mdx)$/, '').replace(/\/index$/, '') },
-  }));
+  return entries.map((entry) => {
+    const slug = entry.id.replace(/\.(md|mdx)$/, '').replace(/\/index$/, '');
+    return { params: { page: slug } };
+  });
 }
+
 
 const currentPath = Astro.params.page || '';
 const entries = await getCollection('posts');
-const entry = entries.find((item) => (item.slug || item.id.replace(/\.(md|mdx)$/, '').replace(/\/index$/, '')) === currentPath);
+const entry = entries.find((item) => {
+  const slug = item.id.replace(/\.(md|mdx)$/, '').replace(/\/index$/, '');
+  return slug === currentPath;
+});
 
 if (!entry) {
   throw new Error(`Post content not found for slug: ${currentPath}`);
@@ -29,14 +34,13 @@ const pageDescription = entry.data.description?.trim();
 const crumbSegments = currentPath.split('/').filter(Boolean);
 const prettyLabel = (segment: string) => segment
   .replace(/-/g, ' ')
-  .replace(/\b\w/g, (char) => char.toUpperCase());
+  .replace(/\b\w/g, (char: string) => char.toUpperCase());
 const breadcrumbItems = [
   { label: 'Home', href: '/' },
   { label: 'Posts', href: '/posts' },
-  ...crumbSegments.map((segment, index) => {
+  ...crumbSegments.map((segment: string, index: number) => {
     const href = `/posts/${crumbSegments.slice(0, index + 1).join('/')}`;
     const isLast = index === crumbSegments.length - 1;
-
     return {
       label: isLast ? pageTitle : prettyLabel(segment),
       href: isLast ? undefined : href,
@@ -45,6 +49,7 @@ const breadcrumbItems = [
 ];
 ---
 
+
 <GlobalLayout
   title={buildPageTitle(pageTitle)}
   bannerEyebrow="School Post"
@@ -52,6 +57,45 @@ const breadcrumbItems = [
   bannerText={pageDescription || 'Full post details, notices, and school communication presented in a focused reading layout.'}
   bannerTone="blue"
 >
+  <head slot="head">
+    <script type="application/ld+json" is:inline>
+      {JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": pageTitle,
+        "description": pageDescription,
+        "datePublished": entry.data.date,
+        "author": {
+          "@type": "Organization",
+          "name": "Shri Ram Centennial School, Patna"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Shri Ram Centennial School, Patna",
+          "logo": {
+            "@type": "ImageObject",
+            "url": siteConfig.branding.logo.src
+          }
+        },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": siteConfig.site.url + Astro.url.pathname
+        }
+      })}
+    </script>
+    <script type="application/ld+json" is:inline>
+      {JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": breadcrumbItems.map((item, idx) => ({
+          "@type": "ListItem",
+          "position": idx + 1,
+          "name": item.label,
+          "item": item.href ? (siteConfig.site.url + item.href) : (siteConfig.site.url + Astro.url.pathname)
+        }))
+      })}
+    </script>
+  </head>
   <Breadcrumbs items={breadcrumbItems} />
 
   <article class="content-shell mx-auto max-w-4xl overflow-hidden rounded-4xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900 sm:p-10">

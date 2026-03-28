@@ -2,28 +2,56 @@
 import '../styles/global.css';
 import { getCollection } from 'astro:content';
 import { resolveSiteUrl, siteConfig } from '../config/site';
+import {
+    organizationJsonLd,
+    personJsonLd,
+    articleJsonLd,
+    eventJsonLd
+} from '../config/jsonLd';
+import { getSocialLinksArray } from '../config/socialLinks';
+
 
 type BannerTone = 'blue' | 'emerald' | 'amber';
 
+// Accept a jsonLdType prop (from frontmatter or CMS) to select JSON-LD type
 const {
     title = siteConfig.seo.defaultTitle,
     description = siteConfig.seo.defaultDescription,
-  bannerEyebrow,
-  bannerTitle,
-  bannerText,
-  bannerTone = 'blue',
-  mainClass = 'mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 lg:px-8',
+    bannerEyebrow,
+    bannerTitle,
+    bannerText,
+    bannerTone = 'blue',
+    mainClass = 'mx-auto w/full max-w-7xl px-4 py-12 sm:px-6 lg:px-8',
+    jsonLdType
 } = Astro.props as {
-  title?: string;
+    title?: string;
     description?: string;
-  bannerEyebrow?: string;
-  bannerTitle?: string;
-  bannerText?: string;
-  bannerTone?: BannerTone;
-  mainClass?: string;
+    bannerEyebrow?: string;
+    bannerTitle?: string;
+    bannerText?: string;
+    bannerTone?: BannerTone;
+    mainClass?: string;
+    jsonLdType?: 'organization' | 'person' | 'article' | 'event';
 };
 
-const activeSocialLinks = siteConfig.socialLinks.filter((link) => link.href.trim().length > 0);
+// Map type to JSON-LD object
+const jsonLdMap = {
+    organization: organizationJsonLd,
+    person: personJsonLd,
+    article: articleJsonLd,
+    event: eventJsonLd
+};
+const selectedJsonLd = jsonLdType ? jsonLdMap[jsonLdType] : null;
+
+const activeSocialLinks = getSocialLinksArray();
+const orgJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": siteConfig.site.name,
+    "url": siteConfig.site.url,
+    "logo": siteConfig.branding.logo.src,
+    "sameAs": activeSocialLinks.map((link) => link.href)
+};
 const searchEnabled = siteConfig.features.search;
 const themeToggleEnabled = siteConfig.features.themeToggle;
 const showBrandName = siteConfig.appearance.showBrandName;
@@ -284,7 +312,12 @@ const footerSocialLinks = footerSocialFromContent.length > 0
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={previewImageUrl} />
+        <meta property="og:image" content={previewImageUrl} />
+
+{selectedJsonLd && (
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(selectedJsonLd)}></script>
+)}
+
     <meta name="twitter:card" content={siteConfig.seo.twitterCard} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
