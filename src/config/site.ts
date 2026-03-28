@@ -90,7 +90,7 @@ export const siteConfig = {
   forms: {
     contact: {
       enabled: true,
-      endpoint: import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT ?? '/api/contact',
+      endpoint: import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT ?? 'https://erp.srcspatna.com/api/website-enquiries',
       method: 'POST' as const,
       successMessage: 'Thanks for contacting us. Our team will get back to you shortly.',
       errorMessage: 'Unable to submit your form right now. Please try again after some time.',
