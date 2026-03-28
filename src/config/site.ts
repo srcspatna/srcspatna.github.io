@@ -23,6 +23,12 @@ type ContactFormConfig = {
   serverUnavailableMessage: string;
 };
 
+const contactFormEndpoint = import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT;
+
+if (!contactFormEndpoint) {
+  throw new Error('Missing PUBLIC_CONTACT_FORM_ENDPOINT. Set it in .env for local builds and in your deployment environment for hosted builds.');
+}
+
 export const siteConfig = {
   site: {
     name: 'Shri Ram Centennial School, Patna',
@@ -90,7 +96,7 @@ export const siteConfig = {
   forms: {
     contact: {
       enabled: true,
-      endpoint: import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT ?? 'https://erp.srcspatna.com/api/website-enquiries',
+      endpoint: contactFormEndpoint,
       method: 'POST' as const,
       successMessage: 'Thanks for contacting us. Our team will get back to you shortly.',
       errorMessage: 'Unable to submit your form right now. Please try again after some time.',

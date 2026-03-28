@@ -12,6 +12,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: npm ci && npm run build
+        env:
+          PUBLIC_CONTACT_FORM_ENDPOINT: ${{ secrets.PUBLIC_CONTACT_FORM_ENDPOINT }}
+          PUBLIC_GTM_ID: ${{ secrets.PUBLIC_GTM_ID }}
+          PUBLIC_GA4_ID: ${{ secrets.PUBLIC_GA4_ID }}
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}

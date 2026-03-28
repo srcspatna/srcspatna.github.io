@@ -68,6 +68,7 @@ jobs:
         working-directory: ${{ env.BUILD_PATH }}
       - name: Build with Astro
         env:
+          PUBLIC_CONTACT_FORM_ENDPOINT: ${{ secrets.PUBLIC_CONTACT_FORM_ENDPOINT }}
           PUBLIC_GTM_ID: ${{ secrets.PUBLIC_GTM_ID }}
           PUBLIC_GA4_ID: ${{ secrets.PUBLIC_GA4_ID }}
         run: |

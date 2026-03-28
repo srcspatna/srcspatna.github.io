@@ -13,8 +13,5 @@
   "assets": {
     "binding": "ASSETS",
     "directory": "dist"
-  },
-  "vars": {
-    "PUBLIC_CONTACT_FORM_ENDPOINT": "https://erp.srcspatna.com/api/website-enquiries"
   }
 }
