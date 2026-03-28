@@ -1,7 +1,7 @@
 import faviconImage from '../assets/logo_favicon.png';
 import backgroundImage from '../assets/background.svg';
-import previewImage from '../assets/previewImage.jpg';
 import logoImage from '../assets/logo_50.png';
+import previewImage from '../assets/previewImage.jpg'; // fixed: use public path for static assets
 import fullWordmarkImage from '../assets/logo_name.png';
 import wordmarkImage from '../assets/logo_name_150.png';
 
@@ -41,25 +41,25 @@ export const siteConfig = {
   branding: {
     eyebrow: 'Joie de vivre',
     logo: {
-      src: logoImage.src,
+      src: logoImage, // fixed: use imported image directly
       alt: 'Shri Ram Centennial School logo',
       width: 48,
       height: 48,
     },
     wordmark: {
-      src: wordmarkImage.src,
+      src: wordmarkImage, // fixed
       alt: 'Shri Ram Centennial School wordmark',
     },
     favicon: {
-      src: faviconImage.src,
+      src: faviconImage, // fixed
       type: 'image/png',
     },
     previewImage: {
-      src: previewImage.src,
+      src: previewImage, // fixed: use public path
       alt: 'Shri Ram Centennial School preview image',
     },
     watermark: {
-      src: wordmarkImage.src,
+      src: wordmarkImage, // fixed
       alt: 'Shri Ram Centennial School watermark',
     },
   },
@@ -150,21 +150,21 @@ export const siteConfig = {
   home: {
     activitySlides: [
       {
-        imageSrc: backgroundImage.src,
+        imageSrc: backgroundImage, // fixed
         imageAlt: 'Creative student activity showcase graphic',
         title: 'Creative classroom activities',
         description: 'Art, storytelling, and guided learning moments can be highlighted here with real activity photographs.',
         href: '/pages/beyond-academics/hobbies-cultural-activities/',
       },
       {
-        imageSrc: previewImage.src,
+        imageSrc: '/previewImage.jpg', // fixed: use public path
         imageAlt: 'School activity and campus placeholder image',
         title: 'Games, movement, and team play',
         description: 'Use this slide for sports day, indoor games, and outdoor participation visuals.',
         href: '/pages/beyond-academics/games-sports/',
       },
       {
-        imageSrc: fullWordmarkImage.src,
+        imageSrc: fullWordmarkImage, // fixed
         imageAlt: 'School identity placeholder for student achievements',
         title: 'Cultural and achievement moments',
         description: 'Replace this with annual function, achievers gallery, or celebration images as they become available.',
