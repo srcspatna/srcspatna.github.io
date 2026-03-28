@@ -44,14 +44,6 @@ const jsonLdMap = {
 const selectedJsonLd = jsonLdType ? jsonLdMap[jsonLdType] : null;
 
 const activeSocialLinks = getSocialLinksArray();
-const orgJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": siteConfig.site.name,
-    "url": siteConfig.site.url,
-    "logo": siteConfig.branding.logo,
-    "sameAs": activeSocialLinks.map((link) => link.href)
-};
 const searchEnabled = siteConfig.features.search;
 const themeToggleEnabled = siteConfig.features.themeToggle;
 const showBrandName = siteConfig.appearance.showBrandName;
@@ -215,7 +207,7 @@ const selectedTheme = bannerThemes[bannerTone];
 const hasAfterHeader = Astro.slots.has('afterHeader');
 const hasFeature = Astro.slots.has('feature');
 const canonicalUrl = resolveSiteUrl(pathname);
-// Use imported preview image directly in meta tags
+const previewImageUrl = resolveSiteUrl(siteConfig.branding.previewImage.src);
 const currentYear = new Date().getFullYear();
 const navigationEntries = await getCollection('navigation');
 const navFromContent = normalizeNavigation(navigationEntries[0]?.data.header_navigation || []);
@@ -303,15 +295,15 @@ const footerSocialLinks = footerSocialFromContent.length > 0
     <meta name="robots" content={siteConfig.seo.robots} />
     <meta name="theme-color" content={siteConfig.site.themeColor} />
     <link rel="canonical" href={canonicalUrl} />
-    <link rel="icon" type={siteConfig.branding.favicon.type} href={siteConfig.branding.favicon.src} />
-    <link rel="apple-touch-icon" href={siteConfig.branding.favicon.src} />
+    <link rel="icon" type={siteConfig.branding.favicon.type} href={resolveSiteUrl(siteConfig.branding.favicon.src)} />
+    <link rel="apple-touch-icon" href={resolveSiteUrl(siteConfig.branding.favicon.src)} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content={siteConfig.site.locale} />
     <meta property="og:site_name" content={siteConfig.site.name} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={siteConfig.branding.previewImage.src} />
+    <meta property="og:image" content={previewImageUrl} />
 
 {selectedJsonLd && (
     <script type="application/ld+json" is:inline set:html={JSON.stringify(selectedJsonLd)}></script>
@@ -320,7 +312,7 @@ const footerSocialLinks = footerSocialFromContent.length > 0
     <meta name="twitter:card" content={siteConfig.seo.twitterCard} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={siteConfig.branding.previewImage.src} />
+    <meta name="twitter:image" content={previewImageUrl} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Merriweather:wght@700&display=swap" rel="stylesheet" />
