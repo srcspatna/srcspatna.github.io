@@ -27,3 +27,9 @@ pnpm-debug.log*
 .vscode/
 
 /custom_school_theme
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+!.env.example
