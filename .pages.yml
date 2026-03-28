@@ -42,8 +42,8 @@ content:
       - { name: slug, label: Slug, type: string }
       - { name: sourceUrl, label: "Source Url", type: string }
       - { name: description, label: Description, type: string }
-      - { name: "date", label: "Date", widget: "datetime" }
-      - { name: "previewImage", label: "Preview Image", widget: "image", required: false }
+      - { name: "date", label: "Date", type: "date" }
+      - { name: "previewImage", label: "Preview Image", type: "image", required: false }
       - { name: body, label: Body, type: rich-text,
           options: { 
             input: src/assets/posts,
@@ -63,8 +63,8 @@ content:
       - { name: slug, label: Slug, type: string }
       - { name: sourceUrl, label: "Source Url", type: string }
       - { name: description, label: Description, type: string }
-      - { name: "date", label: "Date", widget: "datetime" }
-      - { name: "previewImage", label: "Preview Image", widget: "image", required: false }
+      - { name: "date", label: "Date", type: "date" }
+      - { name: "previewImage", label: "Preview Image", type: "image", required: false }
       - { name: body, label: Body, type: rich-text, 
           options: { 
             input: src/assets/pages,
