@@ -27,7 +27,7 @@ const {
   serverUnavailableMessage?: string;
 };
 
-const resolvedEndpoint = endpoint?.trim() || '/api/contact';
+const resolvedEndpoint = endpoint?.trim() || siteConfig.forms.contact.endpoint;
 const resolvedMethod = method || 'POST';
 const isEnabled = siteConfig.forms.contact.enabled;
 ---
