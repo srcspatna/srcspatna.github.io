@@ -30,7 +30,7 @@ for (const entry of entries) {
   const previous = categoryMap.get(topLevel);
 
   categoryMap.set(topLevel, {
-    description: previous?.description || entry.data.description?.trim(),
+    description: previous?.description || (('description' in entry.data && typeof entry.data.description === 'string') ? entry.data.description.trim() : undefined),
     count: (previous?.count || 0) + 1,
   });
 }

@@ -3,7 +3,7 @@ title: "Admission in Class 10 Patna 2026-27: Final Board Exam Preparation"
 section: "Admissions"
 slug: "admission-in-class-10-patna-2026-27"
 description: "Looking for Class 10 admission in Patna? Discover how SRCS Patna ensures 100% board exam success with expert mentorship."
-date: "2026-03-01"
+date: 2026-03-01
 seo:
   focus_keyword: "admission in Class 10 Patna"
   seo_title: "Admission in Class 10 Patna 2026-27 | Board Exam Excellence"

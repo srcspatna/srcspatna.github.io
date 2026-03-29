@@ -11,7 +11,7 @@ const pagesCollection = defineCollection({
     description: z.string().optional(),
     section: z.string().optional(),
     sourceUrl: z.string().url().optional(),
-    date: z.string().optional(),
+    date: z.union([z.string(), z.date()]).optional(),
     seo_body: z.string().optional(),
     show_contact_form: z.boolean().optional(),
     contact_form_source: z.string().optional(),
@@ -28,7 +28,7 @@ const postsCollection = defineCollection({
     description: z.string().optional(),
     section: z.string().optional(),
     sourceUrl: z.string().url().optional(),
-    date: z.string().optional(),
+    date: z.union([z.string(), z.date()]).optional(),
     seo_body: z.string().optional(),
   }),
 });
@@ -134,7 +134,7 @@ const galleryCollection = defineCollection({
   }),
   schema: z.object({
     title: z.string(),
-    date: z.string(),
+    date: z.union([z.string(), z.date()]),
     images: z.array(z.object({
       src: z.string(),
       alt: z.string().optional(),

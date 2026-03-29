@@ -1,9 +1,10 @@
 ---
-const images = Astro.props.images ?? [];
+type GalleryImage = { src: string; alt?: string; caption?: string };
+const images: GalleryImage[] = Astro.props.images ?? [];
 ---
 
 <div class="gallery-grid">
-  {images.map((img) => (
+  {images.map((img: GalleryImage) => (
     <figure class="gallery-item">
       <img src={img.src} alt={img.alt || ''} loading="lazy" />
       {img.caption && <figcaption class="gallery-caption">{img.caption}</figcaption>}

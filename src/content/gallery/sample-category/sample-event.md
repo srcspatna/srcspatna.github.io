@@ -2,7 +2,7 @@
 title: Sample Category Event
 section: Gallery Category
 description: A sample event inside a category folder.
-date: 2026-03-31
+date: "2026-03-31"
 images:
   - src: /logo_name.png
     alt: Sample image.

@@ -8,6 +8,8 @@ import { redirects } from './redirects.mjs';
 
 import cloudflare from "@astrojs/cloudflare";
 
+import react from '@astrojs/react';
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://srcspatna.in',
@@ -17,7 +19,7 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
 
-  integrations: [sitemap()],
+  integrations: [sitemap(), react()],
   adapter: cloudflare({
     imageService: 'compile'
   })
