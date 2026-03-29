@@ -57,11 +57,11 @@ export default function GalleryLightbox({ images }: GalleryLightboxProps) {
         </div>
       </div>
       <div ref={modalRef} className="fixed inset-0 z-50 hidden items-center justify-center bg-black/80" style={{ backdropFilter: 'blur(2px)' }}>
-        <button onClick={close} className="absolute top-4 right-4 text-white text-3xl font-bold" aria-label="Close">&times;</button>
+        <button onClick={close} className="absolute top-4 right-4 text-white text-3xl font-bold cursor-pointer" aria-label="Close">&times;</button>
         <div className="flex flex-col items-center justify-center h-full w-full">
-          <button onClick={prev} className="absolute left-4 top-1/2 -translate-y-1/2 text-white text-4xl font-bold px-2" aria-label="Previous">&#8592;</button>
+          <button onClick={prev} className="absolute left-4 top-1/2 -translate-y-1/2 text-white text-4xl font-bold px-2 cursor-pointer" aria-label="Previous">&#8592;</button>
           <img ref={imgRef} src="" alt="" className="max-h-[80vh] max-w-[90vw] rounded-xl shadow-lg border-2 border-white object-contain bg-white dark:bg-slate-900" />
-          <button onClick={next} className="absolute right-4 top-1/2 -translate-y-1/2 text-white text-4xl font-bold px-2" aria-label="Next">&#8594;</button>
+          <button onClick={next} className="absolute right-4 top-1/2 -translate-y-1/2 text-white text-4xl font-bold px-2 cursor-pointer" aria-label="Next">&#8594;</button>
           <div ref={captionRef} className="mt-4 text-white text-center text-lg max-w-2xl"></div>
         </div>
       </div>
