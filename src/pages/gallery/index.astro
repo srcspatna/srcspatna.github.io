@@ -1,0 +1,60 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/GalleryLayout.astro';
+import ContentCard from '../../components/ContentCard.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { buildPageTitle } from '../../config/site';
+
+type ListingItem = {
+  href: string;
+  title: string;
+  description: string;
+  tag: string;
+};
+const prettyLabel = (segment: string) => segment
+  .replace(/-/g, ' ')
+  .replace(/\b\w/g, (char) => char.toUpperCase());
+
+const entries = await getCollection('gallery');
+
+const categoryMap = new Map<string, { description?: string; count: number }>();
+
+for (const entry of entries) {
+  const slug = entry.id.replace(/\.(md|mdx)$/, '').replace(/\/index$/, '');
+  const [topLevel] = slug.split('/');
+
+  if (!topLevel || topLevel === slug) {
+    continue;
+  }
+
+  const previous = categoryMap.get(topLevel);
+
+  categoryMap.set(topLevel, {
+    description: previous?.description || entry.data.description?.trim(),
+    count: (previous?.count || 0) + 1,
+  });
+}
+
+const data: ListingItem[] = [...categoryMap.entries()]
+  .sort(([left], [right]) => left.localeCompare(right))
+  .map(([category, meta]) => ({
+    href: `/gallery/${category}/`,
+    title: prettyLabel(category),
+    description: meta.description || `Browse ${meta.count} images in the ${prettyLabel(category)} category.`,
+    tag: 'Category',
+  }));
+
+const pageTitle = buildPageTitle('School Gallery');
+---
+
+<Layout title={pageTitle}>
+  <section class="space-y-8">
+    <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Gallery' }]} />
+
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-2 xl:grid-cols-3">
+      {data.map((item) => (
+        <ContentCard item={item} tone="emerald" />
+      ))}
+    </div>
+  </section>
+</Layout>

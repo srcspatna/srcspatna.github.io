@@ -1,0 +1,5 @@
+/*
+  Place your gallery images in this folder.
+  Example usage in Gallery.astro:
+  src: '/src/assets/gallery/sample1.jpg'
+*/

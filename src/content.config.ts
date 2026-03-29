@@ -126,6 +126,23 @@ const navigationCollection = defineCollection({
   }),
 });
 
+// Gallery collection for event galleries
+const galleryCollection = defineCollection({
+  loader: glob({
+    base: './src/content/gallery',
+    pattern: '**/*.md',
+  }),
+  schema: z.object({
+    title: z.string(),
+    date: z.string(),
+    images: z.array(z.object({
+      src: z.string(),
+      alt: z.string().optional(),
+      caption: z.string().optional(),
+    })),
+  }),
+});
+
 export const collections = {
   pages: pagesCollection,
   posts: postsCollection,
@@ -133,4 +150,5 @@ export const collections = {
   showcase: showcaseCollection,
   footer: footerCollection,
   navigation: navigationCollection,
+  gallery: galleryCollection,
 };

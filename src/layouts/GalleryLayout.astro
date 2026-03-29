@@ -1,0 +1,27 @@
+---
+import Layout from './Layout.astro';
+import { buildPageTitle } from '../config/site';
+
+const {
+  title = buildPageTitle('Gallery'),
+  bannerTitle = 'Gallery Event',
+  bannerText = 'Relive school events, fests, and memories through curated photo galleries.',
+  description = 'School event gallery',
+} = Astro.props as {
+  title?: string;
+  bannerTitle?: string;
+  bannerText?: string;
+  description?: string;
+};
+---
+
+<Layout
+  title={title}
+  description={description}
+  bannerEyebrow="Gallery"
+  bannerTitle={bannerTitle || title}
+  bannerText={bannerText}
+  bannerTone="emerald"
+>
+  <slot />
+</Layout>
