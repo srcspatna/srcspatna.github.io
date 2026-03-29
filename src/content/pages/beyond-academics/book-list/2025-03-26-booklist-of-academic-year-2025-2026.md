@@ -3,12 +3,15 @@ title: Booklist of Academic Year 2025-2026
 section: Book List
 sourceUrl: https://srcspatna.com/beyond-academics/book-list
 description: These are the following books we are using in this Academic Year
+date: 2026-03-29
 ---
+# **Book List (2025-26)**
+
 
 |  |  |  |
 | ----------------------- | ---------------------- | --- |
 | **Books for Class One** |  |  |
-| S. NO. | Textbooks | Qty |
+| [S.NO](http://S.NO). | Textbooks | Qty |
 | 1 | English Course Book 1 | 1 |
 | 2 | The Magic Carrpet 1 | 1 |
 | 3 | Grammar 1 | 1 |
@@ -32,7 +35,7 @@ description: These are the following books we are using in this Academic Year
 |  |  |  |
 | ----------------------- | ---------------------- | --- |
 | **Books for Class Two** |  |  |
-| S. NO. | Textbooks | Qty |
+| [S.NO](http://S.NO). | Textbooks | Qty |
 | 1 | English Course Book 2 | 1 |
 | 2 | The Magic Carrpet 2 | 1 |
 | 3 | Grammar 2 | 1 |
@@ -56,7 +59,7 @@ description: These are the following books we are using in this Academic Year
 |  |  |  |
 | ------------------------- | --------------------- | --- |
 | **Books for Class Three** |  |  |
-| S. NO. | Textbooks | Qty |
+| [S.NO](http://S.NO). | Textbooks | Qty |
 | 1 | English Course Book 3 | 1 |
 | 2 | English Lit. Reader 3 | 1 |
 | 3 | Grammar 3 | 1 |
@@ -81,7 +84,7 @@ description: These are the following books we are using in this Academic Year
 |  |  |  |
 | ------------------------ | --------------------- | --- |
 | **Books for Class Four** |  |  |
-| S. NO. | Textbooks | Qty |
+| [S.NO](http://S.NO). | Textbooks | Qty |
 | 1 | English Course Book 4 | 1 |
 | 2 | English Lit. Reader 4 | 1 |
 | 3 | Bag Of Story | 1 |
@@ -106,7 +109,7 @@ description: These are the following books we are using in this Academic Year
 |  |  |  |
 | ------------------------ | ------------------------------ | --- |
 | **Books for Class Five** |  |  |
-| S. NO. | Textbooks | Qty |
+| [S.NO](http://S.NO). | Textbooks | Qty |
 | 1 | The English Leaf Course Book 5 | 1 |
 | 2 | Buzzword Suplementry Reader 5 | 1 |
 | 3 | Grandpa's Bag Of Stories | 1 |
@@ -125,7 +128,9 @@ description: These are the following books we are using in this Academic Year
 | 16 | Enhance Our Knowledge 5 | 1 |
 
 
----
+&nbsp;
+
+## **Books for Class Six**
 
 
 |  |  |  |
@@ -150,13 +155,13 @@ description: These are the following books we are using in this Academic Year
 | 16 | Madhu Mukhta 3 | 1 |
 
 
----
+&nbsp;
+
+## **Books for Class Seven**
 
 
-|  |  |  |
-| ------------------------- | ------------------------------------- | --- |
-| **Books for Class Seven** |  |  |
-| S. NO. | Textbooks | Qty |
+| S.NO. | Textbooks | Qty |
+| ----- | ------------------------------------- | --- |
 | 1 | The English Tree Course Book 7 | 1 |
 | 2 | A Season Of Ghost | 1 |
 | 3 | Think Grammar 7 | 1 |
@@ -175,13 +180,13 @@ description: These are the following books we are using in this Academic Year
 | 16 | Enhance Our Knowledge 7 | 1 |
 
 
----
+&nbsp;
+
+## **Books for Class Eight**
 
 
-|  |  |  |
-| ------------------------- | ------------------------------------- | --- |
-| **Books for Class Eight** |  |  |
 | S. NO. | Textbooks | Qty |
+| ------ | ------------------------------------- | --- |
 | 1 | The English Leaf Course Book 8 | 1 |
 | 2 | Whispers in The Dark | 1 |
 | 3 | Think Grammar 8 | 1 |
@@ -200,13 +205,13 @@ description: These are the following books we are using in this Academic Year
 | 16 | Madhu Mukhta 5 | 1 |
 
 
----
+&nbsp;
+
+## **Books for Class Nine**
 
 
-|  |  |  |
-| ------------------------ | -------------------------------------------------- | --- |
-| **Books for Class Nine** |  |  |
 | S. NO. | Textbooks | Qty |
+| ------ | -------------------------------------------------- | --- |
 | 1 | Beehive | 1 |
 | 2 | Moment | 1 |
 | 3 | Sparsh Part 1 | 1 |
@@ -227,13 +232,13 @@ description: These are the following books we are using in this Academic Year
 | 18 | Computer Applicatons 9 | 1 |
 
 
----
+&nbsp;
+
+## **Books for Class TENTH**
 
 
-|  |  |  |
-| ------------------------- | ---------------------------------------------- | --- |
-| **Books for Class TENTH** |  |  |
 | S. NO. | Textbooks | Qty |
+| ------ | ---------------------------------------------- | --- |
 | 1 | First Flight | 1 |
 | 2 | Foot Print Without Feet | 1 |
 | 3 | Sparsh Part 2 | 1 |
