@@ -1,11 +1,11 @@
 ---
-title: 'Annual Report 2025-2026'
-section: 'Annual Report'
-sourceUrl: 'https://srcspatna.com/beyond-academics/annual-report'
+title: Annual Report of Academic Year 2025-2026
+section: Annual Report
+slug: Annual-Report-of-Academic-Year-2025-2026
+sourceUrl: https://srcspatna.com/beyond-academics/annual-report
+date: 2026-03-29
 ---
-
 # Annual Report
-
 
 - Academic Achievements
 - First and Second batch of Class X scored 100% result.
@@ -25,12 +25,11 @@ sourceUrl: 'https://srcspatna.com/beyond-academics/annual-report'
 - Archie secured 15th Rank in National Talent Search Examination, 2019.
 - Olympiad Achievements
 
-
 ### [SESSION 2019-20]
 
 
 | S. NO. | NAME OF THE STUDENT | CLASS | NAME OF OLYMPIAD | INTERNATIONAL RANK | AWARDS WON |
-| --- | --- | --- | --- | --- | --- |
+| ------ | ------------------- | ----- | ---------------- | ------------------ | -------------------- |
 | 1 | ZAVIYAAR TAUHEED | 2 | IGKO | 488 | GOLD MEDAL |
 | 2 | AKRITI RANJAN | 5 | IGKO | 454 | GOLD MEDAL |
 | 3 | SAKSHI KUMARI | 6 | IGKO | 447 | GOLD MEDAL |
@@ -59,7 +58,7 @@ sourceUrl: 'https://srcspatna.com/beyond-academics/annual-report'
 
 
 | S. NO. | NAME OF THE STUDENT | CLASS | NAME OF OLYMPIAD | INTERNATIONAL RANK | AWARDS WON |
-| --- | --- | --- | --- | --- | --- |
+| ------ | ------------------- | ----- | ---------------- | ------------------ | -------------------- |
 | 1 | ZAVIYAAR TAUHEED | 1 | IMO | 70 | GOLD MEDAL |
 | 2 | SAUMYA SUMAN | 2 | IMO | 126 | GOLD MEDAL |
 | 3 | AARADHYA SINGH | 3 | IMO | 44 | GOLD MEDAL |
@@ -84,3 +83,6 @@ sourceUrl: 'https://srcspatna.com/beyond-academics/annual-report'
 | 22 | MIMANSHA PANDEY | 5 | NSO | 68 | MEDAL OF DISTINCTION |
 | 23 | AAFIAH MOHAMMAD | 5 | NSO | 375 | GOLD MEDAL |
 | 24 | ARUSHI AARYA | 6 | NSO | 449 | GOLD MEDAL |
+
+
+&nbsp;
