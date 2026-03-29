@@ -5,13 +5,11 @@ sourceUrl: https://srcspatna.com/beyond-academics/book-list
 description: These are the following books we are using in this Academic Year
 date: 2026-03-29
 ---
-# **Book List (2025-26)**
+## **Books for Class One**
 
 
-|  |  |  |
-| ----------------------- | ---------------------- | --- |
-| **Books for Class One** |  |  |
-| [S.NO](http://S.NO). | Textbooks | Qty |
+| S. NO. | Textbooks | Qty |
+| ------ | ---------------------- | --- |
 | 1 | English Course Book 1 | 1 |
 | 2 | The Magic Carrpet 1 | 1 |
 | 3 | Grammar 1 | 1 |
@@ -29,13 +27,13 @@ date: 2026-03-29
 | 15 | AI Connect 1 | 1 |
 
 
----
+&nbsp;
+
+## **Books for Class Two**
 
 
-|  |  |  |
-| ----------------------- | ---------------------- | --- |
-| **Books for Class Two** |  |  |
-| [S.NO](http://S.NO). | Textbooks | Qty |
+| S. NO. | Textbooks | Qty |
+| ------ | ---------------------- | --- |
 | 1 | English Course Book 2 | 1 |
 | 2 | The Magic Carrpet 2 | 1 |
 | 3 | Grammar 2 | 1 |
@@ -53,13 +51,13 @@ date: 2026-03-29
 | 15 | AI Connect 2 | 1 |
 
 
----
+&nbsp;
+
+## **Books for Class Three**
 
 
-|  |  |  |
-| ------------------------- | --------------------- | --- |
-| **Books for Class Three** |  |  |
-| [S.NO](http://S.NO). | Textbooks | Qty |
+| S. NO. | Textbooks | Qty |
+| ------ | --------------------- | --- |
 | 1 | English Course Book 3 | 1 |
 | 2 | English Lit. Reader 3 | 1 |
 | 3 | Grammar 3 | 1 |
@@ -78,13 +76,13 @@ date: 2026-03-29
 | 16 | Oxford School Atlas | 1 |
 
 
----
+&nbsp;
+
+## **Books for Class Four**
 
 
-|  |  |  |
-| ------------------------ | --------------------- | --- |
-| **Books for Class Four** |  |  |
-| [S.NO](http://S.NO). | Textbooks | Qty |
+| S. NO. | Textbooks | Qty |
+| ------ | --------------------- | --- |
 | 1 | English Course Book 4 | 1 |
 | 2 | English Lit. Reader 4 | 1 |
 | 3 | Bag Of Story | 1 |
@@ -103,13 +101,15 @@ date: 2026-03-29
 | 16 | Computer 4 | 1 |
 
 
----
+&nbsp;
+
+## **Books for Class Five**
 
 
 |  |  |  |
 | ------------------------ | ------------------------------ | --- |
 | **Books for Class Five** |  |  |
-| [S.NO](http://S.NO). | Textbooks | Qty |
+| S. NO. | Textbooks | Qty |
 | 1 | The English Leaf Course Book 5 | 1 |
 | 2 | Buzzword Suplementry Reader 5 | 1 |
 | 3 | Grandpa's Bag Of Stories | 1 |
