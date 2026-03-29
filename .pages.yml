@@ -91,6 +91,35 @@ content:
             output: /assets
           } 
         }
+  - name: gallery
+    label: Gallery
+    type: collection
+    path: src/content/gallery
+    view:
+      fields: [title, date]
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: section, label: Section, type: string, required: true }
+      - { name: slug, label: Slug, type: string }
+      - { name: sourceUrl, label: "Source Url", type: string }
+      - { name: description, label: Description, type: string }
+      - { name: date, label: Date, type: date }
+      - { name: previewImage, label: "Preview Image", type: image, required: false }
+      - name: images
+        label: Gallery Images
+        type: list
+        required: true
+        fields:
+          - { name: src, label: "Image Source", type: string, required: true }
+          - { name: alt, label: "Alt Text", type: string }
+          - { name: caption, label: "Caption", type: string }
+      - name: body
+        label: Body
+        type: rich-text
+        options:
+          input: src/assets/gallery
+          output: /assets/gallery
+      - { name: seo, component: seo, label: "SEO Meta Data" }
   - name: marquee_items
     label: Marquee Items
     type: collection
