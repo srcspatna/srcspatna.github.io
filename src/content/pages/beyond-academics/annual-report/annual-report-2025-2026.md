@@ -1,5 +1,5 @@
 ---
-title: Annual Report of Academic Year 2025-2026
+title: Annual Report of Academic Year (2025-2026)
 section: Annual Report
 slug: Annual-Report-of-Academic-Year-2025-2026
 sourceUrl: https://srcspatna.com/beyond-academics/annual-report
