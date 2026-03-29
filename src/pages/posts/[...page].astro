@@ -3,13 +3,13 @@ import { getCollection, render } from 'astro:content';
 import { marked } from 'marked';
 import GlobalLayout from '../../layouts/Layout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import { buildPageTitle } from '../../config/site';
+import { buildPageTitle, siteConfig } from '../../config/site';
 
 
 export async function getStaticPaths() {
   const entries = await getCollection('posts');
   return entries.map((entry) => {
-    const slug = entry.id.replace(/\.(md|mdx)$/, '').replace(/\/index$/, '');
+    const slug = entry.slug || entry.id.replace(/\.(md|mdx)$/, '').replace(/\/index$/, '');
     return { params: { page: slug } };
   });
 }
@@ -18,7 +18,7 @@ export async function getStaticPaths() {
 const currentPath = Astro.params.page || '';
 const entries = await getCollection('posts');
 const entry = entries.find((item) => {
-  const slug = item.id.replace(/\.(md|mdx)$/, '').replace(/\/index$/, '');
+  const slug = item.slug || item.id.replace(/\.(md|mdx)$/, '').replace(/\/index$/, '');
   return slug === currentPath;
 });
 
@@ -57,7 +57,7 @@ const breadcrumbItems = [
   bannerText={pageDescription || 'Full post details, notices, and school communication presented in a focused reading layout.'}
   bannerTone="blue"
 >
-  <head slot="head">
+  <Fragment slot="head">
     <script type="application/ld+json" is:inline>
       {JSON.stringify({
         "@context": "https://schema.org",
@@ -95,11 +95,12 @@ const breadcrumbItems = [
         }))
       })}
     </script>
-  </head>
+  </Fragment>
+
   <Breadcrumbs items={breadcrumbItems} />
 
   <article class="content-shell mx-auto max-w-4xl overflow-hidden rounded-4xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900 sm:p-10">
-    {seoBodyHtml && <section class="seo-only" set:html={seoBodyHtml} />}
+    {seoBodyHtml && <section class="seo-only sr-only" set:html={seoBodyHtml} />}
     <Content />
   </article>
 </GlobalLayout>
