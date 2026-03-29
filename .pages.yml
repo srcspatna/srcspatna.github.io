@@ -107,7 +107,8 @@ content:
       - { name: previewImage, label: "Preview Image", type: image, required: false }
       - name: images
         label: Gallery Images
-        type: list
+        type: object
+        list: true
         required: true
         fields:
           - { name: src, label: "Image Source", type: string, required: true }
