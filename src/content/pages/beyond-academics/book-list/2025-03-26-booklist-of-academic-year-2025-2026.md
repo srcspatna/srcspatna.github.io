@@ -106,10 +106,8 @@ date: 2026-03-29
 ## **Books for Class Five**
 
 
-|  |  |  |
-| ------------------------ | ------------------------------ | --- |
-| **Books for Class Five** |  |  |
 | S. NO. | Textbooks | Qty |
+| ------ | ------------------------------ | --- |
 | 1 | The English Leaf Course Book 5 | 1 |
 | 2 | Buzzword Suplementry Reader 5 | 1 |
 | 3 | Grandpa's Bag Of Stories | 1 |
@@ -133,10 +131,8 @@ date: 2026-03-29
 ## **Books for Class Six**
 
 
-|  |  |  |
-| ----------------------- | ------------------------------------- | --- |
-| **Books for Class Six** |  |  |
 | S. NO. | Textbooks | Qty |
+| ------ | ------------------------------------- | --- |
 | 1 | The English Leaf Course Book 6 | 1 |
 | 2 | Grandparent's Bag Of Stories | 1 |
 | 3 | Think Grammar 6 | 1 |
