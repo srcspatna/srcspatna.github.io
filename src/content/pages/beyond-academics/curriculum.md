@@ -9,9 +9,9 @@ date: 2026-03-29
 seo:
   focus_keyword: Top School in Patna
   seo_title: The Curriculum at SRCS Patna, a Top School in Patna
-  seo_description: At SRCS Patna, recognized as one of the **top schools in
-    Patna**, we believe in nurturing a love for learning and empowering students
-    to become well-rounded individuals. Our curriculum plays a pivotal role in
+  seo_description: At SRCS Patna, recognized as one of the top schools in Patna,
+    we believe in nurturing a love for learning and empowering students to
+    become well-rounded individuals. Our curriculum plays a pivotal role in
     achieving this goal.
   seo_body: >-
     ## Cultivating Lifelong Learners: The Curriculum at SRCS Patna, a Top School
