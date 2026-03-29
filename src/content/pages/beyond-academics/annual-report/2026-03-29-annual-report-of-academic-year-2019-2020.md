@@ -2,9 +2,8 @@
 title: Annual Report of Academic Year (2019-2020)
 section: Annual Report
 slug: annual-report of-academic-year-2019-2020
-date: 2026-03-29
+date: 2020-03-29
 ---
-
 | S. NO. | NAME OF THE STUDENT | CLASS | NAME OF OLYMPIAD | INTERNATIONAL RANK | AWARDS WON |
 | ------ | ------------------- | ----- | ---------------- | ------------------ | -------------------- |
 | 1 | ZAVIYAAR TAUHEED | 2 | IGKO | 488 | GOLD MEDAL |
